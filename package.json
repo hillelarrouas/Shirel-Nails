@@ -1,0 +1,24 @@
+{
+  "name": "WhatsApp-fast-chat",
+  "version": "1.0.0",
+  "description": "WhatsApp-fast-chat",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hillelarrouas/WhatsApp-fast-chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hillelarrouas/WhatsApp-fast-chat/issues"
+  },
+  "homepage": "https://github.com/hillelarrouas/WhatsApp-fast-chat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
