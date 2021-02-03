@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 const secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+'
 
-const url = "mongodb+srv://yaara:987Yaara@cluster0.uya8d.mongodb.net/test";
+const url = "mongodb+srv://hillel:Aa25802580@cluster0.rv8jb.mongodb.net/test";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -97,50 +97,6 @@ const Products = mongoose.model('product', {
 
 
 
-app.get('/get-List-Users', async (req, res) => {
-    const data = await Users.find()
-    res.send({ data })
-})
-
-
-app.delete('/:userId', async (req, res) => {
-    try {
-        let userId = req.params.userId;
-        await Users.findByIdAndDelete(userId);
-        const data = await Users.find({})
-        res.send(data)
-    } catch (e) {
-        console.log(e)
-    }
-})
-
-// login.html
-
-let newDate = new Date().getTime()
-let role = "מחסנאי"
-let ok = false
-let token
-
-app.get('/Output', async (req, res) => {
-
-    let checkCookie = req.cookies.validated
-    let decoded = jwt.decode(checkCookie, secret);
-    const _id = decoded.id
-
-    await Users.updateOne({ _id }, { status: 'false' })
-
-    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
-    res.send(true)
-})
-
-
-
-app.get('/alluserconnected', async (req, res) => {
-    const data = await Users.find({status:true})
-    res.send({ data })
-})
-
-
 app.post('/send-Login-details', async (req, res) => {
     try {
         const { userName, password } = req.body
@@ -167,7 +123,7 @@ app.post('/send-Login-details', async (req, res) => {
             }
         }
         newDate = new Date().getTime()
-        token = jwt.encode({ role, userName, id, newDate}, secret)
+        token = jwt.encode({ role, userName, id, newDate }, secret)
 
         if (validate) {
             res.cookie('validated', token, { maxAge: 86400000, httpOnly: true })
@@ -192,9 +148,9 @@ app.get('/Cookie-test', async (req, res) => {
         validated = decoded.role
         name = decoded.userName
         id = decoded.id
-        
-        if (decoded.newDate + 86400000 < newDate){
-            await Users.updateOne({ _id:id }, { status: 'false' })
+
+        if (decoded.newDate + 86400000 < newDate) {
+            await Users.updateOne({ _id: id }, { status: 'false' })
             res.cookie('validated', token, { maxAge: 0, httpOnly: true })
             validated = false
         }
@@ -206,6 +162,115 @@ app.get('/Cookie-test', async (req, res) => {
 })
 
 
+
+app.put("/update", async (req, res) => {
+    const data = await Users.find({})
+    for (i = 0; i < data.length; i++) {
+        if (req.body.id_user !== data[i].id_user) {
+            if (req.body.userName == data[i].userName) {
+                message = 'שם משתמש כבר קיים'
+                break
+            } else if (req.body.email == data[i].email) {
+                message = 'מייל זה כבר קיים במערכת'
+                break
+            } else {
+                message = 'ok'
+                break
+            }
+        }
+    }
+    if (message == 'ok') {
+
+        var myquery = { id_user: req.body.id_user };
+        var newvalues = {
+            $set: {
+                userName: req.body.userName
+                , name: req.body.name
+                , password: req.body.password
+                , email: req.body.email
+                , phone: req.body.phone
+                , role: req.body.role
+            }
+        };
+        await Users.updateOne(myquery, newvalues, function (err, res) {
+            if (err) throw err;
+            console.log("1 document updated");
+
+        });
+    }
+    setTimeout(() => { res.send({ message }) }, 1000);
+});
+
+
+let newDate = new Date().getTime()
+let role = "מחסנאי"
+let ok = false
+let token
+
+app.get('/Output', async (req, res) => {
+
+    let checkCookie = req.cookies.validated
+    let decoded = jwt.decode(checkCookie, secret);
+    const _id = decoded.id
+
+    await Users.updateOne({ _id }, { status: 'false' })
+
+    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
+    res.send(true)
+})
+
+
+app.get('/get-details-users:userId', async (req, res) => {
+    let { userId } = req.params
+    console.log(userId)
+    try {
+        const findUser = await Users.findOne({ _id: userId });
+        res.send(findUser)
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+app.post('/Searchdeta', async (req, res) => {
+    const { placeholder, inputvalue } = req.body
+    const data = await Products.find({})
+    res.send({ data })
+})
+
+
+app.get('/alluserconnected', async (req, res) => {
+    const data = await Users.find({ status: true })
+    res.send({ data })
+})
+
+
+
+app.get('/Cookie-test', async (req, res) => {
+    let validated
+    let name
+    let id
+    let checkCookie = req.cookies.validated
+    newDate = new Date().getTime()
+
+    if (checkCookie) {
+        let decoded = jwt.decode(checkCookie, secret);
+        validated = decoded.role
+        name = decoded.userName
+        id = decoded.id
+
+        if (decoded.newDate + 86400000 < newDate) {
+            await Users.updateOne({ _id: id }, { status: 'false' })
+            res.cookie('validated', token, { maxAge: 0, httpOnly: true })
+            validated = false
+        }
+    } else {
+        validated = false
+    }
+
+    res.send({ validated, name, id })
+})
 
 
 app.post('/send-User-details-sign-up', async (req, res) => {
@@ -243,172 +308,18 @@ app.get('/get-category', async (req, res) => {
 })
 
 
-//yehial------------------------------------------------------------------
-app.get('/pull-Shelf', async (req, res) => {
-    const data = await Shelfs.find({ NumberOfProductsonShelf: { $gte: 1 } })
+app.get('/get-List-Users', async (req, res) => {
+    const data = await Users.find()
     res.send({ data })
 })
 
 
-app.put("/shelf-creation", async (req, res) => {
-
-    let message = ""
-    // console.log(req.body);
-    // let flag = await Shelfs.findOne({ Line: 1 }).exec();
-    // // console.log(req.body)
-    // console.log(flag.Line)
-
-    req.body.forEach(async element => {
-        let flag = await Shelfs.findOne({ Line: element.Line }).exec();
-
-        if (flag == null) {
-            req.body.forEach(element => {
-                // console.log(req.body)
-                const testShelf = new Shelfs(
-                    {
-                        Line: element.Line,
-                        Area: element.Area,
-                        Floor: element.Floor,
-                        UPS_Shelfs: element.UPS_Shelfs,
-                        NumberOfProductsonShelf: 1,
-                        MaximumWeight: element.MaximumWeight,
-                        CurrentWeight: 0,
-                        height: 0
-                    });
-                testShelf.save();
-            });
-            res.send(true)
-        }
-        else {
-            message = 'שורה זאת כבר קיימת'
-            res.send({ message })
-        }
-    })
-
-    // const data = await Shelfs.find({Line:{ $gte: req.body.Line }})
-    // console.log(data)
-    // if(data){
-    //     console.log(req.body.Line)
-    // }
-    // else{
-    //     console.log('ain')
-    // }
-
-
-
-
-
-
-
-
-
-});
-
-
-app.post('/PullThiscCategory', async (req, res) => {
-    const { eventCategory } = req.body
-    const data = await Products.find({ Category: eventCategory })
-    res.send({ data })
-})
-
-
-// Search
-
-app.post('/Searchdeta', async (req, res) => {
-    const { placeholder, inputvalue } = req.body
-    // return false 
-    if (placeholder == 'UPS-מקט') {
-        const data = await Products.find({ UPS: inputvalue })
-        if (data.length == 0) {
-            res.send({ message: 'UPS לא נמצא' })
-        }
-        else {
-            res.send({ data })
-        }
-    }
-    else if (placeholder == 'חיפוש לפי שם מוצר') {
-        const data = await Products.find({ Name: inputvalue })
-        if (data.length == 0) {
-            res.send({ message: 'פריט לא קיים' })
-        }
-        else {
-            res.send({ data })
-        }
-    }
-    else if (placeholder == 'חיפוש לפי תאריך תפוגה') {
-        const data = await Products.find({ ExpiryDate: inputvalue })
-        if (data.length == 0) {
-            res.send({ message: 'לא נמצא מוצר לפי תאריך תפוגה זה' })
-        }
-        else {
-            res.send({ data })
-        }
-    }
-    else if (placeholder == 'חיפוש לפי מדף / מיקום') {
-        const data = await Products.find({ Location: inputvalue })
-        if (data.length == 0) {
-            res.send({ message: 'מדף לא קיים' })
-        }
-        else {
-            res.send({ data })
-        }
-    }
-})
-
-app.post('/PullInformation', async (req, res) => {
-    const { e } = req.body
-    const data = await Products.find({ _id: e })
-    res.send({ data })
-})
-
-
-app.put("/update", async (req, res) => {
-    const data = await Users.find({})
-    for (i = 0; i < data.length; i++) {
-        if (req.body.id_user !== data[i].id_user) {
-            if (req.body.userName == data[i].userName) {
-                message = 'שם משתמש כבר קיים'
-                break
-            } else if (req.body.email == data[i].email) {
-                message = 'מייל זה כבר קיים במערכת'
-                break
-            } else {
-                message = 'ok'
-                break
-            }
-        }
-    }
-
-    if (message == 'ok') {
-
-        var myquery = { id_user: req.body.id_user };
-        var newvalues = {
-            $set: {
-                userName: req.body.userName
-                , name: req.body.name
-                , password: req.body.password
-                , email: req.body.email
-                , phone: req.body.phone
-                , role: req.body.role
-            }
-        };
-        await Users.updateOne(myquery, newvalues, function (err, res) {
-            if (err) throw err;
-            console.log("1 document updated");
-
-        });
-    }
-    setTimeout(() => { res.send({ message }) }, 1000);
-});
-
-
-app.get('/get-details-users:userId', async (req, res) => {
-    let { userId } = req.params
-    console.log(userId)
+app.delete('/:userId', async (req, res) => {
     try {
-        const findUser = await Users.findOne({ _id: userId });
-        res.send(findUser)
-
+        let userId = req.params.userId;
+        await Users.findByIdAndDelete(userId);
+        const data = await Users.find({})
+        res.send(data)
     } catch (e) {
         console.log(e)
     }
