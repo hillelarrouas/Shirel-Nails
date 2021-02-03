@@ -8,10 +8,11 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
+  overscroll-behavior: contain;
 }
 
 :root {
-  --background: #aa5339f5;
+  --background: #e094ace3;
   --font-family: "Rubik", sans-serif;
   --color: white;
 }
