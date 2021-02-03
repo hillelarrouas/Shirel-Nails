@@ -1,24 +1,29 @@
 {
-  "name": "WhatsApp-fast-chat",
+  "name": "warehouse-management-system",
   "version": "1.0.0",
-  "description": "WhatsApp-fast-chat",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hillelarrouas/WhatsApp-fast-chat.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hillelarrouas/WhatsApp-fast-chat/issues"
-  },
-  "homepage": "https://github.com/hillelarrouas/WhatsApp-fast-chat#readme",
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
+    "mongoose": "^5.11.12",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaaraby/Warehouse-Management-System.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/yaaraby/Warehouse-Management-System/issues"
+  },
+  "homepage": "https://github.com/yaaraby/Warehouse-Management-System#readme",
+  "description": ""
 }
