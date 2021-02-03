@@ -17,12 +17,12 @@
 </head>
 
 
-<body style=" display: none;">
+<body style=" display: none;" >
     <button class="connecterd" style="left: 10px;" onclick="connected(event)"><img src="/img/connection.png"></button>
     <button class="menubutoon" onclick="displayblockmenu(event)"><img src="/img/menu.png"></button>
     <div class="menu">
         <img class="delete" src="/img/delete.png" onclick="menubutoondisplayblock()">
-        <div class="SelectionMenu" onclick="getCategory()">קטגוריות</div>
+        <div class="SelectionMenu" onclick="getCategory()">ווידאו</div>
         <div class="SelectionMenu" onclick="getListUsers()">משתמשים</div>
         <div class="SelectionMenu" onclick="Searchdisplayblock()">חיפוש</div>
         <div class="SelectionMenu" onclick="Output()">יציאה</div>
@@ -67,9 +67,29 @@
 
 
     <div class="cardCategory">
-        <img src="/img/delete.png" onclick="cardCategorydisplaynone()">
-        <div class="cardboxcatygory"></div>
+        <div class="SelectionMenu" onclick="plusvideo()"><img src="/img/plus.png" alt=""></div>
+        <div class="cardboxcatygory">
+        </div>
     </div>
+
+
+    <div class="cardplusvideo">
+        <img src="/img/return.png" onclick="getCategory()">
+        <h1>הוספת ווידאו</h1>
+        <form autocomplete="off" onsubmit="oksubmitvideo(event)">
+            <div class="rtl">
+                <label for="namevideo">שם ווידאו
+                    <input type="text" name="namevideo" id="namevideo" autocomplete='off'></br>
+                </label>
+                <label for="linkvideo">קישור ווידאו
+                    <input type="text" name="linkvideo" id="linkvideo" autocomplete='off'></br>
+                </label>
+            </div>
+            <input type="submit" value="הוספה">
+        </form>
+    </div>
+
+
 
     <div class="ShowAll">
         <img class='delete' onclick="getCategory()" src="/img/return.png">

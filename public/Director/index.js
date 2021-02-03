@@ -18,7 +18,6 @@ const ShelfList = document.getElementById('ShelfList');
 const cardlogin = document.querySelector('.cardlogin')
 
 
-
 function connected() {
 
     fetch('/alluserconnected')
@@ -59,6 +58,7 @@ function connected() {
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             ShelfList.style.display = 'none'
+            cardplusvideo.style.display = 'none'
             editUserById.style.display = 'none'
             menubutoondisplayblock()
             UsersList.style.display = 'block'
@@ -117,6 +117,7 @@ const editUsercardlogin = (userId) => {
     outcome.style.display = 'none'
     Registration.style.display = 'none'
     Search.style.display = 'none'
+    cardplusvideo.style.display = 'none'
     ShowAll.style.display = 'none'
     cardCategory.style.display = 'none'
     UsersList.style.display = 'none'
@@ -189,6 +190,7 @@ function Addauser() {
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
     UsersList.style.display = 'none'
+    cardplusvideo.style.display = 'none'
     Registration.style.display = 'block'
 }
 function Registrationdisplaynone() {
@@ -203,6 +205,7 @@ function Searchdisplayblock() {
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
     UsersList.style.display = 'none'
+    cardplusvideo.style.display = 'none'
     Registration.style.display = 'none'
     ShelfList.style.display = 'none'
     inputSearch.focus()
@@ -226,18 +229,19 @@ function functionSearch() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ placeholder, inputvalue })
+            body: JSON.stringify({ inputvalue })
         }).then(res =>
             res.json()
         )
             .then(data => {
                 Searchtml.innerHTML = ""
 
-                if (data.message !== undefined) {
+                if (data.data[0] == undefined) {
                     textmessage.innerHTML = "מידע לא נמצא"
                 }
-                if (data.data) {
-                    textmessage.innerHTML = "נמצא מידע"
+                else {
+                    textmessage.innerHTML = "console.log"
+                    console.log(data.data)
                 }
             })
     }
@@ -317,6 +321,7 @@ const handleRegistration = (e) => {
 function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
+    cardplusvideo.style.display = 'none'
     editUserById.style.display = "none"
     Registration.style.display = 'none'
     Search.style.display = 'none'
@@ -330,72 +335,121 @@ function getCategory() {
             res.json()
         )
         .then(data => {
-            data.data.forEach(element => {
-                if (aryycategory.indexOf(element.Category) == -1) {
-                    aryycategory.push(element.Category)
-                }
-            });
-            aryycategory.forEach(elm => {
-                cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" >עריכה</div>`
+            data.data.forEach(elm => {
+                cardboxcatygory.innerHTML += `<div class="videodiv"><h1>${elm.name}</h1>${elm.link}
+            </div>`
             })
+            // data.data.forEach(element => {
+            //     if (aryycategory.indexOf(element.Category) == -1) {
+            //         aryycategory.push(element.Category)
+            //     }
+            // });
+            // aryycategory.forEach(elm => {
+            //     cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" >עריכה</div>`
+            // })
         })
 }
+const cardplusvideo = document.querySelector('.cardplusvideo')
+const linkvideo = document.querySelector('#linkvideo')
+const namevideo = document.querySelector('#namevideo')
 
-
-function getListUsers() {
-    menu.style.right = '-220px'
-
-
-    fetch('/get-List-Users')
-        .then(res =>
-            res.json()
-        )
-        .then(data => {
-            if (data.data != null) {
-                outcome.style.display = 'none'
-                Registration.style.display = 'none'
-                Search.style.display = 'none'
-                ShowAll.style.display = 'none'
-                cardCategory.style.display = 'none'
-                editUserById.style.display = "none"
-                ShelfList.style.display = 'none'
-                UsersList.style.display = 'block'
-                alluser(data.data)
-            }
-        })
+function plusvideo() {
+    cardplusvideo.style.display = 'block'
+    cardCategory.style.display ='none'
+    menubutoondisplayblock()
 }
 
-const deleteUser = (userId) => {
+function oksubmitvideo(e) {
+    e.preventDefault();
 
-    fetch('/' + userId, {
+    const linkvideovalue = linkvideo.value
+    const namevideovalue = namevideo.value
 
-        method: 'delete',
+
+    fetch('/plusvideo', {
+        method: 'post',
         headers: {
             'Content-Type': 'application/json'
         },
+        body: JSON.stringify({linkvideovalue, namevideovalue})
     }).then(res =>
         res.json()
     )
         .then(data => {
-            alluser(data)
-        })
-}
+            data.data.forEach(elm => {
+                cardboxcatygory.innerHTML += `<div class="videodiv"><h1>${elm.name}</h1>${elm.link}
+            </div>`
+            })
 
-function displayblockmenu(event) {
-    menu.style.right = '0'
-}
+            cardplusvideo.style.display = 'none'
+            cardCategory.style.display ='block'
+        }
 
-function menubutoondisplayblock() {
-    menu.style.right = '-220px'
-}
 
-function UsersListnone() {
-    UsersList.style.display = 'none'
-}
+        )}
 
-function alluser(data) {
-    document.getElementById('UsersList').innerHTML =
-        `
+
+
+
+
+
+
+
+
+function getListUsers() {
+                menu.style.right = '-220px'
+
+                fetch('/get-List-Users')
+                    .then(res =>
+                        res.json()
+                    )
+                    .then(data => {
+                        if (data.data != null) {
+                            cardplusvideo.style.display = 'none'
+                            outcome.style.display = 'none'
+                            Registration.style.display = 'none'
+                            Search.style.display = 'none'
+                            ShowAll.style.display = 'none'
+                            cardCategory.style.display = 'none'
+                            editUserById.style.display = "none"
+                            ShelfList.style.display = 'none'
+                            UsersList.style.display = 'block'
+                            alluser(data.data)
+                        }
+                    })
+            }
+
+const deleteUser = (userId) => {
+
+        fetch('/' + userId, {
+
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(res =>
+            res.json()
+        )
+            .then(data => {
+                alluser(data)
+            })
+    }
+
+    function displayblockmenu(event) {
+        menu.style.right = '0'
+    }
+
+    function menubutoondisplayblock() {
+        menu.style.right = '-220px'
+    }
+
+    function UsersListnone() {
+        UsersList.style.display = 'none'
+    }
+
+    function alluser(data) {
+        document.getElementById('UsersList').innerHTML =
+            `
         <img src="/img/delete.png" class="displaynone" onclick="UsersListnone()"><div class="col-sm-4">
         <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
         </div>
@@ -410,7 +464,7 @@ function alluser(data) {
 </thead>
     <tbody>
         ${data.map(elm =>
-            `<tr>
+                `<tr>
         <td class="flexdeleteuser">
         <a action="Edit" class="deleteuser" onclick='editUser("${elm._id}")'><img src="/img/edit-button.png"></a>
         <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
@@ -422,30 +476,30 @@ function alluser(data) {
 
 `).join('')}</tbody>
 </table>`;
-}
+    }
 
-const editUserById = document.querySelector("#editUserById")
+    const editUserById = document.querySelector("#editUserById")
 
-function editUserByIddisplaynone() {
-    editUserById.style.display = "none"
-    UsersList.style.display = 'block'
-}
+    function editUserByIddisplaynone() {
+        editUserById.style.display = "none"
+        UsersList.style.display = 'block'
+    }
 
-const editUser = (userId) => {
-    menubutoondisplayblock()
-    letdistinctResult = [];
-    fetch('/get-details-users' + userId, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => res.json())
-        .then(data => {
-            editUserById.style.display = "block"
-            UsersList.style.display = 'none'
+    const editUser = (userId) => {
+        menubutoondisplayblock()
+        letdistinctResult = [];
+        fetch('/get-details-users' + userId, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(data => {
+                editUserById.style.display = "block"
+                UsersList.style.display = 'none'
 
-            document.getElementById('editUserById').innerHTML =
-                `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
+                document.getElementById('editUserById').innerHTML =
+                    `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
                     <h1>עריכת משתמש</h1>
                     <form onsubmit="handleEditUser(event)">
                     
@@ -478,70 +532,70 @@ const editUser = (userId) => {
             <div id="messag"></div></br>
             <input type="submit" value="שמור שינויים">
         </form>`
-        })
-}
-
-
-function handleEditUser(e) {
-    e.preventDefault();
-
-    let id_user = e.target[0].value;
-    let name = e.target[1].value;
-    let userName = e.target[2].value;
-    let password = e.target[3].value;
-    let email = e.target[4].value;
-    let phone = e.target[5].value;
-    let role = e.target[6].value;
-
-
-    let message = document.getElementById('messag');
-    message.innerHTML = ''
-    if (name.length < 2) {
-        message.innerHTML = 'נדרש להזין שם מלא תקין'
-    } else if (userName.length < 2) {
-        message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
-    } else if (password.length < 6) {
-        message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
-    } else if (email.length == 0) {
-        message.innerHTML = 'נדרש להזין כתובת מייל'
-    } else if (phone.length !== 9 && phone.length !== 10) {
-        message.innerHTML = 'מספר טלפון לא תקין'
-    } else if (role == "דירוג") {
-        message.innerHTML = 'בחר דירוג למשתמש'
-    } else {
-
-        console.log(id_user, name, userName, password, email, role)
-
-        fetch("/update", {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id_user, name, userName, password, email, phone, role })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.message == 'ok') {
-                    message.innerHTML = 'המשתמש עודכן במערכת'
-                    getListUsers()
-
-                } else {
-                    message.innerHTML = data.message
-                }
             })
     }
-}
+
+
+    function handleEditUser(e) {
+        e.preventDefault();
+
+        let id_user = e.target[0].value;
+        let name = e.target[1].value;
+        let userName = e.target[2].value;
+        let password = e.target[3].value;
+        let email = e.target[4].value;
+        let phone = e.target[5].value;
+        let role = e.target[6].value;
+
+
+        let message = document.getElementById('messag');
+        message.innerHTML = ''
+        if (name.length < 2) {
+            message.innerHTML = 'נדרש להזין שם מלא תקין'
+        } else if (userName.length < 2) {
+            message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
+        } else if (password.length < 6) {
+            message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
+        } else if (email.length == 0) {
+            message.innerHTML = 'נדרש להזין כתובת מייל'
+        } else if (phone.length !== 9 && phone.length !== 10) {
+            message.innerHTML = 'מספר טלפון לא תקין'
+        } else if (role == "דירוג") {
+            message.innerHTML = 'בחר דירוג למשתמש'
+        } else {
+
+            console.log(id_user, name, userName, password, email, role)
+
+            fetch("/update", {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_user, name, userName, password, email, phone, role })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.message == 'ok') {
+                        message.innerHTML = 'המשתמש עודכן במערכת'
+                        getListUsers()
+
+                    } else {
+                        message.innerHTML = data.message
+                    }
+                })
+        }
+    }
 
 
 
 
-function addNewShelf() {
-    menubutoondisplayblock()
-    ShelfList.style.display = 'none'
+    function addNewShelf() {
+        menubutoondisplayblock()
+        ShelfList.style.display = 'none'
 
-}
+    }
 
-function addShelflist() {
-    ShelfList.style.display = 'block'
-}
+    function addShelflist() {
+        ShelfList.style.display = 'block'
+    }
 

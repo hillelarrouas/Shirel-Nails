@@ -33,6 +33,7 @@ function connected() {
     ShowAll.style.display = 'none';
     cardCategory.style.display = 'none';
     ShelfList.style.display = 'none';
+    cardplusvideo.style.display = 'none';
     editUserById.style.display = 'none';
     menubutoondisplayblock();
     UsersList.style.display = 'block';
@@ -93,6 +94,7 @@ var editUsercardlogin = function editUsercardlogin(userId) {
   outcome.style.display = 'none';
   Registration.style.display = 'none';
   Search.style.display = 'none';
+  cardplusvideo.style.display = 'none';
   ShowAll.style.display = 'none';
   cardCategory.style.display = 'none';
   UsersList.style.display = 'none';
@@ -136,6 +138,7 @@ function Addauser() {
   ShowAll.style.display = 'none';
   Search.style.display = 'none';
   UsersList.style.display = 'none';
+  cardplusvideo.style.display = 'none';
   Registration.style.display = 'block';
 }
 
@@ -150,6 +153,7 @@ function Searchdisplayblock() {
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
   UsersList.style.display = 'none';
+  cardplusvideo.style.display = 'none';
   Registration.style.display = 'none';
   ShelfList.style.display = 'none';
   inputSearch.focus();
@@ -172,7 +176,6 @@ function functionSearch() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        placeholder: placeholder,
         inputvalue: inputvalue
       })
     }).then(function (res) {
@@ -180,12 +183,11 @@ function functionSearch() {
     }).then(function (data) {
       Searchtml.innerHTML = "";
 
-      if (data.message !== undefined) {
+      if (data.data[0] == undefined) {
         textmessage.innerHTML = "מידע לא נמצא";
-      }
-
-      if (data.data) {
-        textmessage.innerHTML = "נמצא מידע";
+      } else {
+        textmessage.innerHTML = "console.log";
+        console.log(data.data);
       }
     });
   }
@@ -260,6 +262,7 @@ var handleRegistration = function handleRegistration(e) {
 function getCategory() {
   menubutoondisplayblock();
   var aryycategory = [];
+  cardplusvideo.style.display = 'none';
   editUserById.style.display = "none";
   Registration.style.display = 'none';
   Search.style.display = 'none';
@@ -271,14 +274,50 @@ function getCategory() {
   fetch('/get-category').then(function (res) {
     return res.json();
   }).then(function (data) {
-    data.data.forEach(function (element) {
-      if (aryycategory.indexOf(element.Category) == -1) {
-        aryycategory.push(element.Category);
-      }
+    data.data.forEach(function (elm) {
+      cardboxcatygory.innerHTML += "<div class=\"videodiv\"><h1>".concat(elm.name, "</h1>").concat(elm.link, "\n            </div>");
+    }); // data.data.forEach(element => {
+    //     if (aryycategory.indexOf(element.Category) == -1) {
+    //         aryycategory.push(element.Category)
+    //     }
+    // });
+    // aryycategory.forEach(elm => {
+    //     cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" >עריכה</div>`
+    // })
+  });
+}
+
+var cardplusvideo = document.querySelector('.cardplusvideo');
+var linkvideo = document.querySelector('#linkvideo');
+var namevideo = document.querySelector('#namevideo');
+
+function plusvideo() {
+  cardplusvideo.style.display = 'block';
+  cardCategory.style.display = 'none';
+  menubutoondisplayblock();
+}
+
+function oksubmitvideo(e) {
+  e.preventDefault();
+  var linkvideovalue = linkvideo.value;
+  var namevideovalue = namevideo.value;
+  fetch('/plusvideo', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      linkvideovalue: linkvideovalue,
+      namevideovalue: namevideovalue
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    data.data.forEach(function (elm) {
+      cardboxcatygory.innerHTML += "<div class=\"videodiv\"><h1>".concat(elm.name, "</h1>").concat(elm.link, "\n            </div>");
     });
-    aryycategory.forEach(function (elm) {
-      cardboxcatygory.innerHTML += "<div class=\"A_line_in_a_category\" >\u05E2\u05E8\u05D9\u05DB\u05D4</div>";
-    });
+    cardplusvideo.style.display = 'none';
+    cardCategory.style.display = 'block';
   });
 }
 
@@ -288,6 +327,7 @@ function getListUsers() {
     return res.json();
   }).then(function (data) {
     if (data.data != null) {
+      cardplusvideo.style.display = 'none';
       outcome.style.display = 'none';
       Registration.style.display = 'none';
       Search.style.display = 'none';

@@ -32,29 +32,23 @@ const Users = mongoose.model('User', {
     status: String
 });
 
-const Shelfs = mongoose.model('Shelf', {
-    Line: Number,
-    Area: String,
-    Floor: Number,
-    UPS_Shelfs: String,
-    NumberOfProductsonShelf: Number,
-    MaximumWeight: Number,
-    CurrentWeight: Number,
-    height: Number
+const video = mongoose.model('video', {
+    link: String,
+    name: String
 });
 
-const Products = mongoose.model('product', {
-    UPS: String,
-    Name: String,
-    price: Number,
-    Amount: Number,
-    Category: String,
-    Weight: Number,
-    height: Number,
-    ExpiryDate: String,
-    Image: String,
-    Location: String
-});
+// const Products = mongoose.model('product', {
+//     UPS: String,
+//     Name: String,
+//     price: Number,
+//     Amount: Number,
+//     Category: String,
+//     Weight: Number,
+//     height: Number,
+//     ExpiryDate: String,
+//     Image: String,
+//     Location: String
+// });
 
 
 // const testShelf = new Shelfs({
@@ -82,14 +76,8 @@ const Products = mongoose.model('product', {
 // product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
 
 
-// const user = new Users({
-//     id_user: '123456',
-//     userName:'הלל',
-//     name: 'הלל',
-//     password: '2580',
-//     email: 'A4105962@GMAIL.COM',
-//     phone: '054-6080982',
-//     role: 'admin'
+// const user = new video({
+//     link:'https://youtu.be/cA96kf-dnOg'
 // });
 
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
@@ -234,7 +222,7 @@ app.get('/get-details-users:userId', async (req, res) => {
 
 
 app.post('/Searchdeta', async (req, res) => {
-    const { placeholder, inputvalue } = req.body
+    const { inputvalue } = req.body
     const data = await Products.find({})
     res.send({ data })
 })
@@ -302,8 +290,9 @@ app.post('/send-User-details-sign-up', async (req, res) => {
     setTimeout(() => { res.send({ message }) }, 1000);
 })
 
+
 app.get('/get-category', async (req, res) => {
-    const data = await Products.find({}, { Category: 1 })
+    const data = await video.find({})
     res.send({ data })
 })
 
@@ -320,6 +309,22 @@ app.delete('/:userId', async (req, res) => {
         await Users.findByIdAndDelete(userId);
         const data = await Users.find({})
         res.send(data)
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+app.post('/plusvideo', async (req, res) => {
+    const { linkvideovalue, namevideovalue } = req.body
+
+    try {
+        const vide = new video({ link: linkvideovalue, name: namevideovalue });
+        await vide.save().then(doc => console.log(doc)).catch(e => console.log(e));
+
+        const data = await video.find({})
+        res.send({ data })
+
     } catch (e) {
         console.log(e)
     }

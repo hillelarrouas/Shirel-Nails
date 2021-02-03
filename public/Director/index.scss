@@ -53,7 +53,7 @@ body {
     }
 
     .cardlogin {
-        margin-top:20px;
+        margin-top: 20px;
         font-size: 20rem;
         text-align: center;
         font-family: var(--font-family);
@@ -313,7 +313,6 @@ body {
     font-size: 20rem;
     font-family: var(--font-family);
     background-color: var(--background);
-    padding: 10px 20px 20px 20px;
     text-align: center;
     font-family: 'Rubik', sans-serif;
     border-radius: 10px;
@@ -321,11 +320,38 @@ body {
     direction: rtl;
     position: relative;
     width: 90%;
+    padding: 20px 0;
     max-width: 750px;
     margin: 150px auto 70px;
     display: none;
     box-sizing: border-box;
 
+
+    .cardboxcatygory {
+        justify-content: space-evenly;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .videodiv {
+            width: 100%;
+
+            h1 {
+                width: 50%;
+                margin: auto;
+                padding: 5px;
+            }
+        }
+
+        iframe {
+            margin: 25px 0px;
+            width: 80%;
+            height: 250px;
+            border: 5px solid gray;
+            border-radius: 10px;
+           
+        }
+    }
 
 
     img {
@@ -355,6 +381,105 @@ body {
         background-color: rgb(175, 167, 153);
     }
 }
+
+
+.cardplusvideo{
+        font-size: 20rem;
+        font-family: var(--font-family);
+        background-color: var(--background);
+        padding: 40px 20px;
+        text-align: center;
+        font-family: 'Rubik', sans-serif;
+        border-radius: 10px;
+        box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+        direction: rtl;
+        position: relative;
+        display: none;
+        margin: 150px auto 70px;
+        width: 90%;
+        max-width: 500px;
+        box-sizing: border-box;
+
+        img {
+            width: 30px;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background-color: var(--background);
+            padding: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1;
+        }
+    
+        h1{
+            margin: 0;
+            padding: 5px 0 15px;
+        }
+
+        .imgdelete {
+            width: 30px;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background-color: var(--background);
+            padding: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1;
+        }
+    
+        input[type=text],
+        input[type=email],
+        input[type=password] {
+            padding: 10px;
+            font-size: 20rem;
+            border: 0;
+            border-bottom: 2px solid var(--color);
+            background: none;
+            margin-bottom: 25px;
+            outline: none;
+            font-family: var(--font-family);
+            color: var(--color);
+            width: 100%;
+            box-sizing: border-box;
+        }
+    
+        input[type=submit] {
+            padding: 10px 20px;
+            font-size: 20rem;
+            border-radius: 10px;
+            border: 3px solid grey;
+            font-family: var(--font-family);
+            outline: none;
+            background: rgba(128, 128, 128, 0.623);
+            color: var(--color);
+            font-weight: 600;
+            cursor: pointer;
+        }
+    
+        input[type=submit]:active {
+            border: 3px solid var(--color);
+            color: var(--background);
+            transition: color 0.3s;
+        }
+    
+        input[type=submit]:hover {
+            background: rgb(168, 153, 143);
+            transition: color 0.3s;
+        }
+    
+        label {
+            font-size: 20rem;
+            padding: 5px;
+        }
+    
+        .rtl {
+            text-align: right;
+        }
+    
+}
+
 
 .ShowAll {
     font-size: 20rem;
@@ -639,10 +764,11 @@ body {
     display: none;
     box-sizing: border-box;
 
-h1{
-    text-align: center;
-    font-size: 28rem;
-}
+    h1 {
+        text-align: center;
+        font-size: 28rem;
+    }
+
     .displaynone {
         width: 30px;
         position: absolute;
@@ -809,7 +935,8 @@ h1{
     }
 }
 
-.menubutoon,.connecterd {
+.menubutoon,
+.connecterd {
     position: fixed;
     display: block;
     width: 40px;

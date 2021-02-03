@@ -277,7 +277,6 @@ body {
   font-size: 20rem;
   font-family: var(--font-family);
   background-color: var(--background);
-  padding: 10px 20px 20px 20px;
   text-align: center;
   font-family: "Rubik", sans-serif;
   border-radius: 10px;
@@ -285,10 +284,32 @@ body {
   direction: rtl;
   position: relative;
   width: 90%;
+  padding: 20px 0;
   max-width: 750px;
   margin: 150px auto 70px;
   display: none;
   box-sizing: border-box;
+}
+.cardCategory .cardboxcatygory {
+  justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cardCategory .cardboxcatygory .videodiv {
+  width: 100%;
+}
+.cardCategory .cardboxcatygory .videodiv h1 {
+  width: 50%;
+  margin: auto;
+  padding: 5px;
+}
+.cardCategory .cardboxcatygory iframe {
+  margin: 25px 0px;
+  width: 80%;
+  height: 250px;
+  border: 5px solid gray;
+  border-radius: 10px;
 }
 .cardCategory img {
   width: 30px;
@@ -313,6 +334,93 @@ body {
 .cardCategory .A_line_in_a_category:hover {
   transform: scale(1.01, 1.01);
   background-color: #afa799;
+}
+
+.cardplusvideo {
+  font-size: 20rem;
+  font-family: var(--font-family);
+  background-color: var(--background);
+  padding: 40px 20px;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.445);
+  direction: rtl;
+  position: relative;
+  display: none;
+  margin: 150px auto 70px;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+.cardplusvideo img {
+  width: 30px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: var(--background);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.cardplusvideo h1 {
+  margin: 0;
+  padding: 5px 0 15px;
+}
+.cardplusvideo .imgdelete {
+  width: 30px;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: var(--background);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.cardplusvideo input[type=text],
+.cardplusvideo input[type=email],
+.cardplusvideo input[type=password] {
+  padding: 10px;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: none;
+  margin-bottom: 25px;
+  outline: none;
+  font-family: var(--font-family);
+  color: var(--color);
+  width: 100%;
+  box-sizing: border-box;
+}
+.cardplusvideo input[type=submit] {
+  padding: 10px 20px;
+  font-size: 20rem;
+  border-radius: 10px;
+  border: 3px solid grey;
+  font-family: var(--font-family);
+  outline: none;
+  background: rgba(128, 128, 128, 0.623);
+  color: var(--color);
+  font-weight: 600;
+  cursor: pointer;
+}
+.cardplusvideo input[type=submit]:active {
+  border: 3px solid var(--color);
+  color: var(--background);
+  transition: color 0.3s;
+}
+.cardplusvideo input[type=submit]:hover {
+  background: #a8998f;
+  transition: color 0.3s;
+}
+.cardplusvideo label {
+  font-size: 20rem;
+  padding: 5px;
+}
+.cardplusvideo .rtl {
+  text-align: right;
 }
 
 .ShowAll {
@@ -708,7 +816,8 @@ body {
   background-color: gray;
 }
 
-.menubutoon, .connecterd {
+.menubutoon,
+.connecterd {
   position: fixed;
   display: block;
   width: 40px;
@@ -723,7 +832,8 @@ body {
   z-index: 2;
   cursor: pointer;
 }
-.menubutoon img, .connecterd img {
+.menubutoon img,
+.connecterd img {
   width: 100%;
 }
 

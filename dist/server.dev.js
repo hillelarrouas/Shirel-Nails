@@ -39,28 +39,22 @@ var Users = mongoose.model('User', {
   role: String,
   status: String
 });
-var Shelfs = mongoose.model('Shelf', {
-  Line: Number,
-  Area: String,
-  Floor: Number,
-  UPS_Shelfs: String,
-  NumberOfProductsonShelf: Number,
-  MaximumWeight: Number,
-  CurrentWeight: Number,
-  height: Number
-});
-var Products = mongoose.model('product', {
-  UPS: String,
-  Name: String,
-  price: Number,
-  Amount: Number,
-  Category: String,
-  Weight: Number,
-  height: Number,
-  ExpiryDate: String,
-  Image: String,
-  Location: String
-}); // const testShelf = new Shelfs({
+var video = mongoose.model('video', {
+  link: String,
+  name: String
+}); // const Products = mongoose.model('product', {
+//     UPS: String,
+//     Name: String,
+//     price: Number,
+//     Amount: Number,
+//     Category: String,
+//     Weight: Number,
+//     height: Number,
+//     ExpiryDate: String,
+//     Image: String,
+//     Location: String
+// });
+// const testShelf = new Shelfs({
 //     Line: 3,
 //     Area: 'F',
 //     Floor: 5,
@@ -80,14 +74,8 @@ var Products = mongoose.model('product', {
 //     ExpiryDate: '30/02/2021'
 // })
 // product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
-// const user = new Users({
-//     id_user: '123456',
-//     userName:'הלל',
-//     name: 'הלל',
-//     password: '2580',
-//     email: 'A4105962@GMAIL.COM',
-//     phone: '054-6080982',
-//     role: 'admin'
+// const user = new video({
+//     link:'https://youtu.be/cA96kf-dnOg'
 // });
 //  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
 
@@ -399,13 +387,12 @@ app.get('/get-details-users:userId', function _callee5(req, res) {
   }, null, null, [[2, 9]]);
 });
 app.post('/Searchdeta', function _callee6(req, res) {
-  var _req$body2, placeholder, inputvalue, data;
-
+  var inputvalue, data;
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          _req$body2 = req.body, placeholder = _req$body2.placeholder, inputvalue = _req$body2.inputvalue;
+          inputvalue = req.body.inputvalue;
           _context6.next = 3;
           return regeneratorRuntime.awrap(Products.find({}));
 
@@ -506,14 +493,14 @@ app.get('/Cookie-test', function _callee8(req, res) {
   });
 });
 app.post('/send-User-details-sign-up', function _callee9(req, res) {
-  var message, _req$body3, id_user, name, userName, password, email, phone, role, data, user;
+  var message, _req$body2, id_user, name, userName, password, email, phone, role, data, user;
 
   return regeneratorRuntime.async(function _callee9$(_context9) {
     while (1) {
       switch (_context9.prev = _context9.next) {
         case 0:
           message = '';
-          _req$body3 = req.body, id_user = _req$body3.id_user, name = _req$body3.name, userName = _req$body3.userName, password = _req$body3.password, email = _req$body3.email, phone = _req$body3.phone, role = _req$body3.role;
+          _req$body2 = req.body, id_user = _req$body2.id_user, name = _req$body2.name, userName = _req$body2.userName, password = _req$body2.password, email = _req$body2.email, phone = _req$body2.phone, role = _req$body2.role;
           _context9.next = 4;
           return regeneratorRuntime.awrap(Users.find({}));
 
@@ -605,9 +592,7 @@ app.get('/get-category', function _callee10(req, res) {
       switch (_context10.prev = _context10.next) {
         case 0:
           _context10.next = 2;
-          return regeneratorRuntime.awrap(Products.find({}, {
-            Category: 1
-          }));
+          return regeneratorRuntime.awrap(video.find({}));
 
         case 2:
           data = _context10.sent;
@@ -676,6 +661,50 @@ app["delete"]('/:userId', function _callee12(req, res) {
       }
     }
   }, null, null, [[0, 10]]);
+});
+app.post('/plusvideo', function _callee13(req, res) {
+  var _req$body3, linkvideovalue, namevideovalue, vide, data;
+
+  return regeneratorRuntime.async(function _callee13$(_context13) {
+    while (1) {
+      switch (_context13.prev = _context13.next) {
+        case 0:
+          _req$body3 = req.body, linkvideovalue = _req$body3.linkvideovalue, namevideovalue = _req$body3.namevideovalue;
+          _context13.prev = 1;
+          vide = new video({
+            link: linkvideovalue,
+            name: namevideovalue
+          });
+          _context13.next = 5;
+          return regeneratorRuntime.awrap(vide.save().then(function (doc) {
+            return console.log(doc);
+          })["catch"](function (e) {
+            return console.log(e);
+          }));
+
+        case 5:
+          _context13.next = 7;
+          return regeneratorRuntime.awrap(video.find({}));
+
+        case 7:
+          data = _context13.sent;
+          res.send({
+            data: data
+          });
+          _context13.next = 14;
+          break;
+
+        case 11:
+          _context13.prev = 11;
+          _context13.t0 = _context13["catch"](1);
+          console.log(_context13.t0);
+
+        case 14:
+        case "end":
+          return _context13.stop();
+      }
+    }
+  }, null, null, [[1, 11]]);
 });
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
