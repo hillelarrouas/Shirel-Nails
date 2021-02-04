@@ -308,7 +308,7 @@ function editingvideo(id) {
   }).then(function (res) {
     return res.json();
   }).then(function (data) {
-    cardediting.innerHTML = "<img src=\"/img/return.png\" onclick=\"getCategory()\">\n            <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5</h1>\n                <div class=\"rtl\">\n                    <label for=\"namevideo\">\u05E9\u05DD \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5\n                        <input type=\"text\" name=\"namevideo\" id=\"namevideoediting\" autocomplete='off' value=\"".concat(data.data.name, "\"></br>\n                    </label>\n                    <label for=\"linkvideo\">\u05E7\u05D9\u05E9\u05D5\u05E8 \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5\n                        <input type=\"text\" name=\"linkvideo\" id=\"linkvideoediting\" autocomplete='off' value='").concat(data.data.link, "'></br>\n                    </label>\n                </div>\n                <div class=\"mesa\"></div>\n                <button onclick='editing(\"").concat(data.data._id, "\")'>\u05E9\u05DE\u05D9\u05E8\u05D4</button>\n                <button onclick='deletevideo(\"").concat(data.data._id, "\")'>\u05DE\u05D7\u05D9\u05E7\u05D4</button>\n        ");
+    cardediting.innerHTML = "<img src=\"/img/return.png\" onclick=\"reterngetCategory()\">\n            <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5</h1>\n                <div class=\"rtl\">\n                    <label for=\"namevideo\">\u05E9\u05DD \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5\n                        <input type=\"text\" name=\"namevideo\" id=\"namevideoediting\" autocomplete='off' value=\"".concat(data.data.name, "\"></br>\n                    </label>\n                    <label for=\"linkvideo\">\u05E7\u05D9\u05E9\u05D5\u05E8 \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5\n                        <input type=\"text\" name=\"linkvideo\" id=\"linkvideoediting\" autocomplete='off' value='").concat(data.data.link, "'></br>\n                    </label>\n                </div>\n                <div class=\"mesaediting\"></div>\n                <button onclick='editing(\"").concat(data.data._id, "\")'>\u05E9\u05DE\u05D9\u05E8\u05D4</button>\n                <button onclick='deletevideo(\"").concat(data.data._id, "\")'>\u05DE\u05D7\u05D9\u05E7\u05D4</button>\n        ");
   });
 }
 
@@ -330,15 +330,25 @@ function deletevideo(id) {
   });
 }
 
+function reterngetCategory() {
+  cardediting.style.display = 'none';
+  cardplusvideo.style.display = 'none';
+  cardCategory.style.display = 'block';
+}
+
 function editing(id) {
+  var mesaediting = document.querySelector('.mesaediting');
   var namevideovalue = document.querySelector('#namevideoediting').value;
   var linkvideovalue = document.querySelector('#linkvideoediting').value;
+  console.log(linkvideovalue.length);
   cardboxcatygory.innerHTML = '';
 
   if (namevideovalue.length == 0) {
-    mesa.innerHTML = 'הזן שם לסרטון';
+    mesaediting.innerHTML = 'הזן שם לסרטון';
   } else if (linkvideovalue.length == 0) {
-    mesa.innerHTML = 'הוסף קישור';
+    mesaediting.innerHTML = 'הוסף קישור';
+  } else if (linkvideovalue.length !== 219) {
+    mesaediting.innerHTML = 'קישור לא תקין';
   } else {
     fetch('/editing', {
       method: 'post',
@@ -380,6 +390,8 @@ function oksubmitvideo(e) {
     mesa.innerHTML = 'הזן שם לסרטון';
   } else if (linkvideovalue.length == 0) {
     mesa.innerHTML = 'הוסף קישור';
+  } else if (linkvideovalue.length !== 219) {
+    mesa.innerHTML = 'קישור לא תקין';
   } else {
     fetch('/plusvideo', {
       method: 'post',
@@ -396,8 +408,8 @@ function oksubmitvideo(e) {
       data.data.forEach(function (elm) {
         cardboxcatygory.innerHTML += "<div class=\"videodiv\"><img src=\"/img/editing.png\" onclick=\"editingvideo(\"".concat(elm._id, "\")\"><h1>").concat(elm.name, "</h1>").concat(elm.link, "</div>");
       });
+      getCategory();
       cardplusvideo.style.display = 'none';
-      cardCategory.style.display = 'block';
     });
   }
 }

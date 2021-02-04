@@ -446,7 +446,7 @@ body {
 .cardplusvideo .rtl, .cardediting .rtl {
   text-align: right;
 }
-.cardplusvideo .mesa, .cardediting .mesa {
+.cardplusvideo .mesa, .cardplusvideo .mesaediting, .cardediting .mesa, .cardediting .mesaediting {
   padding-bottom: 20px;
   font-weight: 600;
 }

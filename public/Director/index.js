@@ -369,7 +369,7 @@ function editingvideo(id) {
     )
         .then(data => {
             cardediting.innerHTML =
-                `<img src="/img/return.png" onclick="getCategory()">
+                `<img src="/img/return.png" onclick="reterngetCategory()">
             <h1>עריכת ווידאו</h1>
                 <div class="rtl">
                     <label for="namevideo">שם ווידאו
@@ -379,7 +379,7 @@ function editingvideo(id) {
                         <input type="text" name="linkvideo" id="linkvideoediting" autocomplete='off' value='${data.data.link}'></br>
                     </label>
                 </div>
-                <div class="mesa"></div>
+                <div class="mesaediting"></div>
                 <button onclick='editing("${data.data._id}")'>שמירה</button>
                 <button onclick='deletevideo("${data.data._id}")'>מחיקה</button>
         `
@@ -402,18 +402,28 @@ function deletevideo(id) {
             getCategory()
         })
 }
+function reterngetCategory() {
+    cardediting.style.display = 'none'
+    cardplusvideo.style.display = 'none'
+    cardCategory.style.display = 'block'
+}
+
 
 
 function editing(id) {
 
+    const mesaediting = document.querySelector('.mesaediting')
     const namevideovalue = document.querySelector('#namevideoediting').value
     const linkvideovalue = document.querySelector('#linkvideoediting').value
+console.log(linkvideovalue.length)
     cardboxcatygory.innerHTML = ''
 
     if (namevideovalue.length == 0) {
-        mesa.innerHTML = 'הזן שם לסרטון'
+        mesaediting.innerHTML = 'הזן שם לסרטון'
     } else if (linkvideovalue.length == 0) {
-        mesa.innerHTML = 'הוסף קישור'
+        mesaediting.innerHTML = 'הוסף קישור'
+    } else if (linkvideovalue.length !== 219) {
+        mesaediting.innerHTML = 'קישור לא תקין'
     } else {
 
         fetch('/editing', {
@@ -457,6 +467,8 @@ function oksubmitvideo(e) {
         mesa.innerHTML = 'הזן שם לסרטון'
     } else if (linkvideovalue.length == 0) {
         mesa.innerHTML = 'הוסף קישור'
+    }else if (linkvideovalue.length !== 219) {
+        mesa.innerHTML = 'קישור לא תקין'
     } else {
 
         fetch('/plusvideo', {
@@ -472,13 +484,11 @@ function oksubmitvideo(e) {
                 data.data.forEach(elm => {
                     cardboxcatygory.innerHTML += `<div class="videodiv"><img src="/img/editing.png" onclick="editingvideo("${elm._id}")"><h1>${elm.name}</h1>${elm.link}</div>`
                 })
-
+                
+                getCategory()
                 cardplusvideo.style.display = 'none'
-                cardCategory.style.display = 'block'
-            }
-
-
-            )
+                
+            })
     }
 }
 
