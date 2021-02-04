@@ -706,6 +706,106 @@ app.post('/plusvideo', function _callee13(req, res) {
     }
   }, null, null, [[1, 11]]);
 });
+app.post('/editingvideo', function _callee14(req, res) {
+  var id, data;
+  return regeneratorRuntime.async(function _callee14$(_context14) {
+    while (1) {
+      switch (_context14.prev = _context14.next) {
+        case 0:
+          id = req.body.id;
+          _context14.prev = 1;
+          _context14.next = 4;
+          return regeneratorRuntime.awrap(video.findOne({
+            _id: id
+          }));
+
+        case 4:
+          data = _context14.sent;
+          res.send({
+            data: data
+          });
+          _context14.next = 11;
+          break;
+
+        case 8:
+          _context14.prev = 8;
+          _context14.t0 = _context14["catch"](1);
+          console.log(_context14.t0);
+
+        case 11:
+        case "end":
+          return _context14.stop();
+      }
+    }
+  }, null, null, [[1, 8]]);
+});
+app.post('/deletevideo', function _callee15(req, res) {
+  var id, data;
+  return regeneratorRuntime.async(function _callee15$(_context15) {
+    while (1) {
+      switch (_context15.prev = _context15.next) {
+        case 0:
+          id = req.body.id;
+          _context15.prev = 1;
+          _context15.next = 4;
+          return regeneratorRuntime.awrap(video.deleteOne({
+            _id: id
+          }));
+
+        case 4:
+          data = _context15.sent;
+          res.send({
+            data: data
+          });
+          _context15.next = 11;
+          break;
+
+        case 8:
+          _context15.prev = 8;
+          _context15.t0 = _context15["catch"](1);
+          console.log(_context15.t0);
+
+        case 11:
+        case "end":
+          return _context15.stop();
+      }
+    }
+  }, null, null, [[1, 8]]);
+});
+app.post('/editing', function _callee16(req, res) {
+  var _req$body4, id, linkvideovalue, namevideovalue;
+
+  return regeneratorRuntime.async(function _callee16$(_context16) {
+    while (1) {
+      switch (_context16.prev = _context16.next) {
+        case 0:
+          _req$body4 = req.body, id = _req$body4.id, linkvideovalue = _req$body4.linkvideovalue, namevideovalue = _req$body4.namevideovalue;
+          _context16.prev = 1;
+          _context16.next = 4;
+          return regeneratorRuntime.awrap(video.findByIdAndUpdate({
+            _id: id
+          }, {
+            link: linkvideovalue,
+            name: namevideovalue
+          }));
+
+        case 4:
+          res.send(true);
+          _context16.next = 10;
+          break;
+
+        case 7:
+          _context16.prev = 7;
+          _context16.t0 = _context16["catch"](1);
+          console.log(_context16.t0);
+
+        case 10:
+        case "end":
+          return _context16.stop();
+      }
+    }
+  }, null, null, [[1, 7]]);
+});
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
   return console.log('http://localhost:8080/login/login.html');

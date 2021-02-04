@@ -330,6 +330,43 @@ app.post('/plusvideo', async (req, res) => {
     }
 })
 
+app.post('/editingvideo', async (req, res) => {
+    const { id } = req.body
+
+    try {
+        const data = await video.findOne({ _id: id })
+        res.send({ data })
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+app.post('/deletevideo', async (req, res) => {
+    const { id } = req.body
+
+    try {
+        const data = await video.deleteOne({ _id: id })
+        res.send({ data })
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+app.post('/editing', async (req, res) => {
+    const { id, linkvideovalue, namevideovalue } = req.body
+    try {
+        await video.findByIdAndUpdate({ _id: id }, { link: linkvideovalue, name: namevideovalue })
+        res.send(true)
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('http://localhost:8080/login/login.html'))

@@ -30,6 +30,7 @@ function connected() {
     outcome.style.display = 'none';
     Registration.style.display = 'none';
     Search.style.display = 'none';
+    cardediting.style.display = 'none';
     ShowAll.style.display = 'none';
     cardCategory.style.display = 'none';
     ShelfList.style.display = 'none';
@@ -95,6 +96,7 @@ var editUsercardlogin = function editUsercardlogin(userId) {
   Registration.style.display = 'none';
   Search.style.display = 'none';
   cardplusvideo.style.display = 'none';
+  cardediting.style.display = 'none';
   ShowAll.style.display = 'none';
   cardCategory.style.display = 'none';
   UsersList.style.display = 'none';
@@ -138,6 +140,7 @@ function Addauser() {
   ShowAll.style.display = 'none';
   Search.style.display = 'none';
   UsersList.style.display = 'none';
+  cardediting.style.display = 'none';
   cardplusvideo.style.display = 'none';
   Registration.style.display = 'block';
 }
@@ -152,6 +155,7 @@ function Searchdisplayblock() {
   editUserById.style.display = "none";
   cardCategory.style.display = 'none';
   ShowAll.style.display = 'none';
+  cardediting.style.display = 'none';
   UsersList.style.display = 'none';
   cardplusvideo.style.display = 'none';
   Registration.style.display = 'none';
@@ -262,6 +266,7 @@ var handleRegistration = function handleRegistration(e) {
 function getCategory() {
   menubutoondisplayblock();
   var aryycategory = [];
+  cardediting.style.display = 'none';
   cardplusvideo.style.display = 'none';
   editUserById.style.display = "none";
   Registration.style.display = 'none';
@@ -274,22 +279,90 @@ function getCategory() {
   fetch('/get-category').then(function (res) {
     return res.json();
   }).then(function (data) {
-    data.data.forEach(function (elm) {
-      cardboxcatygory.innerHTML += "<div class=\"videodiv\"><h1>".concat(elm.name, "</h1>").concat(elm.link, "\n            </div>");
-    }); // data.data.forEach(element => {
-    //     if (aryycategory.indexOf(element.Category) == -1) {
-    //         aryycategory.push(element.Category)
-    //     }
-    // });
-    // aryycategory.forEach(elm => {
-    //     cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" >עריכה</div>`
-    // })
+    console.log(data.data[0]);
+
+    if (data.data[0] == undefined) {
+      cardboxcatygory.innerHTML = '<h1>אין לך סרטונים</h1>';
+    } else {
+      data.data.forEach(function (elm) {
+        console.log(elm._id);
+        cardboxcatygory.innerHTML += "<div class=\"videodiv\"><img src=\"/img/editing.png\" onclick=\"editingvideo('".concat(elm._id, "')\"><h1>").concat(elm.name, "</h1>").concat(elm.link, "</div>");
+      });
+    }
   });
 }
 
+var cardediting = document.querySelector('.cardediting');
+
+function editingvideo(id) {
+  cardediting.style.display = 'block';
+  cardCategory.style.display = 'none';
+  fetch('/editingvideo', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: id
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    cardediting.innerHTML = "<img src=\"/img/return.png\" onclick=\"getCategory()\">\n            <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5</h1>\n                <div class=\"rtl\">\n                    <label for=\"namevideo\">\u05E9\u05DD \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5\n                        <input type=\"text\" name=\"namevideo\" id=\"namevideo\" autocomplete='off' value=\"".concat(data.data.name, "\"></br>\n                    </label>\n                    <label for=\"linkvideo\">\u05E7\u05D9\u05E9\u05D5\u05E8 \u05D5\u05D5\u05D9\u05D3\u05D0\u05D5\n                        <input type=\"text\" name=\"linkvideo\" id=\"linkvideo\" autocomplete='off' value='").concat(data.data.link, "'></br>\n                    </label>\n                </div>\n                <div class=\"mesa\"></div>\n                <button onclick='editing(\"").concat(data.data._id, "\")'>\u05E9\u05DE\u05D9\u05E8\u05D4</button>\n                <button onclick='deletevideo(\"").concat(data.data._id, "\")'>\u05DE\u05D7\u05D9\u05E7\u05D4</button>\n        ");
+  });
+}
+
+function deletevideo(id) {
+  fetch('/deletevideo', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: id
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    namevideo.value = '';
+    linkvideo.value = '';
+    getCategory();
+  });
+}
+
+function editing(id) {
+  var namevideovalue = document.querySelector('#namevideo').value;
+  var linkvideovalue = document.querySelector('#linkvideo').value;
+  cardboxcatygory.innerHTML = '';
+
+  if (namevideovalue.length == 0) {
+    mesa.innerHTML = 'הזן שם לסרטון';
+  } else if (linkvideovalue.length == 0) {
+    mesa.innerHTML = 'הוסף קישור';
+  } else {
+    fetch('/editing', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        linkvideovalue: linkvideovalue,
+        namevideovalue: namevideovalue,
+        id: id
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      getCategory();
+      namevideo.value = '';
+      linkvideo.value = '';
+    });
+  }
+}
+
 var cardplusvideo = document.querySelector('.cardplusvideo');
-var linkvideo = document.querySelector('#linkvideo');
 var namevideo = document.querySelector('#namevideo');
+var linkvideo = document.querySelector('#linkvideo');
 var mesa = document.querySelector('.mesa');
 
 function plusvideo() {
@@ -323,7 +396,7 @@ function oksubmitvideo(e) {
       return res.json();
     }).then(function (data) {
       data.data.forEach(function (elm) {
-        cardboxcatygory.innerHTML += "<div class=\"videodiv\"><h1>".concat(elm.name, "</h1>").concat(elm.link, "</div>");
+        cardboxcatygory.innerHTML += "<div class=\"videodiv\"><img src=\"/img/editing.png\" onclick=\"editingvideo(\"".concat(elm._id, "\")\"><h1>").concat(elm.name, "</h1>").concat(elm.link, "</div>");
       });
       cardplusvideo.style.display = 'none';
       cardCategory.style.display = 'block';

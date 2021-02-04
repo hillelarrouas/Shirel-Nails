@@ -55,6 +55,7 @@ function connected() {
             outcome.style.display = 'none'
             Registration.style.display = 'none'
             Search.style.display = 'none'
+            cardediting.style.display = 'none'
             ShowAll.style.display = 'none'
             cardCategory.style.display = 'none'
             ShelfList.style.display = 'none'
@@ -118,6 +119,7 @@ const editUsercardlogin = (userId) => {
     Registration.style.display = 'none'
     Search.style.display = 'none'
     cardplusvideo.style.display = 'none'
+    cardediting.style.display = 'none'
     ShowAll.style.display = 'none'
     cardCategory.style.display = 'none'
     UsersList.style.display = 'none'
@@ -190,6 +192,7 @@ function Addauser() {
     ShowAll.style.display = 'none'
     Search.style.display = 'none'
     UsersList.style.display = 'none'
+    cardediting.style.display = 'none'
     cardplusvideo.style.display = 'none'
     Registration.style.display = 'block'
 }
@@ -204,6 +207,7 @@ function Searchdisplayblock() {
     editUserById.style.display = "none"
     cardCategory.style.display = 'none'
     ShowAll.style.display = 'none'
+    cardediting.style.display = 'none'
     UsersList.style.display = 'none'
     cardplusvideo.style.display = 'none'
     Registration.style.display = 'none'
@@ -321,6 +325,7 @@ const handleRegistration = (e) => {
 function getCategory() {
     menubutoondisplayblock()
     let aryycategory = []
+    cardediting.style.display = 'none'
     cardplusvideo.style.display = 'none'
     editUserById.style.display = "none"
     Registration.style.display = 'none'
@@ -335,23 +340,105 @@ function getCategory() {
             res.json()
         )
         .then(data => {
-            data.data.forEach(elm => {
-                cardboxcatygory.innerHTML += `<div class="videodiv"><h1>${elm.name}</h1>${elm.link}
-            </div>`
-            })
-            // data.data.forEach(element => {
-            //     if (aryycategory.indexOf(element.Category) == -1) {
-            //         aryycategory.push(element.Category)
-            //     }
-            // });
-            // aryycategory.forEach(elm => {
-            //     cardboxcatygory.innerHTML += `<div class="A_line_in_a_category" >עריכה</div>`
-            // })
+            console.log(data.data[0])
+            if (data.data[0] == undefined) {
+                cardboxcatygory.innerHTML = '<h1>אין לך סרטונים</h1>'
+            } else {
+                data.data.forEach(elm => {
+                    console.log(elm._id)
+                    cardboxcatygory.innerHTML += `<div class="videodiv"><img src="/img/editing.png" onclick="editingvideo('${elm._id}')"><h1>${elm.name}</h1>${elm.link}</div>`
+                })
+            }
         })
 }
+const cardediting = document.querySelector('.cardediting')
+function editingvideo(id) {
+
+    cardediting.style.display = 'block'
+    cardCategory.style.display = 'none'
+
+    fetch('/editingvideo', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            cardediting.innerHTML =
+                `<img src="/img/return.png" onclick="getCategory()">
+            <h1>עריכת ווידאו</h1>
+                <div class="rtl">
+                    <label for="namevideo">שם ווידאו
+                        <input type="text" name="namevideo" id="namevideo" autocomplete='off' value="${data.data.name}"></br>
+                    </label>
+                    <label for="linkvideo">קישור ווידאו
+                        <input type="text" name="linkvideo" id="linkvideo" autocomplete='off' value='${data.data.link}'></br>
+                    </label>
+                </div>
+                <div class="mesa"></div>
+                <button onclick='editing("${data.data._id}")'>שמירה</button>
+                <button onclick='deletevideo("${data.data._id}")'>מחיקה</button>
+        `
+        })
+}
+
+function deletevideo(id) {
+    fetch('/deletevideo', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            namevideo.value = ''
+            linkvideo.value = ''
+            getCategory()
+        })
+}
+
+
+function editing(id) {
+
+    const namevideovalue = document.querySelector('#namevideo').value
+    const linkvideovalue = document.querySelector('#linkvideo').value
+
+    cardboxcatygory.innerHTML = ''
+
+    if (namevideovalue.length == 0) {
+        mesa.innerHTML = 'הזן שם לסרטון'
+    } else if (linkvideovalue.length == 0) {
+        mesa.innerHTML = 'הוסף קישור'
+    } else {
+
+        fetch('/editing', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ linkvideovalue, namevideovalue, id })
+        }).then(res =>
+            res.json()
+        )
+            .then(data => {
+                getCategory()
+                namevideo.value = ''
+                linkvideo.value = ''
+            })
+    }
+}
+
+
+
+
 const cardplusvideo = document.querySelector('.cardplusvideo')
-const linkvideo = document.querySelector('#linkvideo')
 const namevideo = document.querySelector('#namevideo')
+const linkvideo = document.querySelector('#linkvideo')
 const mesa = document.querySelector('.mesa')
 
 function plusvideo() {
@@ -385,7 +472,7 @@ function oksubmitvideo(e) {
         )
             .then(data => {
                 data.data.forEach(elm => {
-                    cardboxcatygory.innerHTML += `<div class="videodiv"><h1>${elm.name}</h1>${elm.link}</div>`
+                    cardboxcatygory.innerHTML += `<div class="videodiv"><img src="/img/editing.png" onclick="editingvideo("${elm._id}")"><h1>${elm.name}</h1>${elm.link}</div>`
                 })
 
                 cardplusvideo.style.display = 'none'

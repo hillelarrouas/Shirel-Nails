@@ -320,7 +320,7 @@ body {
     direction: rtl;
     position: relative;
     width: 90%;
-    padding: 20px 0;
+    padding:10px 10px;
     max-width: 750px;
     margin: 150px auto 70px;
     display: none;
@@ -335,12 +335,38 @@ body {
 
         .videodiv {
             width: 100%;
+            background-color: rgba(240, 255, 240, 0.781);
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.301);
+            position: relative;
+
+            &:hover{
+                background-color: rgba(240, 255, 240, 0.534);
+                transition: all 0.2;
+            }
+
+            img{
+                width: 30px;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                background-color: var(--background);
+                padding: 10px;
+                border-radius: 20px;
+                cursor: pointer;
+                z-index: 1;
+            }
+
 
             h1 {
                 width: 50%;
                 margin: auto;
                 padding: 5px;
+                font-size: 25rem;
             }
+
         }
 
         iframe {
@@ -383,7 +409,7 @@ body {
 }
 
 
-.cardplusvideo{
+.cardplusvideo,.cardediting{
         font-size: 20rem;
         font-family: var(--font-family);
         background-color: var(--background);
@@ -445,7 +471,7 @@ body {
             box-sizing: border-box;
         }
     
-        input[type=submit] {
+        input[type=submit],button {
             padding: 10px 20px;
             font-size: 20rem;
             border-radius: 10px;
@@ -458,16 +484,17 @@ body {
             cursor: pointer;
         }
     
-        input[type=submit]:active {
+        input[type=submit]:active ,button:active{
             border: 3px solid var(--color);
             color: var(--background);
             transition: color 0.3s;
         }
     
-        input[type=submit]:hover {
+        input[type=submit]:hover ,button:hover{
             background: rgb(168, 153, 143);
             transition: color 0.3s;
         }
+
     
         label {
             font-size: 20rem;

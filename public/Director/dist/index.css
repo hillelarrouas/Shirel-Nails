@@ -284,7 +284,7 @@ body {
   direction: rtl;
   position: relative;
   width: 90%;
-  padding: 20px 0;
+  padding: 10px 10px;
   max-width: 750px;
   margin: 150px auto 70px;
   display: none;
@@ -298,11 +298,33 @@ body {
 }
 .cardCategory .cardboxcatygory .videodiv {
   width: 100%;
+  background-color: rgba(240, 255, 240, 0.781);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 15px 10px rgba(128, 128, 128, 0.301);
+  position: relative;
+}
+.cardCategory .cardboxcatygory .videodiv:hover {
+  background-color: rgba(240, 255, 240, 0.534);
+  transition: all 0.2;
+}
+.cardCategory .cardboxcatygory .videodiv img {
+  width: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--background);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
 }
 .cardCategory .cardboxcatygory .videodiv h1 {
   width: 50%;
   margin: auto;
   padding: 5px;
+  font-size: 25rem;
 }
 .cardCategory .cardboxcatygory iframe {
   margin: 25px 0px;
@@ -336,7 +358,7 @@ body {
   background-color: #afa799;
 }
 
-.cardplusvideo {
+.cardplusvideo, .cardediting {
   font-size: 20rem;
   font-family: var(--font-family);
   background-color: var(--background);
@@ -353,7 +375,7 @@ body {
   max-width: 500px;
   box-sizing: border-box;
 }
-.cardplusvideo img {
+.cardplusvideo img, .cardediting img {
   width: 30px;
   position: absolute;
   top: -15px;
@@ -364,11 +386,11 @@ body {
   cursor: pointer;
   z-index: 1;
 }
-.cardplusvideo h1 {
+.cardplusvideo h1, .cardediting h1 {
   margin: 0;
   padding: 5px 0 15px;
 }
-.cardplusvideo .imgdelete {
+.cardplusvideo .imgdelete, .cardediting .imgdelete {
   width: 30px;
   position: absolute;
   top: -15px;
@@ -381,7 +403,9 @@ body {
 }
 .cardplusvideo input[type=text],
 .cardplusvideo input[type=email],
-.cardplusvideo input[type=password] {
+.cardplusvideo input[type=password], .cardediting input[type=text],
+.cardediting input[type=email],
+.cardediting input[type=password] {
   padding: 10px;
   font-size: 20rem;
   border: 0;
@@ -394,7 +418,7 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
-.cardplusvideo input[type=submit] {
+.cardplusvideo input[type=submit], .cardplusvideo button, .cardediting input[type=submit], .cardediting button {
   padding: 10px 20px;
   font-size: 20rem;
   border-radius: 10px;
@@ -406,23 +430,23 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
-.cardplusvideo input[type=submit]:active {
+.cardplusvideo input[type=submit]:active, .cardplusvideo button:active, .cardediting input[type=submit]:active, .cardediting button:active {
   border: 3px solid var(--color);
   color: var(--background);
   transition: color 0.3s;
 }
-.cardplusvideo input[type=submit]:hover {
+.cardplusvideo input[type=submit]:hover, .cardplusvideo button:hover, .cardediting input[type=submit]:hover, .cardediting button:hover {
   background: #a8998f;
   transition: color 0.3s;
 }
-.cardplusvideo label {
+.cardplusvideo label, .cardediting label {
   font-size: 20rem;
   padding: 5px;
 }
-.cardplusvideo .rtl {
+.cardplusvideo .rtl, .cardediting .rtl {
   text-align: right;
 }
-.cardplusvideo .mesa {
+.cardplusvideo .mesa, .cardediting .mesa {
   padding-bottom: 20px;
   font-weight: 600;
 }
