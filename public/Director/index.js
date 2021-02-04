@@ -351,6 +351,7 @@ function getCategory() {
             }
         })
 }
+
 const cardediting = document.querySelector('.cardediting')
 function editingvideo(id) {
 
@@ -372,10 +373,10 @@ function editingvideo(id) {
             <h1>עריכת ווידאו</h1>
                 <div class="rtl">
                     <label for="namevideo">שם ווידאו
-                        <input type="text" name="namevideo" id="namevideo" autocomplete='off' value="${data.data.name}"></br>
+                        <input type="text" name="namevideo" id="namevideoediting" autocomplete='off' value="${data.data.name}"></br>
                     </label>
                     <label for="linkvideo">קישור ווידאו
-                        <input type="text" name="linkvideo" id="linkvideo" autocomplete='off' value='${data.data.link}'></br>
+                        <input type="text" name="linkvideo" id="linkvideoediting" autocomplete='off' value='${data.data.link}'></br>
                     </label>
                 </div>
                 <div class="mesa"></div>
@@ -405,9 +406,8 @@ function deletevideo(id) {
 
 function editing(id) {
 
-    const namevideovalue = document.querySelector('#namevideo').value
-    const linkvideovalue = document.querySelector('#linkvideo').value
-
+    const namevideovalue = document.querySelector('#namevideoediting').value
+    const linkvideovalue = document.querySelector('#linkvideoediting').value
     cardboxcatygory.innerHTML = ''
 
     if (namevideovalue.length == 0) {
@@ -427,8 +427,6 @@ function editing(id) {
         )
             .then(data => {
                 getCategory()
-                namevideo.value = ''
-                linkvideo.value = ''
             })
     }
 }
