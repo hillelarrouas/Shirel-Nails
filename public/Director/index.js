@@ -27,7 +27,7 @@ function connected() {
         .then(data => {
             console.log(data)
             document.getElementById('UsersList').innerHTML =
-                `<img src="/img/delete.png" class="displaynone" onclick="UsersListnone()">
+                `
                 <h1>משתמשים מחוברים</h1>
     <table>
     <thead>
@@ -133,7 +133,7 @@ const editUsercardlogin = (userId) => {
             editUserById.style.display = "block"
 
             document.getElementById('editUserById').innerHTML =
-                `<img onclick='displaynoneeditusercardlogin()' src="/img/delete.png" alt="">
+                `
                 <h1>עריכת פרטים אישיים</h1>
                     <form onsubmit="handleEditUser(event)">
                  <div class="rtl">
@@ -352,42 +352,50 @@ function getCategory() {
 const cardplusvideo = document.querySelector('.cardplusvideo')
 const linkvideo = document.querySelector('#linkvideo')
 const namevideo = document.querySelector('#namevideo')
+const mesa = document.querySelector('.mesa')
 
 function plusvideo() {
     cardplusvideo.style.display = 'block'
-    cardCategory.style.display ='none'
+    cardCategory.style.display = 'none'
+    namevideo.focus()
     menubutoondisplayblock()
 }
 
 function oksubmitvideo(e) {
     e.preventDefault();
 
-    const linkvideovalue = linkvideo.value
     const namevideovalue = namevideo.value
+    const linkvideovalue = linkvideo.value
+    cardboxcatygory.innerHTML = ''
+
+    if (namevideovalue.length == 0) {
+        mesa.innerHTML = 'הזן שם לסרטון'
+    } else if (linkvideovalue.length == 0) {
+        mesa.innerHTML = 'הוסף קישור'
+    } else {
+
+        fetch('/plusvideo', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ linkvideovalue, namevideovalue })
+        }).then(res =>
+            res.json()
+        )
+            .then(data => {
+                data.data.forEach(elm => {
+                    cardboxcatygory.innerHTML += `<div class="videodiv"><h1>${elm.name}</h1>${elm.link}</div>`
+                })
+
+                cardplusvideo.style.display = 'none'
+                cardCategory.style.display = 'block'
+            }
 
 
-    fetch('/plusvideo', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({linkvideovalue, namevideovalue})
-    }).then(res =>
-        res.json()
-    )
-        .then(data => {
-            data.data.forEach(elm => {
-                cardboxcatygory.innerHTML += `<div class="videodiv"><h1>${elm.name}</h1>${elm.link}
-            </div>`
-            })
-
-            cardplusvideo.style.display = 'none'
-            cardCategory.style.display ='block'
-        }
-
-
-        )}
-
+            )
+    }
+}
 
 
 
@@ -397,60 +405,59 @@ function oksubmitvideo(e) {
 
 
 function getListUsers() {
-                menu.style.right = '-220px'
+    menu.style.right = '-220px'
 
-                fetch('/get-List-Users')
-                    .then(res =>
-                        res.json()
-                    )
-                    .then(data => {
-                        if (data.data != null) {
-                            cardplusvideo.style.display = 'none'
-                            outcome.style.display = 'none'
-                            Registration.style.display = 'none'
-                            Search.style.display = 'none'
-                            ShowAll.style.display = 'none'
-                            cardCategory.style.display = 'none'
-                            editUserById.style.display = "none"
-                            ShelfList.style.display = 'none'
-                            UsersList.style.display = 'block'
-                            alluser(data.data)
-                        }
-                    })
+    fetch('/get-List-Users')
+        .then(res =>
+            res.json()
+        )
+        .then(data => {
+            if (data.data != null) {
+                cardplusvideo.style.display = 'none'
+                outcome.style.display = 'none'
+                Registration.style.display = 'none'
+                Search.style.display = 'none'
+                ShowAll.style.display = 'none'
+                cardCategory.style.display = 'none'
+                editUserById.style.display = "none"
+                ShelfList.style.display = 'none'
+                UsersList.style.display = 'block'
+                alluser(data.data)
             }
+        })
+}
 
 const deleteUser = (userId) => {
 
-        fetch('/' + userId, {
+    fetch('/' + userId, {
 
-            method: 'delete',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        }).then(res =>
-            res.json()
-        )
-            .then(data => {
-                alluser(data)
-            })
-    }
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(res =>
+        res.json()
+    )
+        .then(data => {
+            alluser(data)
+        })
+}
 
-    function displayblockmenu(event) {
-        menu.style.right = '0'
-    }
+function displayblockmenu(event) {
+    menu.style.right = '0'
+}
 
-    function menubutoondisplayblock() {
-        menu.style.right = '-220px'
-    }
+function menubutoondisplayblock() {
+    menu.style.right = '-220px'
+}
 
-    function UsersListnone() {
-        UsersList.style.display = 'none'
-    }
+function UsersListnone() {
+    UsersList.style.display = 'none'
+}
 
-    function alluser(data) {
-        document.getElementById('UsersList').innerHTML =
-            `
-        <img src="/img/delete.png" class="displaynone" onclick="UsersListnone()"><div class="col-sm-4">
+function alluser(data) {
+    document.getElementById('UsersList').innerHTML =
+        `<div class="col-sm-4">
         <button class="Addanewuser" onclick="Addauser()"><img src="/img/adduser.png"></button>
         </div>
 <table>
@@ -464,7 +471,7 @@ const deleteUser = (userId) => {
 </thead>
     <tbody>
         ${data.map(elm =>
-                `<tr>
+            `<tr>
         <td class="flexdeleteuser">
         <a action="Edit" class="deleteuser" onclick='editUser("${elm._id}")'><img src="/img/edit-button.png"></a>
         <a action="Delete" class="deleteuser" onclick='deleteUser("${elm._id}")'><img src="/img/deleteuser.png"></a>
@@ -476,30 +483,30 @@ const deleteUser = (userId) => {
 
 `).join('')}</tbody>
 </table>`;
-    }
+}
 
-    const editUserById = document.querySelector("#editUserById")
+const editUserById = document.querySelector("#editUserById")
 
-    function editUserByIddisplaynone() {
-        editUserById.style.display = "none"
-        UsersList.style.display = 'block'
-    }
+function editUserByIddisplaynone() {
+    editUserById.style.display = "none"
+    UsersList.style.display = 'block'
+}
 
-    const editUser = (userId) => {
-        menubutoondisplayblock()
-        letdistinctResult = [];
-        fetch('/get-details-users' + userId, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                editUserById.style.display = "block"
-                UsersList.style.display = 'none'
+const editUser = (userId) => {
+    menubutoondisplayblock()
+    letdistinctResult = [];
+    fetch('/get-details-users' + userId, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+        .then(data => {
+            editUserById.style.display = "block"
+            UsersList.style.display = 'none'
 
-                document.getElementById('editUserById').innerHTML =
-                    `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
+            document.getElementById('editUserById').innerHTML =
+                `<img class="imgdeleteeditUser" src="/img/return.png" onclick="editUserByIddisplaynone()">
                     <h1>עריכת משתמש</h1>
                     <form onsubmit="handleEditUser(event)">
                     
@@ -532,70 +539,70 @@ const deleteUser = (userId) => {
             <div id="messag"></div></br>
             <input type="submit" value="שמור שינויים">
         </form>`
+        })
+}
+
+
+function handleEditUser(e) {
+    e.preventDefault();
+
+    let id_user = e.target[0].value;
+    let name = e.target[1].value;
+    let userName = e.target[2].value;
+    let password = e.target[3].value;
+    let email = e.target[4].value;
+    let phone = e.target[5].value;
+    let role = e.target[6].value;
+
+
+    let message = document.getElementById('messag');
+    message.innerHTML = ''
+    if (name.length < 2) {
+        message.innerHTML = 'נדרש להזין שם מלא תקין'
+    } else if (userName.length < 2) {
+        message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
+    } else if (password.length < 6) {
+        message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
+    } else if (email.length == 0) {
+        message.innerHTML = 'נדרש להזין כתובת מייל'
+    } else if (phone.length !== 9 && phone.length !== 10) {
+        message.innerHTML = 'מספר טלפון לא תקין'
+    } else if (role == "דירוג") {
+        message.innerHTML = 'בחר דירוג למשתמש'
+    } else {
+
+        console.log(id_user, name, userName, password, email, role)
+
+        fetch("/update", {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_user, name, userName, password, email, phone, role })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.message == 'ok') {
+                    message.innerHTML = 'המשתמש עודכן במערכת'
+                    getListUsers()
+
+                } else {
+                    message.innerHTML = data.message
+                }
             })
     }
-
-
-    function handleEditUser(e) {
-        e.preventDefault();
-
-        let id_user = e.target[0].value;
-        let name = e.target[1].value;
-        let userName = e.target[2].value;
-        let password = e.target[3].value;
-        let email = e.target[4].value;
-        let phone = e.target[5].value;
-        let role = e.target[6].value;
-
-
-        let message = document.getElementById('messag');
-        message.innerHTML = ''
-        if (name.length < 2) {
-            message.innerHTML = 'נדרש להזין שם מלא תקין'
-        } else if (userName.length < 2) {
-            message.innerHTML = 'נדרש להזין שם משתמש</br> המכיל 2 תווים לפחות '
-        } else if (password.length < 6) {
-            message.innerHTML = 'בחר/י סיסמה המכילה 6</br> תווים לפחות'
-        } else if (email.length == 0) {
-            message.innerHTML = 'נדרש להזין כתובת מייל'
-        } else if (phone.length !== 9 && phone.length !== 10) {
-            message.innerHTML = 'מספר טלפון לא תקין'
-        } else if (role == "דירוג") {
-            message.innerHTML = 'בחר דירוג למשתמש'
-        } else {
-
-            console.log(id_user, name, userName, password, email, role)
-
-            fetch("/update", {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id_user, name, userName, password, email, phone, role })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.message == 'ok') {
-                        message.innerHTML = 'המשתמש עודכן במערכת'
-                        getListUsers()
-
-                    } else {
-                        message.innerHTML = data.message
-                    }
-                })
-        }
-    }
+}
 
 
 
 
-    function addNewShelf() {
-        menubutoondisplayblock()
-        ShelfList.style.display = 'none'
+function addNewShelf() {
+    menubutoondisplayblock()
+    ShelfList.style.display = 'none'
 
-    }
+}
 
-    function addShelflist() {
-        ShelfList.style.display = 'block'
-    }
+function addShelflist() {
+    ShelfList.style.display = 'block'
+}
 

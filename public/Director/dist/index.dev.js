@@ -24,7 +24,7 @@ function connected() {
     return res.json();
   }).then(function (data) {
     console.log(data);
-    document.getElementById('UsersList').innerHTML = "<img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\">\n                <h1>\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD \u05DE\u05D7\u05D5\u05D1\u05E8\u05D9\u05DD</h1>\n    <table>\n    <thead>\n        <tr>\n            <th></th>\n            <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n        </tr>\n    </thead>\n        <tbody>\n            ".concat(data.data.map(function (elm) {
+    document.getElementById('UsersList').innerHTML = "\n                <h1>\u05DE\u05E9\u05EA\u05DE\u05E9\u05D9\u05DD \u05DE\u05D7\u05D5\u05D1\u05E8\u05D9\u05DD</h1>\n    <table>\n    <thead>\n        <tr>\n            <th></th>\n            <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n            <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n        </tr>\n    </thead>\n        <tbody>\n            ".concat(data.data.map(function (elm) {
       return "<tr>\n            <td class=\"flexdeleteuser\">\n            <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n            <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n            </td>\n                    <td>").concat(elm.id_user, "</td>\n                    <td>").concat(elm.userName, "</td>\n                    <td>").concat(elm.role, "</td> \n            </tr>\n    \n    ");
     }).join(''), "</tbody>\n    </table>");
     outcome.style.display = 'none';
@@ -108,7 +108,7 @@ var editUsercardlogin = function editUsercardlogin(userId) {
     return res.json();
   }).then(function (data) {
     editUserById.style.display = "block";
-    document.getElementById('editUserById').innerHTML = "<img onclick='displaynoneeditusercardlogin()' src=\"/img/delete.png\" alt=\"\">\n                <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05E4\u05E8\u05D8\u05D9\u05DD \u05D0\u05D9\u05E9\u05D9\u05D9\u05DD</h1>\n                    <form onsubmit=\"handleEditUser(event)\">\n                 <div class=\"rtl\">\n                     <label for=\"id_user\">\u05DE\u05E1\u05E4\u05E8 \u05D6\u05D4\u05D5\u05EA:\n                    <input type=\"text\" name=\"id_user\" id=\"id_user\" value=\"".concat(data.id_user, "\" disabled=\"disabled\" autocomplete='off'></br>\n                </label>\n                <label for=\"name\">\u05E9\u05DD:\n                    <input type=\"text\" name=\"name\" id=\"name\" value=\"").concat(data.name, "\" autocomplete='off'></br>\n                </label>\n                <label for=\"userName\">\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9:\n                    <input type=\"text\" name=\"username\" id=\"userName\" value=").concat(data.userName, " autocomplete='off'></br>\n                </label>\n                <label for=\"password\">\u05E1\u05D9\u05E1\u05DE\u05D4:\n                    <input type=\"text\" name=\"password\" id=\"password\" value=").concat(data.password, " autocomplete='off'></br>\n                </label>\n                <label for=\"email\">\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC:\n                    <input type=\"email\" name=\"email\" id=\"email\" value=").concat(data.email, " autocomplete='off'></br>\n                </label>\n                <label for=\"phone\">\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF:\n                    <input type=\"text\" name=\"phone\" id=\"phone\" value=").concat(data.phone, " autocomplete='off'></br>\n                </label>\n            </div>\n            <input type=\"text\" value=\"").concat(data.role, "\" disabled=\"disabled\" autocomplete='off'></br>\n            <div id=\"messag\"></div></br>\n            <input type=\"submit\" value=\"\u05E9\u05DE\u05D5\u05E8 \u05E9\u05D9\u05E0\u05D5\u05D9\u05D9\u05DD\">\n        </form>");
+    document.getElementById('editUserById').innerHTML = "\n                <h1>\u05E2\u05E8\u05D9\u05DB\u05EA \u05E4\u05E8\u05D8\u05D9\u05DD \u05D0\u05D9\u05E9\u05D9\u05D9\u05DD</h1>\n                    <form onsubmit=\"handleEditUser(event)\">\n                 <div class=\"rtl\">\n                     <label for=\"id_user\">\u05DE\u05E1\u05E4\u05E8 \u05D6\u05D4\u05D5\u05EA:\n                    <input type=\"text\" name=\"id_user\" id=\"id_user\" value=\"".concat(data.id_user, "\" disabled=\"disabled\" autocomplete='off'></br>\n                </label>\n                <label for=\"name\">\u05E9\u05DD:\n                    <input type=\"text\" name=\"name\" id=\"name\" value=\"").concat(data.name, "\" autocomplete='off'></br>\n                </label>\n                <label for=\"userName\">\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9:\n                    <input type=\"text\" name=\"username\" id=\"userName\" value=").concat(data.userName, " autocomplete='off'></br>\n                </label>\n                <label for=\"password\">\u05E1\u05D9\u05E1\u05DE\u05D4:\n                    <input type=\"text\" name=\"password\" id=\"password\" value=").concat(data.password, " autocomplete='off'></br>\n                </label>\n                <label for=\"email\">\u05D0\u05D9\u05DE\u05D9\u05D9\u05DC:\n                    <input type=\"email\" name=\"email\" id=\"email\" value=").concat(data.email, " autocomplete='off'></br>\n                </label>\n                <label for=\"phone\">\u05E4\u05DC\u05D0\u05E4\u05D5\u05DF:\n                    <input type=\"text\" name=\"phone\" id=\"phone\" value=").concat(data.phone, " autocomplete='off'></br>\n                </label>\n            </div>\n            <input type=\"text\" value=\"").concat(data.role, "\" disabled=\"disabled\" autocomplete='off'></br>\n            <div id=\"messag\"></div></br>\n            <input type=\"submit\" value=\"\u05E9\u05DE\u05D5\u05E8 \u05E9\u05D9\u05E0\u05D5\u05D9\u05D9\u05DD\">\n        </form>");
   });
 };
 
@@ -290,35 +290,45 @@ function getCategory() {
 var cardplusvideo = document.querySelector('.cardplusvideo');
 var linkvideo = document.querySelector('#linkvideo');
 var namevideo = document.querySelector('#namevideo');
+var mesa = document.querySelector('.mesa');
 
 function plusvideo() {
   cardplusvideo.style.display = 'block';
   cardCategory.style.display = 'none';
+  namevideo.focus();
   menubutoondisplayblock();
 }
 
 function oksubmitvideo(e) {
   e.preventDefault();
-  var linkvideovalue = linkvideo.value;
   var namevideovalue = namevideo.value;
-  fetch('/plusvideo', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      linkvideovalue: linkvideovalue,
-      namevideovalue: namevideovalue
-    })
-  }).then(function (res) {
-    return res.json();
-  }).then(function (data) {
-    data.data.forEach(function (elm) {
-      cardboxcatygory.innerHTML += "<div class=\"videodiv\"><h1>".concat(elm.name, "</h1>").concat(elm.link, "\n            </div>");
+  var linkvideovalue = linkvideo.value;
+  cardboxcatygory.innerHTML = '';
+
+  if (namevideovalue.length == 0) {
+    mesa.innerHTML = 'הזן שם לסרטון';
+  } else if (linkvideovalue.length == 0) {
+    mesa.innerHTML = 'הוסף קישור';
+  } else {
+    fetch('/plusvideo', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        linkvideovalue: linkvideovalue,
+        namevideovalue: namevideovalue
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      data.data.forEach(function (elm) {
+        cardboxcatygory.innerHTML += "<div class=\"videodiv\"><h1>".concat(elm.name, "</h1>").concat(elm.link, "</div>");
+      });
+      cardplusvideo.style.display = 'none';
+      cardCategory.style.display = 'block';
     });
-    cardplusvideo.style.display = 'none';
-    cardCategory.style.display = 'block';
-  });
+  }
 }
 
 function getListUsers() {
@@ -367,7 +377,7 @@ function UsersListnone() {
 }
 
 function alluser(data) {
-  document.getElementById('UsersList').innerHTML = "\n        <img src=\"/img/delete.png\" class=\"displaynone\" onclick=\"UsersListnone()\"><div class=\"col-sm-4\">\n        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.map(function (elm) {
+  document.getElementById('UsersList').innerHTML = "<div class=\"col-sm-4\">\n        <button class=\"Addanewuser\" onclick=\"Addauser()\"><img src=\"/img/adduser.png\"></button>\n        </div>\n<table>\n<thead>\n    <tr>\n        <th></th>\n        <th>\u05D6\u05D4\u05D5\u05EA \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05E9\u05DD \u05DE\u05E9\u05EA\u05DE\u05E9</th>\n        <th>\u05EA\u05E4\u05E7\u05D9\u05D3</th>\n    </tr>\n</thead>\n    <tbody>\n        ".concat(data.map(function (elm) {
     return "<tr>\n        <td class=\"flexdeleteuser\">\n        <a action=\"Edit\" class=\"deleteuser\" onclick='editUser(\"".concat(elm._id, "\")'><img src=\"/img/edit-button.png\"></a>\n        <a action=\"Delete\" class=\"deleteuser\" onclick='deleteUser(\"").concat(elm._id, "\")'><img src=\"/img/deleteuser.png\"></a>\n        </td>\n                <td>").concat(elm.id_user, "</td>\n                <td>").concat(elm.userName, "</td>\n                <td>").concat(elm.role, "</td> \n        </tr>\n\n");
   }).join(''), "</tbody>\n</table>");
 }

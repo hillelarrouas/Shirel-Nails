@@ -12,7 +12,7 @@ body {
 }
 
 :root {
-  --background: #e094ace3;
+  --background: #e094acf8;
   --font-family: "Rubik", sans-serif;
   --color: white;
 }
@@ -421,6 +421,10 @@ body {
 }
 .cardplusvideo .rtl {
   text-align: right;
+}
+.cardplusvideo .mesa {
+  padding-bottom: 20px;
+  font-weight: 600;
 }
 
 .ShowAll {
