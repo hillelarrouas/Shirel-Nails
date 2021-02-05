@@ -12,13 +12,12 @@ const mongoose = require('mongoose');
 
 const secret = 'gvfdgb%$^$%&3$4054423654073467$6@$&*(@%$^&2310*/-/+'
 
-const url = "mongodb+srv://hillel:Aa25802580@cluster0.rv8jb.mongodb.net/test";
+const url = "mongodb+srv://hillel:Aa25802580@cluster0.rv8jb.mongodb.net/Tens";
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-
 
 
 const Users = mongoose.model('User', {
@@ -32,336 +31,70 @@ const Users = mongoose.model('User', {
     status: String
 });
 
-const video = mongoose.model('video', {
-    link: String,
-    name: String
+
+const Tens = mongoose.model('Tens', {
+    Revenue: Number,
+    Fromensbrought: Number,
+    total: Number,
+    Remarks: String,
 });
 
-// const Products = mongoose.model('product', {
-//     UPS: String,
-//     Name: String,
-//     price: Number,
-//     Amount: Number,
-//     Category: String,
-//     Weight: Number,
-//     height: Number,
-//     ExpiryDate: String,
-//     Image: String,
-//     Location: String
-// });
-
-
-// const testShelf = new Shelfs({
-//     Line: 3,
-//     Area: 'F',
-//     Floor: 5,
-//     UPS_Shelfs: ``,
-//     NumberOfProductsonShelf:32,
-//     MaximumWeight: 500,
-//     CurrentWeight: 300,
-//     height: 50
-// });
-// testShelf.save().then(doc => console.log(doc)).catch(e =>console.log(e));
-
-
-// const product1 = new Products({
-//     UPS: '81726',
-//     Name: 'כוס',
-//     price: '450',
-//     Category: 'זכוכית',
-//     Weight: '5',
-//     ExpiryDate: '30/02/2021'
-
-// })
-// product1.save().then(doc => console.log(doc)).catch(e =>console.log(e));
-
-
-// const user = new video({
-//     link:'https://youtu.be/cA96kf-dnOg'
-// });
-
-//  user.save().then(doc => console.log('doc')).catch(e =>console.log(e));
-
-
-
-
-app.post('/send-Login-details', async (req, res) => {
+app.get('/get-categoryinit', async (req, res) => {
     try {
-        const { userName, password } = req.body
-        let validate = false
-        let id
-
-        const data = await Users.find({})
-        for (i = 0; i < data.length; i++) {
-            if (userName == data[i].userName && password == data[i].password) {
-                id = data[i]._id
-
-                await Users.updateOne({ _id: id }, { status: 'true' })
-
-                validate = true;
-                if (data[i].role == 'מנהל') {
-                    role = 'ok'
-                } else {
-                    role = 'none'
-                }
-                break
-            } else {
-                role = 'מחסנאי'
-                console.log(`no match ${data[i].userName}`)
-            }
-        }
-        newDate = new Date().getTime()
-        token = jwt.encode({ role, userName, id, newDate }, secret)
-
-        if (validate) {
-            res.cookie('validated', token, { maxAge: 86400000, httpOnly: true })
-        }
-        res.send({ validate, role });
+        const deta = await Tens.find({})
+        res.send({ deta })
     }
     catch (e) {
-        console.log(e.message)
-    }
-})
-
-// index.html
-app.get('/Cookie-test', async (req, res) => {
-    let validated
-    let name
-    let id
-    let checkCookie = req.cookies.validated
-    newDate = new Date().getTime()
-
-    if (checkCookie) {
-        let decoded = jwt.decode(checkCookie, secret);
-        validated = decoded.role
-        name = decoded.userName
-        id = decoded.id
-
-        if (decoded.newDate + 86400000 < newDate) {
-            await Users.updateOne({ _id: id }, { status: 'false' })
-            res.cookie('validated', token, { maxAge: 0, httpOnly: true })
-            validated = false
-        }
-    } else {
-        validated = false
-    }
-
-    res.send({ validated, name, id })
-})
-
-
-
-app.put("/update", async (req, res) => {
-    const data = await Users.find({})
-    for (i = 0; i < data.length; i++) {
-        if (req.body.id_user !== data[i].id_user) {
-            if (req.body.userName == data[i].userName) {
-                message = 'שם משתמש כבר קיים'
-                break
-            } else if (req.body.email == data[i].email) {
-                message = 'מייל זה כבר קיים במערכת'
-                break
-            } else {
-                message = 'ok'
-                break
-            }
-        }
-    }
-    if (message == 'ok') {
-
-        var myquery = { id_user: req.body.id_user };
-        var newvalues = {
-            $set: {
-                userName: req.body.userName
-                , name: req.body.name
-                , password: req.body.password
-                , email: req.body.email
-                , phone: req.body.phone
-                , role: req.body.role
-            }
-        };
-        await Users.updateOne(myquery, newvalues, function (err, res) {
-            if (err) throw err;
-            console.log("1 document updated");
-
-        });
-    }
-    setTimeout(() => { res.send({ message }) }, 1000);
-});
-
-
-let newDate = new Date().getTime()
-let role = "מחסנאי"
-let ok = false
-let token
-
-app.get('/Output', async (req, res) => {
-
-    let checkCookie = req.cookies.validated
-    let decoded = jwt.decode(checkCookie, secret);
-    const _id = decoded.id
-
-    await Users.updateOne({ _id }, { status: 'false' })
-
-    res.cookie('validated', token, { maxAge: 0, httpOnly: true })
-    res.send(true)
-})
-
-
-app.get('/get-details-users:userId', async (req, res) => {
-    let { userId } = req.params
-    console.log(userId)
-    try {
-        const findUser = await Users.findOne({ _id: userId });
-        res.send(findUser)
-
-    } catch (e) {
         console.log(e)
     }
 })
 
-
-app.post('/Searchdeta', async (req, res) => {
-    const { inputvalue } = req.body
-    const data = await Products.find({})
-    res.send({ data })
-})
-
-
-app.get('/alluserconnected', async (req, res) => {
-    const data = await Users.find({ status: true })
-    res.send({ data })
-})
-
-
-
-app.get('/Cookie-test', async (req, res) => {
-    let validated
-    let name
-    let id
-    let checkCookie = req.cookies.validated
-    newDate = new Date().getTime()
-
-    if (checkCookie) {
-        let decoded = jwt.decode(checkCookie, secret);
-        validated = decoded.role
-        name = decoded.userName
-        id = decoded.id
-
-        if (decoded.newDate + 86400000 < newDate) {
-            await Users.updateOne({ _id: id }, { status: 'false' })
-            res.cookie('validated', token, { maxAge: 0, httpOnly: true })
-            validated = false
-        }
-    } else {
-        validated = false
-    }
-
-    res.send({ validated, name, id })
-})
-
-
-app.post('/send-User-details-sign-up', async (req, res) => {
-    let message = ''
-    const { id_user, name, userName, password, email, phone, role } = req.body
-
-    const data = await Users.find({})
-    for (i = 0; i < data.length; i++) {
-        if (id_user == data[i].id_user) {
-            message = 'מספר זהות קיים'
-            break
-        } else if (userName == data[i].userName) {
-            message = 'שם משתמש כבר קיים'
-            break
-        } else if (email == data[i].email) {
-            message = 'מייל זה כבר קיים במערכת'
-            break
-        } else {
-            message = 'ok'
-            break
-        }
-    }
-
-    if (message == 'ok') {
-        const user = new Users({ id_user, name, userName, password, email, phone, role });
-        await user.save().then(doc => console.log(doc)).catch(e => console.log(e));
-    }
-
-    setTimeout(() => { res.send({ message }) }, 1000);
-})
-
-
-app.get('/get-category', async (req, res) => {
-    const data = await video.find({})
-    res.send({ data })
-})
-
-
-app.get('/get-List-Users', async (req, res) => {
-    const data = await Users.find()
-    res.send({ data })
-})
-
-
-app.delete('/:userId', async (req, res) => {
+app.post("/button-plus", async (req, res) => {
     try {
-        let userId = req.params.userId;
-        await Users.findByIdAndDelete(userId);
-        const data = await Users.find({})
-        res.send(data)
-    } catch (e) {
+        const { Revenue, Fromensbrought, Remarks } = req.body
+        const total = Revenue * 0.10 - Fromensbrought
+        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks });
+        await Tensdata.save().then(doc => console.log(doc)).catch(e => console.log(e));
+        const deta = await Tens.find({})
+        res.send({ deta })
+    }
+    catch (e) {
         console.log(e)
     }
 })
 
-
-app.post('/plusvideo', async (req, res) => {
-    const { linkvideovalue, namevideovalue } = req.body
-
+app.post('/edete-list', async (req, res) => {
     try {
-        const vide = new video({ link: linkvideovalue, name: namevideovalue });
-        await vide.save().then(doc => console.log(doc)).catch(e => console.log(e));
-
-        const data = await video.find({})
-        res.send({ data })
-
-    } catch (e) {
+        const { _id } = req.body
+        const deta = await Tens.findOne({_id})
+        res.send({ deta })
+    }
+    catch (e) {
         console.log(e)
     }
 })
 
-app.post('/editingvideo', async (req, res) => {
-    const { id } = req.body
-
+app.post('/clickbuttonediting', async (req, res) => {
     try {
-        const data = await video.findOne({ _id: id })
-        res.send({ data })
-
-    } catch (e) {
+        const { Revenueediting, Fromensbroughtediting, Remarksediting ,id} = req.body
+        const total = Revenueediting * 0.10 - Fromensbroughtediting
+        await Tens.updateOne({ _id:id }, { Revenue: Revenueediting, Fromensbrought:Fromensbroughtediting,total,Remarks:Remarksediting})
+        const deta = await Tens.find({})
+        res.send({ deta })
+    }
+    catch (e) {
         console.log(e)
     }
 })
 
-
-app.post('/deletevideo', async (req, res) => {
-    const { id } = req.body
-
+app.post('/deletelistditing', async (req, res) => {
     try {
-        const data = await video.deleteOne({ _id: id })
-        res.send({ data })
-
-    } catch (e) {
-        console.log(e)
+        const { id} = req.body
+        await Tens.deleteOne({ _id:id })
+        const deta = await Tens.find({})
+        res.send({ deta })
     }
-})
-
-app.post('/editing', async (req, res) => {
-    const { id, linkvideovalue, namevideovalue } = req.body
-    try {
-        await video.findByIdAndUpdate({ _id: id }, { link: linkvideovalue, name: namevideovalue })
-        res.send(true)
-
-    } catch (e) {
+    catch (e) {
         console.log(e)
     }
 })

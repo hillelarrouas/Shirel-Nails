@@ -1,0 +1,255 @@
+html {
+    font-size: 1px;
+}
+
+body{
+background-image: url(/img/background.jpg);
+background-attachment: fixed;
+background-repeat: no-repeat;
+background-position: center;
+overscroll-behavior: contain;
+}
+
+:root {
+    --background: rgb(238, 238, 238);
+    --font-family: 'Rubik', sans-serif;
+    --color: rgb(122, 113, 113);
+}
+
+.menu {
+    background-color: var(--background);
+    width: 50%;
+    height: 100%;
+    max-width: 220px;
+    position: fixed;
+    top: 0;
+    right: -100px;
+    z-index: 2;
+    white-space: nowrap;
+    transition: all 0.3s;
+    display: none;
+
+    .delete {
+        width: 30px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px;
+    }
+
+    .SelectionMenu {
+        font-size: 25rem;
+        font-weight: 600;
+        color: var(--color);
+        font-family: var(--font-family);
+        border-bottom: 2px dotted rgba(255, 255, 255, 0.438);
+        padding: 25px 15px;
+        cursor: pointer;
+    }
+
+    .SelectionMenu:hover {
+        transition: color 0.2s;
+        color: rgb(144, 144, 144);
+    }
+
+    .cardlogin {
+        margin-top: 20px;
+        font-size: 20rem;
+        text-align: center;
+        font-family: var(--font-family);
+
+        img {
+            width: 120px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .textcardlogin {
+            padding: 5px;
+            font-size: 23rem;
+            font-weight: 600;
+        }
+    }
+}
+
+
+
+.cardTes {
+    background-color: var(--background);
+    width: 90%;
+    max-width: 1000px;
+    margin: 120px auto;
+    border-radius: 20px;
+    font-family: var(--font-family);
+    padding: 10px 10px 15px;
+    font-size: 20rem;
+    direction: rtl;
+    position: relative;
+    box-shadow: 1px 1px 8px 5px rgba(128, 128, 128, 0.561);
+
+    .plus {
+        width: 30px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: cadetblue;
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 35rem;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        box-sizing: border-box;
+        table-layout: fixed;
+        background-color: rgba(255, 255, 255, 0.425);
+    }
+
+    td,
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 12px 0px 9px 0px;
+        table-layout: fixed;
+        word-wrap: break-word;
+
+     
+
+        img {
+            width: 20px;
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(128, 128, 128, 0.486);
+    }
+
+}
+
+
+.cardplus,.cardediting {
+    background-color: var(--background);
+    width: 85%;
+    max-width: 500px;
+    font-family: var(--font-family);
+    font-size: 20rem;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 120px auto;
+    text-align: center;
+    position: relative;
+    display: none;
+    box-shadow: 1px 1px 8px 5px rgba(128, 128, 128, 0.561);
+
+    .return,.cardeditingreturn {
+        width: 30px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: cadetblue;
+        padding: 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+
+    h1 {
+        text-align: center;
+        font-size: 35rem;
+    }
+
+    input[type=text] {
+        direction: rtl;
+        padding: 10px 0;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        outline: none;
+        font-family: var(--font-family);
+        color: var(--color);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 20rem;
+        border-radius: 10px;
+        border: 1px solid grey;
+        font-family: var(--font-family);
+        outline: none;
+        background: cadetblue;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    button:active {
+        color: black;
+        transition: color 0.3s;
+    }
+
+    button:hover {
+        background: rgb(72, 122, 124);
+        transition: color 0.3s;
+    }
+
+    .rtl {
+        text-align: right;
+        padding: 10px;
+    }
+
+    label {
+        font-size: 20rem;
+        width: 80%;
+        padding: 10px;
+        text-align: center;
+    }
+}
+.meseggecardplus,.meseggecardediting{
+    font-size: 20rem;
+    font-weight: 600;
+    margin: -20px 0px 10px;
+}
+
+.buttom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--background);
+    font-family: var(--font-family);
+    font-size: 18rem;
+
+    a{
+     text-decoration: none;
+     color: black;
+    }
+}
+
+
+@media only screen and (max-width:450px) {
+
+    html {
+        font-size: 0.8px;
+        user-select: none;
+    }
+
+    .cardTes,.cardplus{
+        margin: 70px auto 70px;
+    }
+
+}
