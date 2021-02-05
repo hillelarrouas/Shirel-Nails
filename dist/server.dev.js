@@ -39,40 +39,72 @@ var Tens = mongoose.model('Tens', {
   Revenue: Number,
   Fromensbrought: Number,
   total: Number,
-  Remarks: String
+  Remarks: String,
+  idUser: String
 });
 app.get('/get-categoryinit', function _callee(req, res) {
-  var deta;
+  var user, _newDate, jwtuser, deta;
+
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
-          return regeneratorRuntime.awrap(Tens.find({}));
+          user = req.cookies.user;
+          _newDate = new Date().getTime();
 
-        case 3:
+          if (!user) {
+            _context.next = 16;
+            break;
+          }
+
+          jwtuser = jwt.decode(user, secret);
+          userid = jwtuser.id;
+          Dateuser = jwtuser.newDate;
+
+          if (!(Dateuser + 86400000 < _newDate)) {
+            _context.next = 12;
+            break;
+          }
+
+          res.cookie('user', token, {
+            maxAge: 0,
+            httpOnly: true
+          });
+          validated = false;
+          _context.next = 16;
+          break;
+
+        case 12:
+          _context.next = 14;
+          return regeneratorRuntime.awrap(Tens.find({
+            idUser: userid
+          }));
+
+        case 14:
           deta = _context.sent;
           res.send({
             deta: deta
           });
-          _context.next = 10;
+
+        case 16:
+          _context.next = 21;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 18:
+          _context.prev = 18;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
 
-        case 10:
+        case 21:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 18]]);
 });
 app.post("/button-plus", function _callee2(req, res) {
-  var _req$body, Revenue, Fromensbrought, Remarks, total, Tensdata, deta;
+  var _req$body, Revenue, Fromensbrought, Remarks, user, jwtuser, _userid, total, Tensdata;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
@@ -80,29 +112,26 @@ app.post("/button-plus", function _callee2(req, res) {
         case 0:
           _context2.prev = 0;
           _req$body = req.body, Revenue = _req$body.Revenue, Fromensbrought = _req$body.Fromensbrought, Remarks = _req$body.Remarks;
+          user = req.cookies.user;
+          jwtuser = jwt.decode(user, secret);
+          _userid = jwtuser.id;
           total = Revenue * 0.10 - Fromensbrought;
           Tensdata = new Tens({
             Revenue: Revenue,
             total: total,
             Fromensbrought: Fromensbrought,
-            Remarks: Remarks
+            Remarks: Remarks,
+            idUser: _userid
           });
-          _context2.next = 6;
+          _context2.next = 9;
           return regeneratorRuntime.awrap(Tensdata.save().then(function (doc) {
             return console.log(doc);
           })["catch"](function (e) {
             return console.log(e);
           }));
 
-        case 6:
-          _context2.next = 8;
-          return regeneratorRuntime.awrap(Tens.find({}));
-
-        case 8:
-          deta = _context2.sent;
-          res.send({
-            deta: deta
-          });
+        case 9:
+          res.send(true);
           _context2.next = 15;
           break;
 
@@ -153,7 +182,7 @@ app.post('/edete-list', function _callee3(req, res) {
   }, null, null, [[0, 8]]);
 });
 app.post('/clickbuttonediting', function _callee4(req, res) {
-  var _req$body2, Revenueediting, Fromensbroughtediting, Remarksediting, id, total, deta;
+  var _req$body2, Revenueediting, Fromensbroughtediting, Remarksediting, id, total;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
@@ -173,31 +202,24 @@ app.post('/clickbuttonediting', function _callee4(req, res) {
           }));
 
         case 5:
-          _context4.next = 7;
-          return regeneratorRuntime.awrap(Tens.find({}));
-
-        case 7:
-          deta = _context4.sent;
-          res.send({
-            deta: deta
-          });
-          _context4.next = 14;
+          res.send(true);
+          _context4.next = 11;
           break;
 
-        case 11:
-          _context4.prev = 11;
+        case 8:
+          _context4.prev = 8;
           _context4.t0 = _context4["catch"](0);
           console.log(_context4.t0);
 
-        case 14:
+        case 11:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 11]]);
+  }, null, null, [[0, 8]]);
 });
 app.post('/deletelistditing', function _callee5(req, res) {
-  var id, deta;
+  var id;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
@@ -210,31 +232,24 @@ app.post('/deletelistditing', function _callee5(req, res) {
           }));
 
         case 4:
-          _context5.next = 6;
-          return regeneratorRuntime.awrap(Tens.find({}));
-
-        case 6:
-          deta = _context5.sent;
-          res.send({
-            deta: deta
-          });
-          _context5.next = 13;
+          res.send(true);
+          _context5.next = 10;
           break;
 
-        case 10:
-          _context5.prev = 10;
+        case 7:
+          _context5.prev = 7;
           _context5.t0 = _context5["catch"](0);
           console.log(_context5.t0);
 
-        case 13:
+        case 10:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[0, 10]]);
+  }, null, null, [[0, 7]]);
 });
 app.post('/login', function _callee6(req, res) {
-  var ok, _req$body3, emaillogin, paswordlogin, deta;
+  var ok, _req$body3, emaillogin, paswordlogin, deta, id, _token;
 
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
@@ -251,44 +266,54 @@ app.post('/login', function _callee6(req, res) {
 
         case 6:
           if (!(i < deta.length)) {
-            _context6.next = 16;
+            _context6.next = 20;
             break;
           }
 
           if (!(emaillogin == deta[i].email && paswordlogin == deta[i].password)) {
-            _context6.next = 12;
+            _context6.next = 16;
             break;
           }
 
+          id = deta[i]._id;
+          newDate = new Date().getTime();
+          _token = jwt.encode({
+            id: id,
+            newDate: newDate
+          }, secret);
+          res.cookie('user', _token, {
+            maxAge: 86400000,
+            httpOnly: true
+          });
           ok = true;
-          return _context6.abrupt("break", 16);
+          return _context6.abrupt("break", 20);
 
-        case 12:
+        case 16:
           ok = false;
 
-        case 13:
+        case 17:
           i++;
           _context6.next = 6;
           break;
 
-        case 16:
+        case 20:
           res.send({
             ok: ok
           });
-          _context6.next = 22;
+          _context6.next = 26;
           break;
 
-        case 19:
-          _context6.prev = 19;
+        case 23:
+          _context6.prev = 23;
           _context6.t0 = _context6["catch"](0);
           console.log(_context6.t0);
 
-        case 22:
+        case 26:
         case "end":
           return _context6.stop();
       }
     }
-  }, null, null, [[0, 19]]);
+  }, null, null, [[0, 23]]);
 });
 app.post('/sing_in', function _callee7(req, res) {
   var ok, _req$body4, namesing_in, telsing_in, emailsing_in, paswordsing_in, deta, plueuser;
@@ -343,30 +368,38 @@ app.post('/sing_in', function _callee7(req, res) {
           });
           _context7.next = 21;
           return regeneratorRuntime.awrap(plueuser.save().then(function (doc) {
-            return console.log(doc);
+            var id = doc._id;
+            newDate = new Date().getTime();
+            var token = jwt.encode({
+              id: id,
+              newDate: newDate
+            }, secret);
+            res.cookie('user', token, {
+              maxAge: 86400000,
+              httpOnly: true
+            });
           })["catch"](function (e) {
             return console.log(e);
           }));
 
         case 21:
-          console.log(ok);
           res.send({
             ok: ok
           });
-          _context7.next = 28;
+          _context7.next = 27;
           break;
 
-        case 25:
-          _context7.prev = 25;
+        case 24:
+          _context7.prev = 24;
           _context7.t0 = _context7["catch"](1);
           console.log(_context7.t0);
 
-        case 28:
+        case 27:
         case "end":
           return _context7.stop();
       }
     }
-  }, null, null, [[1, 25]]);
+  }, null, null, [[1, 24]]);
 });
 var port = process.env.PORT || 8080;
 app.listen(port, function () {

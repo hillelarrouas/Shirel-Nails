@@ -34,8 +34,8 @@ $(document).ready(function () {
     });
 });
 
-
-
+getcategoryinit()
+function getcategoryinit(){
 fetch('/get-categoryinit')
     .then(res =>
         res.json()
@@ -43,7 +43,7 @@ fetch('/get-categoryinit')
     .then(deta => {
         dom(deta.deta)
     })
-
+}
 
 $(document).ready(function () {
     $("#clickbuttonplus").click(function () {
@@ -65,7 +65,7 @@ $(document).ready(function () {
                 })
             }).then(res => res.json())
                 .then(deta => {
-                    dom(deta.deta)
+                    getcategoryinit()
                     $(".meseggecardplus").html('');
                     $("#Revenue").val('');
                     $("#Fromensbrought").val('');
@@ -82,7 +82,7 @@ function dom(deta) {
     $(".list").html("")
 
     if (deta[0] == undefined) {
-        $(".list").html("<h1>עדיין אין לך חישובים</h1>")
+        $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
     }
     else {
         $(".list").html(
@@ -149,8 +149,7 @@ $(document).ready(function () {
                 })
             }).then(res => res.json())
                 .then(deta => {
-                    console.log(deta)
-                    dom(deta.deta)
+                    getcategoryinit()
                     $(".meseggecardediting").html('');
                     $("#Revenueediting").val('');
                     $("#Fromensbroughtediting").val('');
@@ -175,7 +174,7 @@ $(document).ready(function () {
             })
         }).then(res => res.json())
             .then(deta => {
-                dom(deta.deta)
+                getcategoryinit()
                 $(".meseggecardediting").html('');
                 $("#Revenueediting").val('');
                 $("#Fromensbroughtediting").val('');

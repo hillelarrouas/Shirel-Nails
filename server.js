@@ -33,12 +33,28 @@ const Tens = mongoose.model('Tens', {
     Fromensbrought: Number,
     total: Number,
     Remarks: String,
+    idUser: String
 });
 
 app.get('/get-categoryinit', async (req, res) => {
     try {
-        const deta = await Tens.find({})
-        res.send({ deta })
+        let user = req.cookies.user
+        const newDate = new Date().getTime()
+
+        if (user) {
+            let jwtuser = jwt.decode(user, secret);
+            userid = jwtuser.id
+            Dateuser = jwtuser.newDate
+
+            if (Dateuser + 86400000 < newDate) {
+                res.cookie('user', token, { maxAge: 0, httpOnly: true })
+                validated = false
+            }
+            else {
+                const deta = await Tens.find({ idUser: userid })
+                res.send({ deta })
+            }
+        }
     }
     catch (e) {
         console.log(e)
@@ -48,11 +64,13 @@ app.get('/get-categoryinit', async (req, res) => {
 app.post("/button-plus", async (req, res) => {
     try {
         const { Revenue, Fromensbrought, Remarks } = req.body
+        let user = req.cookies.user
+        let jwtuser = jwt.decode(user, secret);
+        let userid = jwtuser.id
         const total = Revenue * 0.10 - Fromensbrought
-        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks });
+        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks ,idUser:userid});
         await Tensdata.save().then(doc => console.log(doc)).catch(e => console.log(e));
-        const deta = await Tens.find({})
-        res.send({ deta })
+        res.send(true)
     }
     catch (e) {
         console.log(e)
@@ -75,8 +93,7 @@ app.post('/clickbuttonediting', async (req, res) => {
         const { Revenueediting, Fromensbroughtediting, Remarksediting, id } = req.body
         const total = Revenueediting * 0.10 - Fromensbroughtediting
         await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting })
-        const deta = await Tens.find({})
-        res.send({ deta })
+        res.send(true)
     }
     catch (e) {
         console.log(e)
@@ -87,8 +104,7 @@ app.post('/deletelistditing', async (req, res) => {
     try {
         const { id } = req.body
         await Tens.deleteOne({ _id: id })
-        const deta = await Tens.find({})
-        res.send({ deta })
+        res.send(true)
     }
     catch (e) {
         console.log(e)
@@ -103,6 +119,10 @@ app.post('/login', async (req, res) => {
         const deta = await Users.find({})
         for (i = 0; i < deta.length; i++) {
             if (emaillogin == deta[i].email && paswordlogin == deta[i].password) {
+                const id = deta[i]._id
+                newDate = new Date().getTime()
+                const token = jwt.encode({ id, newDate }, secret)
+                res.cookie('user', token, { maxAge: 86400000, httpOnly: true })
                 ok = true
                 break
             } else {
@@ -132,15 +152,21 @@ app.post('/sing_in', async (req, res) => {
         }
         if (ok == true) {
             const plueuser = new Users({ name: namesing_in, phone: telsing_in, email: emailsing_in, password: paswordsing_in });
-            await plueuser.save().then(doc => console.log(doc)).catch(e => console.log(e));
+            await plueuser.save().then(doc => {
+                const id = doc._id
+                newDate = new Date().getTime()
+                const token = jwt.encode({ id, newDate }, secret)
+                res.cookie('user', token, { maxAge: 86400000, httpOnly: true })
+            }
+            ).catch(e => console.log(e));
         }
-        console.log(ok)
         res.send({ ok })
     }
     catch (e) {
         console.log(e)
     }
 })
+
 
 
 

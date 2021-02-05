@@ -24,6 +24,17 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
+  $("#paswordsing_in").click(function () {
+    if (this.type === 'password') {
+      this.type = "text";
+      var that = this;
+      setTimeout(function () {
+        that.type = "password";
+      }, 1000);
+    }
+  });
+});
+$(document).ready(function () {
   $("#clickbuttologin").click(function () {
     var emaillogin = $("#emaillogin").val();
     var paswordlogin = $("#paswordlogin").val();

@@ -33,11 +33,16 @@ $(document).ready(function () {
     location.href = '/login.html';
   });
 });
-fetch('/get-categoryinit').then(function (res) {
-  return res.json();
-}).then(function (deta) {
-  dom(deta.deta);
-});
+getcategoryinit();
+
+function getcategoryinit() {
+  fetch('/get-categoryinit').then(function (res) {
+    return res.json();
+  }).then(function (deta) {
+    dom(deta.deta);
+  });
+}
+
 $(document).ready(function () {
   $("#clickbuttonplus").click(function () {
     var Revenue = $("#Revenue").val();
@@ -60,7 +65,7 @@ $(document).ready(function () {
       }).then(function (res) {
         return res.json();
       }).then(function (deta) {
-        dom(deta.deta);
+        getcategoryinit();
         $(".meseggecardplus").html('');
         $("#Revenue").val('');
         $("#Fromensbrought").val('');
@@ -76,7 +81,7 @@ function dom(deta) {
   $(".list").html("");
 
   if (deta[0] == undefined) {
-    $(".list").html("<h1>עדיין אין לך חישובים</h1>");
+    $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
   } else {
     $(".list").html("<table>\n        <tr>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05DE\u05E2\u05E9\u05E8\u05D5\u05EA \u05E9\u05D4\u05D1\u05D0\u05EA\u05D9</th>\n            <th>\u05E1\u05D4\"\u05DB \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
       return "<tr ondblclick='edetelist(\"".concat(elm._id, "\")'>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
@@ -131,8 +136,7 @@ $(document).ready(function () {
       }).then(function (res) {
         return res.json();
       }).then(function (deta) {
-        console.log(deta);
-        dom(deta.deta);
+        getcategoryinit();
         $(".meseggecardediting").html('');
         $("#Revenueediting").val('');
         $("#Fromensbroughtediting").val('');
@@ -156,7 +160,7 @@ $(document).ready(function () {
     }).then(function (res) {
       return res.json();
     }).then(function (deta) {
-      dom(deta.deta);
+      getcategoryinit();
       $(".meseggecardediting").html('');
       $("#Revenueediting").val('');
       $("#Fromensbroughtediting").val('');
