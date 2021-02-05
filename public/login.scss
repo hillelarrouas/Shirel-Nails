@@ -16,98 +16,22 @@ body {
     --backgroundbutton: cadetblue;
 }
 
-.menudisplayblock {
-    position: fixed;
-    top: 25px;
-    right: 25px;
-    width: 30px;
-    background: var(--backgroundbutton);
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 10px;
-    z-index: 111111111111;
-}
-
-
-.menu {
+.cardlogin {
     background-color: var(--background);
-    width: 50%;
-    height: 100%;
-    max-width: 220px;
-    position: fixed;
-    right: 0px;
-    top: 0;
-    z-index: 2;
-    white-space: nowrap;
-    padding: 60px 10px 10px 10px;
-    display: none;
-
-
-    .menudisplaynone {
-        width: 30px;
-        position: absolute;
-        top: 25px;
-        right: 25px;
-        padding: 5px;
-        background: var(--backgroundbutton);
-        cursor: pointer;
-        border-radius: 10px;
-        z-index: 1;
-    }
-
-    .SelectionMenu {
-        font-size: 25rem;
-        font-weight: 600;
-        font-family: var(--font-family);
-        border-bottom: 2px solid var(--backgroundbutton);
-        padding: 25px 15px;
-        cursor: pointer;
-        text-align: center;
-    }
-
-    .SelectionMenu:hover {
-        transition: all 0.2s;
-        color: white;
-        background-color: rgba(95, 158, 160, 0.664);
-    }
-
-    .cardlogin {
-        margin-top: 20px;
-        font-size: 20rem;
-        text-align: center;
-        font-family: var(--font-family);
-
-        img {
-            width: 120px;
-            border-radius: 50%;
-            border: 3px solid white;
-        }
-
-        .textcardlogin {
-            padding: 10px;
-            font-size: 23rem;
-            font-weight: 600;
-            border-bottom: 2px solid var(--backgroundbutton);
-        }
-    }
-}
-
-
-
-.cardTes {
-    background-color: var(--background);
-    width: 90%;
-    max-width: 1000px;
-    margin: 120px auto;
-    border-radius: 20px;
+    width: 85%;
+    max-width: 400px;
     font-family: var(--font-family);
-    padding: 10px 10px 15px;
     font-size: 20rem;
-    direction: rtl;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 120px auto;
+    text-align: center;
     position: relative;
+    // display: none;
     box-shadow: 1px 1px 8px 5px rgba(128, 128, 128, 0.561);
 
-    .plus {
+    .return,
+    .cardeditingreturn {
         width: 30px;
         position: absolute;
         top: 5px;
@@ -119,44 +43,85 @@ body {
         z-index: 1;
     }
 
+
     h1 {
         text-align: center;
-        font-size: 35rem;
+        font-size: 30rem;
     }
 
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
+    input[type=text],
+    input[type=email] {
+        direction: rtl;
+        padding: 10px 0;
+        font-size: 20rem;
+        border: 0;
+        border-bottom: 2px solid var(--color);
+        background: none;
+        margin-bottom: 25px;
+        outline: none;
+        font-family: var(--font-family);
+        color: var(--color);
         width: 100%;
         box-sizing: border-box;
-        table-layout: fixed;
-        background-color: rgba(255, 255, 255, 0.425);
     }
 
-    td,
-    th {
-        border: 1px solid #dddddd;
+    button {
+        padding: 10px 20px;
+        font-size: 20rem;
+        border-radius: 10px;
+        border: 1px solid grey;
+        font-family: var(--font-family);
+        outline: none;
+        background: cadetblue;
+        color: white;
+        font-weight: 600;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    button:active {
+        color: black;
+        transition: color 0.3s;
+    }
+
+    button:hover {
+        background: rgb(72, 122, 124);
+        transition: color 0.3s;
+    }
+
+    .rtl {
+        text-align: right;
+        padding: 10px;
+    }
+
+    label {
+        font-size: 20rem;
+        width: 80%;
+        padding: 10px;
         text-align: center;
-        padding: 12px 0px 9px 0px;
-        table-layout: fixed;
-        word-wrap: break-word;
+    }
+.meseggecardlogin{
+    padding:5px 0 10px;
+    font-weight: 600;
+    font-size: 19rem;
+}
+    .enrollment {
+        font-size: 15rem;
 
+        .Bcardlogin {
+            color: var(--backgroundbutton);
+            cursor: pointer;
+        }
 
-
-        img {
-            width: 20px;
+        .Bcardlogin:hover {
+            text-decoration: underline;
         }
     }
-
-    tr:nth-child(even) {
-        background-color: rgba(128, 128, 128, 0.486);
-    }
-
 }
 
 
-.cardplus,
-.cardediting {
+
+.sing_in {
     background-color: var(--background);
     width: 85%;
     max-width: 400px;
@@ -183,13 +148,15 @@ body {
         z-index: 1;
     }
 
-
     h1 {
         text-align: center;
         font-size: 30rem;
     }
 
-    input[type=text] {
+    input[type=name],
+    input[type=tel],
+    input[type=password],
+    input[type=email] {
         direction: rtl;
         padding: 10px 0;
         font-size: 20rem;
@@ -214,6 +181,7 @@ body {
         background: cadetblue;
         color: white;
         font-weight: 600;
+        margin-bottom: 10px;
         cursor: pointer;
     }
 
@@ -238,13 +206,24 @@ body {
         padding: 10px;
         text-align: center;
     }
+
+    .meseggesing_in{
+        padding:5px 0 10px;
+        font-weight: 600;
+        font-size: 19rem;
+    }
+
+    .enrollment {
+        font-size: 15rem;
+    }
+}
+.Bsing_in {
+    color: var(--backgroundbutton);
+    cursor: pointer;
 }
 
-.meseggecardplus,
-.meseggecardediting {
-    font-size: 20rem;
-    font-weight: 600;
-    margin: -20px 0px 10px;
+.Bsing_in:hover {
+    text-decoration: underline;
 }
 
 .buttom {
@@ -267,9 +246,8 @@ body {
         user-select: none;
     }
 
-    .cardTes,
-    .cardplus,
-    .cardediting {
+    .cardlogin,
+    .sing_in{
         margin: 70px auto 70px;
     }
 

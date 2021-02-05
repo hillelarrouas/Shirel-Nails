@@ -23,6 +23,16 @@ $(document).ready(function () {
     $(".cardTes").show();
   });
 });
+$(document).ready(function () {
+  $(".menudisplayblock").click(function () {
+    $(".menu").slideToggle(100);
+  });
+});
+$(document).ready(function () {
+  $(".SelectionMenu").click(function () {
+    location.href = '/login.html';
+  });
+});
 fetch('/get-categoryinit').then(function (res) {
   return res.json();
 }).then(function (deta) {

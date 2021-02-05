@@ -5,7 +5,6 @@ html {
 body {
   background-image: url(/img/background.jpg);
   background-attachment: fixed;
-  background-repeat: no-repeat;
   background-position: center;
   overscroll-behavior: contain;
 }
@@ -14,6 +13,19 @@ body {
   --background: rgb(238, 238, 238);
   --font-family: "Rubik", sans-serif;
   --color: rgb(122, 113, 113);
+  --backgroundbutton: cadetblue;
+}
+
+.menudisplayblock {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 30px;
+  background: var(--backgroundbutton);
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  z-index: 111111111111;
 }
 
 .menu {
@@ -22,32 +34,37 @@ body {
   height: 100%;
   max-width: 220px;
   position: fixed;
+  right: 0px;
   top: 0;
-  right: -100px;
   z-index: 2;
   white-space: nowrap;
-  transition: all 0.3s;
+  padding: 60px 10px 10px 10px;
   display: none;
 }
-.menu .delete {
+.menu .menudisplaynone {
   width: 30px;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 25px;
+  right: 25px;
   padding: 5px;
+  background: var(--backgroundbutton);
+  cursor: pointer;
+  border-radius: 10px;
+  z-index: 1;
 }
 .menu .SelectionMenu {
   font-size: 25rem;
   font-weight: 600;
-  color: var(--color);
   font-family: var(--font-family);
-  border-bottom: 2px dotted rgba(255, 255, 255, 0.438);
+  border-bottom: 2px solid var(--backgroundbutton);
   padding: 25px 15px;
   cursor: pointer;
+  text-align: center;
 }
 .menu .SelectionMenu:hover {
-  transition: color 0.2s;
-  color: #909090;
+  transition: all 0.2s;
+  color: white;
+  background-color: rgba(95, 158, 160, 0.664);
 }
 .menu .cardlogin {
   margin-top: 20px;
@@ -61,9 +78,10 @@ body {
   border: 3px solid white;
 }
 .menu .cardlogin .textcardlogin {
-  padding: 5px;
+  padding: 10px;
   font-size: 23rem;
   font-weight: 600;
+  border-bottom: 2px solid var(--backgroundbutton);
 }
 
 .cardTes {
@@ -118,10 +136,11 @@ body {
   background-color: rgba(128, 128, 128, 0.486);
 }
 
-.cardplus, .cardediting {
+.cardplus,
+.cardediting {
   background-color: var(--background);
   width: 85%;
-  max-width: 500px;
+  max-width: 400px;
   font-family: var(--font-family);
   font-size: 20rem;
   padding: 20px;
@@ -132,7 +151,10 @@ body {
   display: none;
   box-shadow: 1px 1px 8px 5px rgba(128, 128, 128, 0.561);
 }
-.cardplus .return, .cardplus .cardeditingreturn, .cardediting .return, .cardediting .cardeditingreturn {
+.cardplus .return,
+.cardplus .cardeditingreturn,
+.cardediting .return,
+.cardediting .cardeditingreturn {
   width: 30px;
   position: absolute;
   top: 5px;
@@ -143,11 +165,13 @@ body {
   cursor: pointer;
   z-index: 1;
 }
-.cardplus h1, .cardediting h1 {
+.cardplus h1,
+.cardediting h1 {
   text-align: center;
-  font-size: 35rem;
+  font-size: 30rem;
 }
-.cardplus input[type=text], .cardediting input[type=text] {
+.cardplus input[type=text],
+.cardediting input[type=text] {
   direction: rtl;
   padding: 10px 0;
   font-size: 20rem;
@@ -161,7 +185,8 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
-.cardplus button, .cardediting button {
+.cardplus button,
+.cardediting button {
   padding: 10px 20px;
   font-size: 20rem;
   border-radius: 10px;
@@ -173,26 +198,31 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
-.cardplus button:active, .cardediting button:active {
+.cardplus button:active,
+.cardediting button:active {
   color: black;
   transition: color 0.3s;
 }
-.cardplus button:hover, .cardediting button:hover {
+.cardplus button:hover,
+.cardediting button:hover {
   background: #487a7c;
   transition: color 0.3s;
 }
-.cardplus .rtl, .cardediting .rtl {
+.cardplus .rtl,
+.cardediting .rtl {
   text-align: right;
   padding: 10px;
 }
-.cardplus label, .cardediting label {
+.cardplus label,
+.cardediting label {
   font-size: 20rem;
   width: 80%;
   padding: 10px;
   text-align: center;
 }
 
-.meseggecardplus, .meseggecardediting {
+.meseggecardplus,
+.meseggecardediting {
   font-size: 20rem;
   font-weight: 600;
   margin: -20px 0px 10px;
@@ -209,10 +239,6 @@ body {
   font-family: var(--font-family);
   font-size: 18rem;
 }
-.buttom a {
-  text-decoration: none;
-  color: black;
-}
 
 @media only screen and (max-width: 450px) {
   html {
@@ -220,7 +246,9 @@ body {
     user-select: none;
   }
 
-  .cardTes, .cardplus {
+  .cardTes,
+.cardplus,
+.cardediting {
     margin: 70px auto 70px;
   }
 }

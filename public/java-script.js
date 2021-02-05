@@ -5,7 +5,6 @@ $(document).ready(function () {
         $("#Revenue").focus();
     });
 });
-
 $(document).ready(function () {
     $(".return").click(function () {
         $(".cardTes").show();
@@ -20,6 +19,18 @@ $(document).ready(function () {
         $("#Remarksediting").val('');
         $(".cardediting").hide();
         $(".cardTes").show();
+    });
+});
+$(document).ready(function () {
+    $(".menudisplayblock").click(function () {
+        $(".menu").slideToggle(100);
+    });
+});
+
+
+$(document).ready(function () {
+    $(".SelectionMenu").click(function () {
+        location.href = '/login.html'
     });
 });
 

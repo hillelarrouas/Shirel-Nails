@@ -1,0 +1,228 @@
+html {
+  font-size: 1px;
+}
+
+body {
+  background-image: url(/img/background.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  overscroll-behavior: contain;
+}
+
+:root {
+  --background: rgb(238, 238, 238);
+  --font-family: "Rubik", sans-serif;
+  --color: rgb(122, 113, 113);
+  --backgroundbutton: cadetblue;
+}
+
+.cardlogin {
+  background-color: var(--background);
+  width: 85%;
+  max-width: 400px;
+  font-family: var(--font-family);
+  font-size: 20rem;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 120px auto;
+  text-align: center;
+  position: relative;
+  box-shadow: 1px 1px 8px 5px rgba(128, 128, 128, 0.561);
+}
+.cardlogin .return,
+.cardlogin .cardeditingreturn {
+  width: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: cadetblue;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.cardlogin h1 {
+  text-align: center;
+  font-size: 30rem;
+}
+.cardlogin input[type=text],
+.cardlogin input[type=email] {
+  direction: rtl;
+  padding: 10px 0;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: none;
+  margin-bottom: 25px;
+  outline: none;
+  font-family: var(--font-family);
+  color: var(--color);
+  width: 100%;
+  box-sizing: border-box;
+}
+.cardlogin button {
+  padding: 10px 20px;
+  font-size: 20rem;
+  border-radius: 10px;
+  border: 1px solid grey;
+  font-family: var(--font-family);
+  outline: none;
+  background: cadetblue;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.cardlogin button:active {
+  color: black;
+  transition: color 0.3s;
+}
+.cardlogin button:hover {
+  background: #487a7c;
+  transition: color 0.3s;
+}
+.cardlogin .rtl {
+  text-align: right;
+  padding: 10px;
+}
+.cardlogin label {
+  font-size: 20rem;
+  width: 80%;
+  padding: 10px;
+  text-align: center;
+}
+.cardlogin .meseggecardlogin {
+  padding: 5px 0 10px;
+  font-weight: 600;
+  font-size: 19rem;
+}
+.cardlogin .enrollment {
+  font-size: 15rem;
+}
+.cardlogin .enrollment .Bcardlogin {
+  color: var(--backgroundbutton);
+  cursor: pointer;
+}
+.cardlogin .enrollment .Bcardlogin:hover {
+  text-decoration: underline;
+}
+
+.sing_in {
+  background-color: var(--background);
+  width: 85%;
+  max-width: 400px;
+  font-family: var(--font-family);
+  font-size: 20rem;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 120px auto;
+  text-align: center;
+  position: relative;
+  display: none;
+  box-shadow: 1px 1px 8px 5px rgba(128, 128, 128, 0.561);
+}
+.sing_in .return,
+.sing_in .cardeditingreturn {
+  width: 30px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: cadetblue;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.sing_in h1 {
+  text-align: center;
+  font-size: 30rem;
+}
+.sing_in input[type=name],
+.sing_in input[type=tel],
+.sing_in input[type=password],
+.sing_in input[type=email] {
+  direction: rtl;
+  padding: 10px 0;
+  font-size: 20rem;
+  border: 0;
+  border-bottom: 2px solid var(--color);
+  background: none;
+  margin-bottom: 25px;
+  outline: none;
+  font-family: var(--font-family);
+  color: var(--color);
+  width: 100%;
+  box-sizing: border-box;
+}
+.sing_in button {
+  padding: 10px 20px;
+  font-size: 20rem;
+  border-radius: 10px;
+  border: 1px solid grey;
+  font-family: var(--font-family);
+  outline: none;
+  background: cadetblue;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.sing_in button:active {
+  color: black;
+  transition: color 0.3s;
+}
+.sing_in button:hover {
+  background: #487a7c;
+  transition: color 0.3s;
+}
+.sing_in .rtl {
+  text-align: right;
+  padding: 10px;
+}
+.sing_in label {
+  font-size: 20rem;
+  width: 80%;
+  padding: 10px;
+  text-align: center;
+}
+.sing_in .meseggesing_in {
+  padding: 5px 0 10px;
+  font-weight: 600;
+  font-size: 19rem;
+}
+.sing_in .enrollment {
+  font-size: 15rem;
+}
+
+.Bsing_in {
+  color: var(--backgroundbutton);
+  cursor: pointer;
+}
+
+.Bsing_in:hover {
+  text-decoration: underline;
+}
+
+.buttom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--background);
+  font-family: var(--font-family);
+  font-size: 18rem;
+}
+
+@media only screen and (max-width: 450px) {
+  html {
+    font-size: 0.8px;
+    user-select: none;
+  }
+
+  .cardlogin,
+.sing_in {
+    margin: 70px auto 70px;
+  }
+}
