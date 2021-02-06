@@ -33,7 +33,8 @@ const Tens = mongoose.model('Tens', {
     Fromensbrought: Number,
     total: Number,
     Remarks: String,
-    idUser: String
+    idUser: String,
+    Dailydate: String
 });
 let coocik
 app.get('/get-userid', testcoocik, async (req, res) => {
@@ -77,12 +78,12 @@ app.get('/get-categoryinit', async (req, res) => {
 
 app.post("/button-plus", async (req, res) => {
     try {
-        const { Revenue, Fromensbrought, Remarks } = req.body
+        const { Revenue, Fromensbrought, Remarks, Dailydate } = req.body
         let user = req.cookies.user
         let jwtuser = jwt.decode(user, secret);
         let userid = jwtuser.id
         const total = Revenue * 0.10 - Fromensbrought
-        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks, idUser: userid });
+        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks, idUser: userid, Dailydate });
         await Tensdata.save().then(doc => console.log(doc)).catch(e => console.log(e));
         res.send(true)
     }
@@ -104,9 +105,9 @@ app.post('/edete-list', async (req, res) => {
 
 app.post('/clickbuttonediting', async (req, res) => {
     try {
-        const { Revenueediting, Fromensbroughtediting, Remarksediting, id } = req.body
+        const { Revenueediting, Fromensbroughtediting, Remarksediting, id ,Dailydate} = req.body
         const total = Revenueediting * 0.10 - Fromensbroughtediting
-        await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting })
+        await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting ,Dailydate})
         res.send(true)
     }
     catch (e) {

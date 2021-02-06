@@ -55,7 +55,7 @@ function usermenu() {
             else {
                 aryyuser.push(deta.deta[0])
                 $(".cardlogin").html(
-                    `<img onclick='editUsercardlogin()' src="/img/user.png" alt=""><div class="textcardlogin">${deta.deta[0].name}</div>`
+                    `<div class="textcardlogin">${deta.deta[0].name}<div class="img" onclick='editUsercardlogin()'><img class='pen' src="/img/pen.png"></div></div>`
                 );
             }
         })
@@ -135,6 +135,7 @@ $(document).ready(function () {
         const Revenue = $("#Revenue").val();
         const Fromensbrought = $("#Fromensbrought").val();
         const Remarks = $("#Remarks").val();
+        const Dailydate = $("#data").val();
 
         if (Revenue.length == 0) {
             $(".meseggecardplus").html('הזן הכנסה');
@@ -146,7 +147,7 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    Revenue, Fromensbrought, Remarks
+                    Revenue, Fromensbrought, Remarks,Dailydate
                 })
             }).then(res => res.json())
                 .then(deta => {
@@ -155,6 +156,7 @@ $(document).ready(function () {
                     $("#Revenue").val('');
                     $("#Fromensbrought").val('');
                     $("#Remarks").val('');
+                    $("#data").val('');
                     $(".cardTes").show();
                     $(".cardplus").hide();
                 })
@@ -196,7 +198,7 @@ let total = []
              <td>${elm.Remarks}</td>
         </tr>
 `).join('')}
-<tr>
+<tr style='background-color: var(--backgroundbutton)'>
              <td colspan="4">סיכום</td>
         </tr>
 <tr>
@@ -234,6 +236,7 @@ function edetelist(_id) {
             $("#Revenueediting").val(deta.deta.Revenue);
             $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
             $("#Remarksediting").val(deta.deta.Remarks);
+            $("#dataediting").val(deta.deta.Dailydate);
         })
 }
 
@@ -243,6 +246,7 @@ $(document).ready(function () {
         const Revenueediting = $("#Revenueediting").val();
         const Fromensbroughtediting = $("#Fromensbroughtediting").val();
         const Remarksediting = $("#Remarksediting").val();
+       const Dailydate = $("#dataediting").val();
 
         if (Revenueediting.length == 0) {
             console.log('fbf')
@@ -255,7 +259,7 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    Revenueediting, Fromensbroughtediting, Remarksediting, id
+                    Revenueediting, Fromensbroughtediting, Remarksediting, id,Dailydate
                 })
             }).then(res => res.json())
                 .then(deta => {
@@ -263,6 +267,7 @@ $(document).ready(function () {
                     $(".meseggecardediting").html('');
                     $("#Revenueediting").val('');
                     $("#Fromensbroughtediting").val('');
+                    $("#dataediting").val('');
                     $("#Remarksediting").val('');
                     $(".cardediting").hide();
                     $(".cardTes").show();

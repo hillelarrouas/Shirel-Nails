@@ -65,10 +65,26 @@ body {
         text-align: center;
         font-family: var(--font-family);
 
-        img {
+        .img {
+            background-image: url(/img/user.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 120px;
             width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 3px solid white;
+            margin: auto;
+            padding: 10px;
+            position: relative;
+
+
+            .pen{
+                width: 30px;
+                position: absolute;
+                top: -8px;
+                right: 0px;
+            }
         }
 
         .textcardlogin {
@@ -123,7 +139,7 @@ body {
 
     td,
     th {
-        border: 1px solid #dddddd;
+        border: 1px solid var(--backgroundbutton);
         text-align: center;
         padding: 12px 0px 9px 0px;
         table-layout: fixed;
@@ -135,9 +151,12 @@ body {
             width: 20px;
         }
     }
+    th{
+        background-color: var(--backgroundbutton);
+    }
 
     tr:nth-child(even) {
-        background-color: rgba(128, 128, 128, 0.486);
+        background-color: rgba(128, 128, 128, 0.171);
     }
 
 }

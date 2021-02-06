@@ -61,10 +61,24 @@ body {
   text-align: center;
   font-family: var(--font-family);
 }
-.menu .cardlogin img {
+.menu .cardlogin .img {
+  background-image: url(/img/user.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 120px;
   width: 120px;
+  height: 120px;
   border-radius: 50%;
   border: 3px solid white;
+  margin: auto;
+  padding: 10px;
+  position: relative;
+}
+.menu .cardlogin .img .pen {
+  width: 30px;
+  position: absolute;
+  top: -8px;
+  right: 0px;
 }
 .menu .cardlogin .textcardlogin {
   padding: 10px;
@@ -111,7 +125,7 @@ body {
 }
 .cardTes td,
 .cardTes th {
-  border: 1px solid #dddddd;
+  border: 1px solid var(--backgroundbutton);
   text-align: center;
   padding: 12px 0px 9px 0px;
   table-layout: fixed;
@@ -121,8 +135,11 @@ body {
 .cardTes th img {
   width: 20px;
 }
+.cardTes th {
+  background-color: var(--backgroundbutton);
+}
 .cardTes tr:nth-child(even) {
-  background-color: rgba(128, 128, 128, 0.486);
+  background-color: rgba(128, 128, 128, 0.171);
 }
 
 .cardplus,
