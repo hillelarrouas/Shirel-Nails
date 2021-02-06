@@ -26,10 +26,12 @@ $(document).ready(function () {
 $(document).ready(function () {
   $(".menudisplayblock").click(function () {
     $(".menu").slideToggle(100);
+    $(".scrin").slideToggle(0);
   });
 });
 $(document).ready(function () {
-  $(".menu").click(function () {
+  $(".scrin").click(function () {
+    $(".scrin").slideToggle(0);
     $(".menu").slideToggle(100);
   });
 });
@@ -63,6 +65,7 @@ function usermenu() {
 
 function editUsercardlogin() {
   $(".menu").slideToggle(100);
+  $(".scrin").slideToggle(0);
   $(".sing_in").show();
   $(".cardediting").hide();
   $(".cardplus").hide();
@@ -136,34 +139,29 @@ $(document).ready(function () {
     var Fromensbrought = $("#Fromensbrought").val();
     var Remarks = $("#Remarks").val();
     var Dailydate = $("#data").val();
-
-    if (Revenue.length == 0) {
-      $(".meseggecardplus").html('הזן הכנסה');
-    } else {
-      fetch('/button-plus', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          Revenue: Revenue,
-          Fromensbrought: Fromensbrought,
-          Remarks: Remarks,
-          Dailydate: Dailydate
-        })
-      }).then(function (res) {
-        return res.json();
-      }).then(function (deta) {
-        getcategoryinit();
-        $(".meseggecardplus").html('');
-        $("#Revenue").val('');
-        $("#Fromensbrought").val('');
-        $("#Remarks").val('');
-        $("#data").val('');
-        $(".cardTes").show();
-        $(".cardplus").hide();
-      });
-    }
+    fetch('/button-plus', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        Revenue: Revenue,
+        Fromensbrought: Fromensbrought,
+        Remarks: Remarks,
+        Dailydate: Dailydate
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (deta) {
+      getcategoryinit();
+      $(".meseggecardplus").html('');
+      $("#Revenue").val('');
+      $("#Fromensbrought").val('');
+      $("#Remarks").val('');
+      $("#data").val('');
+      $(".cardTes").show();
+      $(".cardplus").hide();
+    });
   });
 });
 
@@ -183,7 +181,7 @@ function dom(deta) {
   } else {
     $(".list").html("<table>\n        <tr>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05DE\u05E2\u05E9\u05E8\u05D5\u05EA \u05E9\u05D4\u05D1\u05D0\u05EA\u05D9</th>\n            <th>\u05E1\u05D4\"\u05DB \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
       return "<tr onclick='edetelist(\"".concat(elm._id, "\")'>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
-    }).join(''), "\n<tr style='background-color: var(--backgroundbutton)'>\n             <td colspan=\"4\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n        </tr>\n<tr>\n            <td>").concat(totalRevenue.reduce(myFunc), " \u20AA</td>\n            <td>").concat(totalFromensbrought.reduce(myFunc), " \u20AA</td>\n            <td>").concat(total.reduce(myFunc), " \u20AA</td>\n             <td></td>\n        </tr> \n</table>"));
+    }).join(''), "\n<tr style='background-color: var(--backgroundbutton)' >\n             <td colspan=\"4\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n        </tr>\n<tr>\n            <td>").concat(totalRevenue.reduce(myFunc), " \u20AA</td>\n            <td>").concat(totalFromensbrought.reduce(myFunc), " \u20AA</td>\n            <td>").concat(total.reduce(myFunc), " \u20AA</td>\n             <td></td>\n        </tr> \n</table>"));
   }
 }
 
@@ -221,36 +219,30 @@ $(document).ready(function () {
     var Fromensbroughtediting = $("#Fromensbroughtediting").val();
     var Remarksediting = $("#Remarksediting").val();
     var Dailydate = $("#dataediting").val();
-
-    if (Revenueediting.length == 0) {
-      console.log('fbf');
-      $(".meseggecardediting").html('הזן הכנסה');
-    } else {
-      fetch('/clickbuttonediting', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          Revenueediting: Revenueediting,
-          Fromensbroughtediting: Fromensbroughtediting,
-          Remarksediting: Remarksediting,
-          id: id,
-          Dailydate: Dailydate
-        })
-      }).then(function (res) {
-        return res.json();
-      }).then(function (deta) {
-        getcategoryinit();
-        $(".meseggecardediting").html('');
-        $("#Revenueediting").val('');
-        $("#Fromensbroughtediting").val('');
-        $("#dataediting").val('');
-        $("#Remarksediting").val('');
-        $(".cardediting").hide();
-        $(".cardTes").show();
-      });
-    }
+    fetch('/clickbuttonediting', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        Revenueediting: Revenueediting,
+        Fromensbroughtediting: Fromensbroughtediting,
+        Remarksediting: Remarksediting,
+        id: id,
+        Dailydate: Dailydate
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (deta) {
+      getcategoryinit();
+      $(".meseggecardediting").html('');
+      $("#Revenueediting").val('');
+      $("#Fromensbroughtediting").val('');
+      $("#dataediting").val('');
+      $("#Remarksediting").val('');
+      $(".cardediting").hide();
+      $(".cardTes").show();
+    });
   });
 });
 $(document).ready(function () {

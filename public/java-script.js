@@ -24,12 +24,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".menudisplayblock").click(function () {
         $(".menu").slideToggle(100);
+        $(".scrin").slideToggle(0);
     });
 });
 
 
 $(document).ready(function () {
-    $(".menu").click(function () {
+    $(".scrin").click(function () {
+        $(".scrin").slideToggle(0);
         $(".menu").slideToggle(100);
     });
 });
@@ -70,6 +72,7 @@ function usermenu() {
 
 function editUsercardlogin() {
     $(".menu").slideToggle(100);
+    $(".scrin").slideToggle(0);
     $(".sing_in").show();
     $(".cardediting").hide();
     $(".cardplus").hide();
@@ -146,38 +149,34 @@ $(document).ready(function () {
         const Remarks = $("#Remarks").val();
         const Dailydate = $("#data").val();
 
-        if (Revenue.length == 0) {
-            $(".meseggecardplus").html('הזן הכנסה');
-        }
-        else {
-            fetch('/button-plus', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Revenue, Fromensbrought, Remarks,Dailydate
-                })
-            }).then(res => res.json())
-                .then(deta => {
-                    getcategoryinit()
-                    $(".meseggecardplus").html('');
-                    $("#Revenue").val('');
-                    $("#Fromensbrought").val('');
-                    $("#Remarks").val('');
-                    $("#data").val('');
-                    $(".cardTes").show();
-                    $(".cardplus").hide();
-                })
-        }
+        fetch('/button-plus', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Revenue, Fromensbrought, Remarks, Dailydate
+            })
+        }).then(res => res.json())
+            .then(deta => {
+                getcategoryinit()
+                $(".meseggecardplus").html('');
+                $("#Revenue").val('');
+                $("#Fromensbrought").val('');
+                $("#Remarks").val('');
+                $("#data").val('');
+                $(".cardTes").show();
+                $(".cardplus").hide();
+            })
+
     });
 });
 
 
 function dom(deta) {
-let totalRevenue =[]
-let totalFromensbrought =[]
-let total = []
+    let totalRevenue = []
+    let totalFromensbrought = []
+    let total = []
 
     deta.forEach(element => {
         totalRevenue.push(element.Revenue)
@@ -207,7 +206,7 @@ let total = []
              <td>${elm.Remarks}</td>
         </tr>
 `).join('')}
-<tr style='background-color: var(--backgroundbutton)'>
+<tr style='background-color: var(--backgroundbutton)' >
              <td colspan="4">סיכום</td>
         </tr>
 <tr>
@@ -224,7 +223,7 @@ let total = []
 
 function myFunc(total, num) {
     return total + num;
-  }
+}
 
 
 let id
@@ -255,33 +254,29 @@ $(document).ready(function () {
         const Revenueediting = $("#Revenueediting").val();
         const Fromensbroughtediting = $("#Fromensbroughtediting").val();
         const Remarksediting = $("#Remarksediting").val();
-       const Dailydate = $("#dataediting").val();
+        const Dailydate = $("#dataediting").val();
 
-        if (Revenueediting.length == 0) {
-            console.log('fbf')
-            $(".meseggecardediting").html('הזן הכנסה');
-        }
-        else {
-            fetch('/clickbuttonediting', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Revenueediting, Fromensbroughtediting, Remarksediting, id,Dailydate
-                })
-            }).then(res => res.json())
-                .then(deta => {
-                    getcategoryinit()
-                    $(".meseggecardediting").html('');
-                    $("#Revenueediting").val('');
-                    $("#Fromensbroughtediting").val('');
-                    $("#dataediting").val('');
-                    $("#Remarksediting").val('');
-                    $(".cardediting").hide();
-                    $(".cardTes").show();
-                })
-        }
+
+        fetch('/clickbuttonediting', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate
+            })
+        }).then(res => res.json())
+            .then(deta => {
+                getcategoryinit()
+                $(".meseggecardediting").html('');
+                $("#Revenueediting").val('');
+                $("#Fromensbroughtediting").val('');
+                $("#dataediting").val('');
+                $("#Remarksediting").val('');
+                $(".cardediting").hide();
+                $(".cardTes").show();
+            })
+
     });
 });
 
