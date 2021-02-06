@@ -62,6 +62,7 @@ function usermenu() {
                 testlogin()
             }
             else {
+                document.body.style.display='block'
                 aryyuser.push(deta.deta[0])
                 $(".cardlogin").html(
                     `<div class="textcardlogin">${deta.deta[0].name}<div class="img" onclick='editUsercardlogin()'><img class='pen' src="/img/pen.png"></div></div>`
@@ -275,6 +276,7 @@ function myFunc(total, num) {
 }
 
 
+
 let id
 function edetelist(_id) {
     id = _id
@@ -325,7 +327,13 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".SelectionMenu").click(function () {
-        testlogin()
+        fetch('/Output')
+            .then(res =>
+                res.json()
+            )
+            .then(data => {
+                testlogin()
+            })
     });
 });
 

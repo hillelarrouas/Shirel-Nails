@@ -62,7 +62,7 @@ app.get('/get-categoryinit', async (req, res) => {
             Dateuser = jwtuser.newDate
 
             if (Dateuser + 86400000 < newDate) {
-                res.cookie('user', token, { maxAge: 0, httpOnly: true })
+                res.cookie('user', user, { maxAge: 0, httpOnly: true })
                 validated = false
             }
             else {
@@ -105,9 +105,9 @@ app.post('/edete-list', async (req, res) => {
 
 app.post('/clickbuttonediting', async (req, res) => {
     try {
-        const { Revenueediting, Fromensbroughtediting, Remarksediting, id ,Dailydate} = req.body
+        const { Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate } = req.body
         const total = Revenueediting * 0.10 - Fromensbroughtediting
-        await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting ,Dailydate})
+        await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting, Dailydate })
         res.send(true)
     }
     catch (e) {
@@ -125,7 +125,6 @@ app.post('/deletelistditing', async (req, res) => {
         console.log(e)
     }
 })
-
 
 app.post('/login', async (req, res) => {
     let ok
@@ -196,6 +195,13 @@ app.post('/UserUpdate', async (req, res) => {
     }
 })
 
+app.get('/Output', (req, res) => {
+    let user = req.cookies.user
+    res.cookie('user', user, { maxAge: 0, httpOnly: true })
+    res.send(true)
+})
+
+
 function testcoocik(req, res, next) {
     let user = req.cookies.user
     const newDate = new Date().getTime()
@@ -204,7 +210,7 @@ function testcoocik(req, res, next) {
         let jwtuser = jwt.decode(user, secret);
         Dateuser = jwtuser.newDate
         if (Dateuser + 172800000 < newDate) {
-            res.cookie('user', token, { maxAge: 0, httpOnly: true })
+            res.cookie('user', user, { maxAge: 0, httpOnly: true })
             res.send({ validated })
         }
         else {

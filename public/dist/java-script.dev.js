@@ -57,6 +57,7 @@ function usermenu() {
     if (deta.validated == false) {
       testlogin();
     } else {
+      document.body.style.display = 'block';
       aryyuser.push(deta.deta[0]);
       $(".cardlogin").html("<div class=\"textcardlogin\">".concat(deta.deta[0].name, "<div class=\"img\" onclick='editUsercardlogin()'><img class='pen' src=\"/img/pen.png\"></div></div>"));
     }
@@ -296,7 +297,11 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
   $(".SelectionMenu").click(function () {
-    testlogin();
+    fetch('/Output').then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      testlogin();
+    });
   });
 });
 

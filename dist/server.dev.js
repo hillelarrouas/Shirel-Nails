@@ -104,7 +104,7 @@ app.get('/get-categoryinit', function _callee2(req, res) {
             break;
           }
 
-          res.cookie('user', token, {
+          res.cookie('user', user, {
             maxAge: 0,
             httpOnly: true
           });
@@ -288,7 +288,7 @@ app.post('/deletelistditing', function _callee6(req, res) {
   }, null, null, [[0, 7]]);
 });
 app.post('/login', function _callee7(req, res) {
-  var ok, _req$body3, emaillogin, paswordlogin, deta, id, _token;
+  var ok, _req$body3, emaillogin, paswordlogin, deta, id, token;
 
   return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) {
@@ -316,12 +316,12 @@ app.post('/login', function _callee7(req, res) {
 
           id = deta[i]._id;
           newDate = new Date().getTime();
-          _token = jwt.encode({
+          token = jwt.encode({
             id: id,
             newDate: newDate
           }, secret);
-          coocik = _token;
-          res.cookie('user', _token, {
+          coocik = token;
+          res.cookie('user', token, {
             httpOnly: true
           });
           ok = true;
@@ -477,6 +477,14 @@ app.post('/UserUpdate', function _callee9(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
+app.get('/Output', function (req, res) {
+  var user = req.cookies.user;
+  res.cookie('user', user, {
+    maxAge: 0,
+    httpOnly: true
+  });
+  res.send(true);
+});
 
 function testcoocik(req, res, next) {
   var user = req.cookies.user;
@@ -488,7 +496,7 @@ function testcoocik(req, res, next) {
     Dateuser = jwtuser.newDate;
 
     if (Dateuser + 172800000 < newDate) {
-      res.cookie('user', token, {
+      res.cookie('user', user, {
         maxAge: 0,
         httpOnly: true
       });
