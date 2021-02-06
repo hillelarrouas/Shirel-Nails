@@ -28,6 +28,13 @@ $(document).ready(function () {
 });
 
 
+$(document).ready(function () {
+    $(".menu").click(function () {
+        $(".menu").slideToggle(100);
+    });
+});
+
+
 
 $(document).ready(function () {
     $(".returnuser").click(function () {
@@ -64,6 +71,8 @@ function usermenu() {
 function editUsercardlogin() {
     $(".menu").slideToggle(100);
     $(".sing_in").show();
+    $(".cardediting").hide();
+    $(".cardplus").hide();
     $(".cardTes").hide();
     $(".meseggesing_in").html('')
     $("#namesing_in").val(aryyuser[0].name);

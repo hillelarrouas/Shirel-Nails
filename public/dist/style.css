@@ -125,7 +125,7 @@ body {
 }
 .cardTes td,
 .cardTes th {
-  border: 1px solid var(--backgroundbutton);
+  border: 1px solid rgba(66, 111, 112, 0.787);
   text-align: center;
   padding: 12px 0px 9px 0px;
   table-layout: fixed;
