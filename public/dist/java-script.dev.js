@@ -139,29 +139,87 @@ $(document).ready(function () {
     var Fromensbrought = $("#Fromensbrought").val();
     var Remarks = $("#Remarks").val();
     var Dailydate = $("#data").val();
-    fetch('/button-plus', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        Revenue: Revenue,
-        Fromensbrought: Fromensbrought,
-        Remarks: Remarks,
-        Dailydate: Dailydate
-      })
-    }).then(function (res) {
-      return res.json();
-    }).then(function (deta) {
-      getcategoryinit();
-      $(".meseggecardplus").html('');
-      $("#Revenue").val('');
-      $("#Fromensbrought").val('');
-      $("#Remarks").val('');
-      $("#data").val('');
-      $(".cardTes").show();
-      $(".cardplus").hide();
-    });
+
+    if (Revenue.length == 0) {
+      Revenue = 0;
+    }
+
+    if (Fromensbrought == 0) {
+      Fromensbrought = 0;
+    }
+
+    if (Revenue == 0 && Fromensbrought == 0) {
+      $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
+    } else {
+      fetch('/button-plus', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Revenue: Revenue,
+          Fromensbrought: Fromensbrought,
+          Remarks: Remarks,
+          Dailydate: Dailydate
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (deta) {
+        getcategoryinit();
+        $(".meseggecardplus").html('');
+        $("#Revenue").val('');
+        $("#Fromensbrought").val('');
+        $("#Remarks").val('');
+        $("#data").val('');
+        $(".cardTes").show();
+        $(".cardplus").hide();
+      });
+    }
+  });
+});
+$(document).ready(function () {
+  $("#clickbuttonediting").click(function () {
+    var Revenueediting = $("#Revenueediting").val();
+    var Fromensbroughtediting = $("#Fromensbroughtediting").val();
+    var Remarksediting = $("#Remarksediting").val();
+    var Dailydate = $("#dataediting").val();
+
+    if (Revenueediting.length == 0) {
+      Revenueediting = 0;
+    }
+
+    if (Fromensbroughtediting == 0) {
+      Fromensbroughtediting = 0;
+    }
+
+    if (Revenueediting == 0 && Fromensbroughtediting == 0) {
+      $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
+    } else {
+      fetch('/clickbuttonediting', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          Revenueediting: Revenueediting,
+          Fromensbroughtediting: Fromensbroughtediting,
+          Remarksediting: Remarksediting,
+          id: id,
+          Dailydate: Dailydate
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (deta) {
+        getcategoryinit();
+        $(".meseggecardediting").html('');
+        $("#Revenueediting").val('');
+        $("#Fromensbroughtediting").val('');
+        $("#dataediting").val('');
+        $("#Remarksediting").val('');
+        $(".cardediting").hide();
+        $(".cardTes").show();
+      });
+    }
   });
 });
 
@@ -213,38 +271,6 @@ function edetelist(_id) {
   });
 }
 
-$(document).ready(function () {
-  $("#clickbuttonediting").click(function () {
-    var Revenueediting = $("#Revenueediting").val();
-    var Fromensbroughtediting = $("#Fromensbroughtediting").val();
-    var Remarksediting = $("#Remarksediting").val();
-    var Dailydate = $("#dataediting").val();
-    fetch('/clickbuttonediting', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        Revenueediting: Revenueediting,
-        Fromensbroughtediting: Fromensbroughtediting,
-        Remarksediting: Remarksediting,
-        id: id,
-        Dailydate: Dailydate
-      })
-    }).then(function (res) {
-      return res.json();
-    }).then(function (deta) {
-      getcategoryinit();
-      $(".meseggecardediting").html('');
-      $("#Revenueediting").val('');
-      $("#Fromensbroughtediting").val('');
-      $("#dataediting").val('');
-      $("#Remarksediting").val('');
-      $(".cardediting").hide();
-      $(".cardTes").show();
-    });
-  });
-});
 $(document).ready(function () {
   $("#deletelistditing").click(function () {
     fetch('/deletelistditing', {

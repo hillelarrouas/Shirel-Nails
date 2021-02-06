@@ -144,31 +144,77 @@ function getcategoryinit() {
 
 $(document).ready(function () {
     $("#clickbuttonplus").click(function () {
-        const Revenue = $("#Revenue").val();
-        const Fromensbrought = $("#Fromensbrought").val();
+        let Revenue = $("#Revenue").val();
+        let Fromensbrought = $("#Fromensbrought").val();
         const Remarks = $("#Remarks").val();
         const Dailydate = $("#data").val();
 
-        fetch('/button-plus', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                Revenue, Fromensbrought, Remarks, Dailydate
-            })
-        }).then(res => res.json())
-            .then(deta => {
-                getcategoryinit()
-                $(".meseggecardplus").html('');
-                $("#Revenue").val('');
-                $("#Fromensbrought").val('');
-                $("#Remarks").val('');
-                $("#data").val('');
-                $(".cardTes").show();
-                $(".cardplus").hide();
-            })
+        if (Revenue.length == 0) {
+            Revenue = 0
+        } if (Fromensbrought == 0) {
+            Fromensbrought = 0
+        } if (Revenue == 0 && Fromensbrought == 0) {
+            $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
+        } else {
 
+            fetch('/button-plus', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Revenue, Fromensbrought, Remarks, Dailydate
+                })
+            }).then(res => res.json())
+                .then(deta => {
+                    getcategoryinit()
+                    $(".meseggecardplus").html('');
+                    $("#Revenue").val('');
+                    $("#Fromensbrought").val('');
+                    $("#Remarks").val('');
+                    $("#data").val('');
+                    $(".cardTes").show();
+                    $(".cardplus").hide();
+                })
+        }
+    });
+});
+
+$(document).ready(function () {
+    $("#clickbuttonediting").click(function () {
+        let Revenueediting = $("#Revenueediting").val();
+        let Fromensbroughtediting = $("#Fromensbroughtediting").val();
+        const Remarksediting = $("#Remarksediting").val();
+        const Dailydate = $("#dataediting").val();
+
+        if (Revenueediting.length == 0) {
+            Revenueediting = 0
+        } if (Fromensbroughtediting == 0) {
+            Fromensbroughtediting = 0
+        }
+        if (Revenueediting == 0 && Fromensbroughtediting == 0) {
+            $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
+        } else {
+            fetch('/clickbuttonediting', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate
+                })
+            }).then(res => res.json())
+                .then(deta => {
+                    getcategoryinit()
+                    $(".meseggecardediting").html('');
+                    $("#Revenueediting").val('');
+                    $("#Fromensbroughtediting").val('');
+                    $("#dataediting").val('');
+                    $("#Remarksediting").val('');
+                    $(".cardediting").hide();
+                    $(".cardTes").show();
+                })
+        }
     });
 });
 
@@ -190,6 +236,7 @@ function dom(deta) {
         $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
     }
     else {
+
         $(".list").html(
             `<table>
         <tr>
@@ -221,6 +268,8 @@ function dom(deta) {
     }
 }
 
+
+
 function myFunc(total, num) {
     return total + num;
 }
@@ -248,37 +297,6 @@ function edetelist(_id) {
         })
 }
 
-
-$(document).ready(function () {
-    $("#clickbuttonediting").click(function () {
-        const Revenueediting = $("#Revenueediting").val();
-        const Fromensbroughtediting = $("#Fromensbroughtediting").val();
-        const Remarksediting = $("#Remarksediting").val();
-        const Dailydate = $("#dataediting").val();
-
-
-        fetch('/clickbuttonediting', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate
-            })
-        }).then(res => res.json())
-            .then(deta => {
-                getcategoryinit()
-                $(".meseggecardediting").html('');
-                $("#Revenueediting").val('');
-                $("#Fromensbroughtediting").val('');
-                $("#dataediting").val('');
-                $("#Remarksediting").val('');
-                $(".cardediting").hide();
-                $(".cardTes").show();
-            })
-
-    });
-});
 
 $(document).ready(function () {
     $("#deletelistditing").click(function () {
@@ -315,3 +333,5 @@ $(document).ready(function () {
 function testlogin() {
     location.href = '/login.html'
 }
+
+
