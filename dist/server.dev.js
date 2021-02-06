@@ -319,7 +319,6 @@ app.post('/login', function _callee7(req, res) {
           }, secret);
           coocik = _token;
           res.cookie('user', _token, {
-            maxAge: 86400000,
             httpOnly: true
           });
           ok = true;
@@ -412,7 +411,6 @@ app.post('/sing_in', function _callee8(req, res) {
               newDate: newDate
             }, secret);
             res.cookie('user', token, {
-              maxAge: 86400000,
               httpOnly: true
             });
           })["catch"](function (e) {
@@ -476,8 +474,14 @@ app.post('/UserUpdate', function _callee9(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-app.get('/Cookie-test', testcoocik, function (req, res) {
-  console.log(coocik);
+app.get('/Cookie-test', function (req, res) {
+  var token = req.cookies.user;
+  res.cookie('user', token, {
+    maxAge: 0,
+    httpOnly: true
+  });
+  token = req.cookies.user;
+  console.log(token);
 });
 
 function testcoocik(req, res, next) {
@@ -490,7 +494,7 @@ function testcoocik(req, res, next) {
     Dateuser = jwtuser.newDate;
 
     if (Dateuser + 172800000 < newDate) {
-      res.cookie('user', coocik, {
+      res.cookie('user', token, {
         maxAge: 0,
         httpOnly: true
       });

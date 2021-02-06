@@ -137,7 +137,7 @@ app.post('/login', async (req, res) => {
                 newDate = new Date().getTime()
                 const token = jwt.encode({ id, newDate }, secret)
                 coocik = token
-                res.cookie('user', token, { maxAge: 86400000, httpOnly: true })
+                res.cookie('user', token, { httpOnly: true })
                 ok = true
                 break
             } else {
@@ -171,7 +171,7 @@ app.post('/sing_in', async (req, res) => {
                 const id = doc._id
                 newDate = new Date().getTime()
                 const token = jwt.encode({ id, newDate }, secret)
-                res.cookie('user', token, { maxAge: 86400000, httpOnly: true })
+                res.cookie('user', token, { httpOnly: true })
             }
             ).catch(e => console.log(e));
         }
@@ -196,8 +196,11 @@ app.post('/UserUpdate', async (req, res) => {
 })
 
 
-app.get('/Cookie-test', testcoocik,(req, res) => {
-console.log(coocik)
+app.get('/Cookie-test', (req, res) => {
+    let token = req.cookies.user
+    res.cookie('user', token, { maxAge: 0, httpOnly: true })
+    token = req.cookies.user
+    console.log(token)
 })
 
 function testcoocik(req, res, next) {
@@ -208,7 +211,7 @@ function testcoocik(req, res, next) {
         let jwtuser = jwt.decode(user, secret);
         Dateuser = jwtuser.newDate
         if (Dateuser + 172800000 < newDate) {
-            res.cookie('user', coocik, { maxAge: 0, httpOnly: true })
+            res.cookie('user', token, { maxAge: 0, httpOnly: true })
             res.send({ validated })
         }
         else {

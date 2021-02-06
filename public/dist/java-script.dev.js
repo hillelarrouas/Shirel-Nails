@@ -164,7 +164,7 @@ function dom(deta) {
     $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
   } else {
     $(".list").html("<table>\n        <tr>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05DE\u05E2\u05E9\u05E8\u05D5\u05EA \u05E9\u05D4\u05D1\u05D0\u05EA\u05D9</th>\n            <th>\u05E1\u05D4\"\u05DB \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
-      return "<tr ondblclick='edetelist(\"".concat(elm._id, "\")'>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
+      return "<tr onclick='edetelist(\"".concat(elm._id, "\")'>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
     }).join(''), "\n</table>"));
   }
 }
@@ -252,15 +252,14 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
   $(".SelectionMenu").click(function () {
-    fetch('/Cookie-test').then(function (r) {
-      return r.json();
-    }).then(function (deta) {
-      console.log(deta);
-
-      if (deta.validated == false) {
-        testlogin();
-      }
-    });
+    console.log(getCookie("user")); // fetch('/Cookie-test')
+    //     .then(r => r.json())
+    //     .then(deta => {
+    //         console.log(deta)
+    //         if (deta.validated == false) {
+    //             testlogin()
+    //         }
+    // })
   });
 });
 

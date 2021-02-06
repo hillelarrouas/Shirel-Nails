@@ -179,7 +179,7 @@ function dom(deta) {
             <th>הערות</th>
         </tr>
         ${deta.map(elm =>
-                `<tr ondblclick='edetelist("${elm._id}")'>
+                `<tr onclick='edetelist("${elm._id}")'>
             <td>${elm.Revenue} ₪</td>
             <td>${elm.Fromensbrought} ₪</td>
             <td>${elm.total} ₪</td>
@@ -273,14 +273,15 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".SelectionMenu").click(function () {
-        fetch('/Cookie-test')
-            .then(r => r.json())
-            .then(deta => {
-                console.log(deta)
-                if (deta.validated == false) {
-                    testlogin()
-                }
-            })
+        console.log(getCookie("user"))
+        // fetch('/Cookie-test')
+        //     .then(r => r.json())
+        //     .then(deta => {
+        //         console.log(deta)
+        //         if (deta.validated == false) {
+        //             testlogin()
+        //         }
+            // })
     });
 });
 
