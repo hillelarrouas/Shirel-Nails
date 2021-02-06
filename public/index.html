@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta name="theme-color" content="rgb(238, 238, 238)"/>
+    <meta name="theme-color" content="rgb(238, 238, 238)" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
-    <meta name="og:title" content="ניהול מעשרות"/>
+    <meta name="og:title" content="ניהול מעשרות" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ניהול מעשרות</title>
     <link rel="stylesheet" href="/dist/style.css">
@@ -20,19 +20,17 @@
     <script src="java-script.js"></script>
 </head>
 
-<body>
-<img class="menudisplayblock" src="/img/menu.png">
+<body onload="init()">
+    <img class="menudisplayblock" src="/img/menu.png">
     <div class="menu">
-        <div class="cardlogin">
-            <img onclick='editUsercardlogin("${data.id}")' src="/img/user.png" alt=""><div class="textcardlogin">הלל ארואס</div>
-        </div>
+        <div class="cardlogin"></div>
         <div class="SelectionMenu">יציאה</div>
     </div>
 
     <div class="cardTes">
         <img class='plus' src="/img/plus.png">
         <h1>ניהול מעשרות</h1>
-<div class="list"></div>
+        <div class="list"></div>
     </div>
 
 
@@ -75,6 +73,26 @@
     </div>
 
 
+    <div class="sing_in">
+        <h1>עריכת פרטים אישיים</h1>
+        <img class='returnuser' src="/img/return.png">
+        <div class="rtl">
+            <label for="namesing_in">שם משתמש
+                <input type="name" id="namesing_in" autocomplete='off'></br>
+            </label>
+            <label for="telsing_in">טלפון
+                <input type="tel" id="telsing_in" autocomplete='off'></br>
+            </label>
+            <label for="emailsing_in">אימייל
+                <input type="email" id="emailsing_in" autocomplete='off'></br>
+            </label>
+            <label for="paswordsing_in">סיסמה
+                <input type="text" style='margin-bottom:0' id="paswordsing_in" autocomplete='off'></br>
+            </label>
+        </div>
+        <div class="meseggesing_in"></div>
+        <button id="clickbuttosing_in">שמור שינויים</button>
+    </div>
 
     <div class="buttom">ניהול מעשרות</div>
 </body>

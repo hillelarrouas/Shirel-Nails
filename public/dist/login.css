@@ -89,6 +89,12 @@ body {
   width: 80%;
   padding: 10px;
   text-align: center;
+  position: relative;
+}
+.cardlogin label img {
+  width: 50px;
+  position: absolute;
+  left: 10px;
 }
 .cardlogin .meseggecardlogin {
   padding: 5px 0 10px;

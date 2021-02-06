@@ -35,6 +35,20 @@ const Tens = mongoose.model('Tens', {
     Remarks: String,
     idUser: String
 });
+let coocik
+app.get('/get-userid', testcoocik, async (req, res) => {
+    try {
+        let user = req.cookies.user
+        let jwtuser = jwt.decode(user, secret);
+        userid = jwtuser.id
+        const deta = await Users.find({ _id: userid })
+        res.send({ deta })
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
+
 
 app.get('/get-categoryinit', async (req, res) => {
     try {
@@ -68,7 +82,7 @@ app.post("/button-plus", async (req, res) => {
         let jwtuser = jwt.decode(user, secret);
         let userid = jwtuser.id
         const total = Revenue * 0.10 - Fromensbrought
-        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks ,idUser:userid});
+        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks, idUser: userid });
         await Tensdata.save().then(doc => console.log(doc)).catch(e => console.log(e));
         res.send(true)
     }
@@ -122,6 +136,7 @@ app.post('/login', async (req, res) => {
                 const id = deta[i]._id
                 newDate = new Date().getTime()
                 const token = jwt.encode({ id, newDate }, secret)
+                coocik = token
                 res.cookie('user', token, { maxAge: 86400000, httpOnly: true })
                 ok = true
                 break
@@ -168,6 +183,42 @@ app.post('/sing_in', async (req, res) => {
 })
 
 
+app.post('/UserUpdate', async (req, res) => {
+    try {
+        const { namesing_in, telsing_in, emailsing_in, paswordsing_in, _id } = req.body
+        await Users.updateOne({ _id }, { name: namesing_in, phone: telsing_in, email: emailsing_in, password: paswordsing_in })
+
+        res.send({ ok: true })
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
+
+
+app.get('/Cookie-test', testcoocik,(req, res) => {
+console.log(coocik)
+})
+
+function testcoocik(req, res, next) {
+    let user = req.cookies.user
+    const newDate = new Date().getTime()
+    let validated = false
+    if (user) {
+        let jwtuser = jwt.decode(user, secret);
+        Dateuser = jwtuser.newDate
+        if (Dateuser + 172800000 < newDate) {
+            res.cookie('user', coocik, { maxAge: 0, httpOnly: true })
+            res.send({ validated })
+        }
+        else {
+            next()
+        }
+    }
+    else {
+        res.send({ validated })
+    }
+}
 
 
 const port = process.env.PORT || 8080;

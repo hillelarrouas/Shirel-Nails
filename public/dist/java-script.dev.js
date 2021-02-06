@@ -29,11 +29,91 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  $(".SelectionMenu").click(function () {
-    location.href = '/login.html';
+  $(".returnuser").click(function () {
+    $(".cardTes").show();
+    $(".sing_in").hide();
   });
 });
-getcategoryinit();
+
+function init() {
+  getcategoryinit();
+  usermenu();
+}
+
+var aryyuser = [];
+
+function usermenu() {
+  aryyuser = [];
+  fetch('/get-userid').then(function (res) {
+    return res.json();
+  }).then(function (deta) {
+    if (deta.validated == false) {
+      testlogin();
+    } else {
+      aryyuser.push(deta.deta[0]);
+      $(".cardlogin").html("<img onclick='editUsercardlogin()' src=\"/img/user.png\" alt=\"\"><div class=\"textcardlogin\">".concat(deta.deta[0].name, "</div>"));
+    }
+  });
+}
+
+function editUsercardlogin() {
+  $(".menu").slideToggle(100);
+  $(".sing_in").show();
+  $(".cardTes").hide();
+  $(".meseggesing_in").html('');
+  $("#namesing_in").val(aryyuser[0].name);
+  $("#telsing_in").val(aryyuser[0].phone);
+  $("#emailsing_in").val(aryyuser[0].email);
+  $("#paswordsing_in").val(aryyuser[0].password);
+}
+
+$(document).ready(function () {
+  $("#clickbuttosing_in").click(function () {
+    var namesing_in = $("#namesing_in").val();
+    var telsing_in = $("#telsing_in").val();
+    var emailsing_in = $("#emailsing_in").val();
+    var paswordsing_in = $("#paswordsing_in").val();
+    var _id = aryyuser[0]._id;
+    $(".meseggesing_in").html('');
+
+    if (namesing_in.length == 0) {
+      $(".meseggesing_in").html('הזן שם פרטי');
+    } else if (telsing_in.length == 0) {
+      $(".meseggesing_in").html('הזן מספר טלפון');
+    } else if (emailsing_in.length == 0) {
+      $(".meseggesing_in").html('הזן כתובת אימייל');
+    } else if (paswordsing_in.length == 0) {
+      $(".meseggesing_in").html('הזן סיסמה');
+    } else {
+      fetch('/UserUpdate', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          namesing_in: namesing_in,
+          telsing_in: telsing_in,
+          emailsing_in: emailsing_in,
+          paswordsing_in: paswordsing_in,
+          _id: _id
+        })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (deta) {
+        if (deta.ok == true) {
+          usermenu();
+          $(".meseggesing_in").html('עדכון המשתמש בוצע בהצלחה');
+          setTimeout(function () {
+            $(".cardTes").show();
+            $(".sing_in").hide();
+          }, 1500);
+        } else {
+          $(".meseggesing_in").html('משתמש קיים');
+        }
+      });
+    }
+  });
+});
 
 function getcategoryinit() {
   fetch('/get-categoryinit').then(function (res) {
@@ -170,3 +250,20 @@ $(document).ready(function () {
     });
   });
 });
+$(document).ready(function () {
+  $(".SelectionMenu").click(function () {
+    fetch('/Cookie-test').then(function (r) {
+      return r.json();
+    }).then(function (deta) {
+      console.log(deta);
+
+      if (deta.validated == false) {
+        testlogin();
+      }
+    });
+  });
+});
+
+function testlogin() {
+  location.href = '/login.html';
+}
