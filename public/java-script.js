@@ -164,6 +164,16 @@ $(document).ready(function () {
 
 
 function dom(deta) {
+let totalRevenue =[]
+let totalFromensbrought =[]
+let total = []
+
+    deta.forEach(element => {
+        totalRevenue.push(element.Revenue)
+        totalFromensbrought.push(element.Fromensbrought)
+        total.push(element.total)
+    });
+
     $(".list").html("")
 
     if (deta[0] == undefined) {
@@ -186,10 +196,25 @@ function dom(deta) {
              <td>${elm.Remarks}</td>
         </tr>
 `).join('')}
+<tr>
+             <td colspan="4">סיכום</td>
+        </tr>
+<tr>
+            <td>${totalRevenue.reduce(myFunc)} ₪</td>
+            <td>${totalFromensbrought.reduce(myFunc)} ₪</td>
+            <td>${total.reduce(myFunc)} ₪</td>
+             <td></td>
+        </tr> 
 </table>`
+
         )
     }
 }
+
+function myFunc(total, num) {
+    return total + num;
+  }
+
 
 let id
 function edetelist(_id) {
@@ -273,15 +298,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".SelectionMenu").click(function () {
-        console.log(getCookie("user"))
-        // fetch('/Cookie-test')
-        //     .then(r => r.json())
-        //     .then(deta => {
-        //         console.log(deta)
-        //         if (deta.validated == false) {
-        //             testlogin()
-        //         }
-            // })
+        testlogin()
     });
 });
 

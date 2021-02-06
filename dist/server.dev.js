@@ -474,15 +474,6 @@ app.post('/UserUpdate', function _callee9(req, res) {
     }
   }, null, null, [[0, 7]]);
 });
-app.get('/Cookie-test', function (req, res) {
-  var token = req.cookies.user;
-  res.cookie('user', token, {
-    maxAge: 0,
-    httpOnly: true
-  });
-  token = req.cookies.user;
-  console.log(token);
-});
 
 function testcoocik(req, res, next) {
   var user = req.cookies.user;

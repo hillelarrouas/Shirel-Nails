@@ -158,6 +158,14 @@ $(document).ready(function () {
 });
 
 function dom(deta) {
+  var totalRevenue = [];
+  var totalFromensbrought = [];
+  var total = [];
+  deta.forEach(function (element) {
+    totalRevenue.push(element.Revenue);
+    totalFromensbrought.push(element.Fromensbrought);
+    total.push(element.total);
+  });
   $(".list").html("");
 
   if (deta[0] == undefined) {
@@ -165,8 +173,12 @@ function dom(deta) {
   } else {
     $(".list").html("<table>\n        <tr>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05DE\u05E2\u05E9\u05E8\u05D5\u05EA \u05E9\u05D4\u05D1\u05D0\u05EA\u05D9</th>\n            <th>\u05E1\u05D4\"\u05DB \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
       return "<tr onclick='edetelist(\"".concat(elm._id, "\")'>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
-    }).join(''), "\n</table>"));
+    }).join(''), "\n<tr>\n             <td colspan=\"4\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n        </tr>\n<tr>\n            <td>").concat(totalRevenue.reduce(myFunc), " \u20AA</td>\n            <td>").concat(totalFromensbrought.reduce(myFunc), " \u20AA</td>\n            <td>").concat(total.reduce(myFunc), " \u20AA</td>\n             <td></td>\n        </tr> \n</table>"));
   }
+}
+
+function myFunc(total, num) {
+  return total + num;
 }
 
 var id;
@@ -252,14 +264,7 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
   $(".SelectionMenu").click(function () {
-    console.log(getCookie("user")); // fetch('/Cookie-test')
-    //     .then(r => r.json())
-    //     .then(deta => {
-    //         console.log(deta)
-    //         if (deta.validated == false) {
-    //             testlogin()
-    //         }
-    // })
+    testlogin();
   });
 });
 

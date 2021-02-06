@@ -195,14 +195,6 @@ app.post('/UserUpdate', async (req, res) => {
     }
 })
 
-
-app.get('/Cookie-test', (req, res) => {
-    let token = req.cookies.user
-    res.cookie('user', token, { maxAge: 0, httpOnly: true })
-    token = req.cookies.user
-    console.log(token)
-})
-
 function testcoocik(req, res, next) {
     let user = req.cookies.user
     const newDate = new Date().getTime()
