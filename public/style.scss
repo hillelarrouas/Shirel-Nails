@@ -146,7 +146,7 @@ body {
         word-wrap: break-word;
         cursor: pointer;
 
-        
+
         img {
             width: 20px;
         }
@@ -369,6 +369,7 @@ body {
     background-color: var(--background);
     font-family: var(--font-family);
     font-size: 18rem;
+    z-index: 11;
 }
 .colspanblock{
     display: none;
