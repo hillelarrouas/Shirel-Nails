@@ -149,12 +149,11 @@ $(document).ready(function () {
         let Fromensbrought = $("#Fromensbrought").val();
         const Remarks = $("#Remarks").val();
         const Dailydate = $("#data").val();
+        // const datavalue = $("#data").val()
+        // let Dailydate = datavalue.split('-')[0] + "/ " + datavalue.split('-')[1] + " / " + datavalue.split('-')[2]
 
-        if (Revenue.length == 0) {
-            Revenue = 0
-        } if (Fromensbrought == 0) {
-            Fromensbrought = 0
-        } if (Revenue == 0 && Fromensbrought == 0) {
+
+        if (Revenue.length == 0 && Fromensbrought.length == 0) {
             $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
         } else {
 
@@ -188,12 +187,7 @@ $(document).ready(function () {
         const Remarksediting = $("#Remarksediting").val();
         const Dailydate = $("#dataediting").val();
 
-        if (Revenueediting.length == 0) {
-            Revenueediting = 0
-        } if (Fromensbroughtediting == 0) {
-            Fromensbroughtediting = 0
-        }
-        if (Revenueediting == 0 && Fromensbroughtediting == 0) {
+        if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
             $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
         } else {
             fetch('/clickbuttonediting', {
@@ -219,6 +213,10 @@ $(document).ready(function () {
     });
 });
 
+
+
+
+
 let htmll = ''
 function dom(deta) {
     let totalRevenue = []
@@ -230,56 +228,99 @@ function dom(deta) {
         totalFromensbrought.push(element.Fromensbrought)
         total.push(element.total)
     });
+    let a = ""
+    let b = ""
+
     if (total.length > 0) {
         if (total.reduce(myFunc) < 0) {
-            htmll = `הנך בזכות של ${total.reduce(myFunc)}`
+            htmll = `הנך בזכות של ${Math.abs(total.reduce(myFunc))}`
         } else {
             htmll = `הנך בחוב של ${total.reduce(myFunc)}`
         }
+
+        if (totalRevenue.reduce(myFunc) == null) {
+            a = ''
+        } else {
+            a = totalRevenue.reduce(myFunc) + ' ₪'
+        }
+        if (totalFromensbrought.reduce(myFunc) == null) {
+            b = ''
+        }
+        else {
+            b = totalFromensbrought.reduce(myFunc) + ' ₪'
+        }
     }
 
+
     $(".list").html("")
+    let myTable = ""
 
     if (deta[0] == undefined) {
         $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
     }
     else {
-
         $(".list").html(
             `<table>
-        <tr>
-        <th class="nonepone">תאריך</th>
-            <th>הכנסות</th>
-            <th>תרומות</th>
-            <th>חיוב מעשרות</th>
-            <th>הערות</th>
-        </tr>
-        ${deta.map(elm =>
-                `
-            <tr onclick='edetelist("${elm._id}")'>
-            <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${elm.Dailydate}</td>
-            <td>${elm.Revenue} ₪</td>
-            <td>${elm.Fromensbrought} ₪</td>
-            <td>${elm.total} ₪</td>
-             <td>${elm.Remarks}</td>
-        </tr>
-`).join('')}
-<tr style='background-color: var(--backgroundbutton)' >
-<td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
-             <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
-        </tr>
-<tr>
-<td class="nonepone"></td>
-            <td>${totalRevenue.reduce(myFunc)} ₪</td>
-            <td>${totalFromensbrought.reduce(myFunc)} ₪</td>
-            <td colspan="2">${htmll} ₪</td>
-        </tr> 
-</table>`
+                <tr>
+                <th class="nonepone">תאריך</th>
+                    <th>הכנסות</th>
+                    <th>תרומות</th>
+                    <th>חיוב מעשרות</th>
+                    <th>הערות</th>
+                </tr>
+                </table>`)
 
-        )
+        for (i = 0; i < deta.length; i++) {
+            if (deta[i].Revenue == null) {
+
+                myTable += `
+            <tr onclick='edetelist("${deta[i]._id}")'>
+            <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
+            <td></td>
+            <td>${deta[i].Fromensbrought} ₪</td>
+            <td>${deta[i].total} ₪</td>
+            <td>${deta[i].Remarks}</td>
+           </tr>`
+
+            }
+            else if (deta[i].Fromensbrought == null) {
+                myTable += `
+                    <tr onclick='edetelist("${deta[i]._id}")'>
+                    <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
+                    <td>${deta[i].Revenue} ₪</td>
+                    <td></td>
+                    <td>${deta[i].total} ₪</td>
+                    <td>${deta[i].Remarks}</td>
+                    </tr>`
+
+            }
+            else {
+                myTable += `
+                <tr onclick='edetelist("${deta[i]._id}")'>
+                <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
+                <td>${deta[i].Revenue} ₪</td>
+                <td>${deta[i].Fromensbrought} ₪</td>
+                <td>${deta[i].total} ₪</td>
+                <td>${deta[i].Remarks}</td>
+                </tr>`
+
+            }
+        }
+
+
+        myTable += `<tr style='background-color: var(--backgroundbutton)' >
+                <td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
+                             <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
+                        </tr>
+                        <tr>
+        <td class="nonepone"></td>
+                    <td>${a}</td>
+                    <td>${b}</td>
+                    <td colspan="2">${htmll} ₪</td>
+                </tr> `
+        $("table").append(myTable)
     }
 }
-
 
 
 function myFunc(total, num) {

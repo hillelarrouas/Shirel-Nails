@@ -139,17 +139,10 @@ $(document).ready(function () {
     var Revenue = $("#Revenue").val();
     var Fromensbrought = $("#Fromensbrought").val();
     var Remarks = $("#Remarks").val();
-    var Dailydate = $("#data").val();
+    var Dailydate = $("#data").val(); // const datavalue = $("#data").val()
+    // let Dailydate = datavalue.split('-')[0] + "/ " + datavalue.split('-')[1] + " / " + datavalue.split('-')[2]
 
-    if (Revenue.length == 0) {
-      Revenue = 0;
-    }
-
-    if (Fromensbrought == 0) {
-      Fromensbrought = 0;
-    }
-
-    if (Revenue == 0 && Fromensbrought == 0) {
+    if (Revenue.length == 0 && Fromensbrought.length == 0) {
       $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
     } else {
       fetch('/button-plus', {
@@ -185,15 +178,7 @@ $(document).ready(function () {
     var Remarksediting = $("#Remarksediting").val();
     var Dailydate = $("#dataediting").val();
 
-    if (Revenueediting.length == 0) {
-      Revenueediting = 0;
-    }
-
-    if (Fromensbroughtediting == 0) {
-      Fromensbroughtediting = 0;
-    }
-
-    if (Revenueediting == 0 && Fromensbroughtediting == 0) {
+    if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
       $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
     } else {
       fetch('/clickbuttonediting', {
@@ -234,23 +219,49 @@ function dom(deta) {
     totalFromensbrought.push(element.Fromensbrought);
     total.push(element.total);
   });
+  var a = "";
+  var b = "";
 
   if (total.length > 0) {
     if (total.reduce(myFunc) < 0) {
-      htmll = "\u05D4\u05E0\u05DA \u05D1\u05D6\u05DB\u05D5\u05EA \u05E9\u05DC ".concat(total.reduce(myFunc));
+      htmll = "\u05D4\u05E0\u05DA \u05D1\u05D6\u05DB\u05D5\u05EA \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
     } else {
       htmll = "\u05D4\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
+    }
+
+    if (totalRevenue.reduce(myFunc) == null) {
+      a = '';
+    } else {
+      a = totalRevenue.reduce(myFunc) + ' ₪';
+    }
+
+    if (totalFromensbrought.reduce(myFunc) == null) {
+      b = '';
+    } else {
+      b = totalFromensbrought.reduce(myFunc) + ' ₪';
     }
   }
 
   $(".list").html("");
+  var myTable = "";
 
   if (deta[0] == undefined) {
     $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
   } else {
-    $(".list").html("<table>\n        <tr>\n        <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n            <th>\u05D7\u05D9\u05D5\u05D1 \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
-      return "\n            <tr onclick='edetelist(\"".concat(elm._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(elm.Dailydate, "</td>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
-    }).join(''), "\n<tr style='background-color: var(--backgroundbutton)' >\n<td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n        </tr>\n<tr>\n<td class=\"nonepone\"></td>\n            <td>").concat(totalRevenue.reduce(myFunc), " \u20AA</td>\n            <td>").concat(totalFromensbrought.reduce(myFunc), " \u20AA</td>\n            <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n        </tr> \n</table>"));
+    $(".list").html("<table>\n                <tr>\n                <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n                    <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n                    <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n                    <th>\u05D7\u05D9\u05D5\u05D1 \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n                    <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n                </tr>\n                </table>");
+
+    for (i = 0; i < deta.length; i++) {
+      if (deta[i].Revenue == null) {
+        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n            <td>").concat(deta[i].total, " \u20AA</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
+      } else if (deta[i].Fromensbrought == null) {
+        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(deta[i].Revenue, " \u20AA</td>\n                    <td></td>\n                    <td>").concat(deta[i].total, " \u20AA</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
+      } else {
+        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(deta[i].Revenue, " \u20AA</td>\n                <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n                <td>").concat(deta[i].total, " \u20AA</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
+      }
+    }
+
+    myTable += "<tr style='background-color: var(--backgroundbutton)' >\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                        </tr>\n                        <tr>\n        <td class=\"nonepone\"></td>\n                    <td>".concat(a, "</td>\n                    <td>").concat(b, "</td>\n                    <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n                </tr> ");
+    $("table").append(myTable);
   }
 }
 
