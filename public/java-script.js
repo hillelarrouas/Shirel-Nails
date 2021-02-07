@@ -62,7 +62,7 @@ function usermenu() {
                 testlogin()
             }
             else {
-                document.body.style.display='block'
+                document.body.style.display = 'block'
                 aryyuser.push(deta.deta[0])
                 $(".cardlogin").html(
                     `<div class="textcardlogin">${deta.deta[0].name}<div class="img" onclick='editUsercardlogin()'><img class='pen' src="/img/pen.png"></div></div>`
@@ -219,7 +219,7 @@ $(document).ready(function () {
     });
 });
 
-
+let htmll = ''
 function dom(deta) {
     let totalRevenue = []
     let totalFromensbrought = []
@@ -230,6 +230,13 @@ function dom(deta) {
         totalFromensbrought.push(element.Fromensbrought)
         total.push(element.total)
     });
+    if (total.length > 0) {
+        if (total.reduce(myFunc) < 0) {
+            htmll = `הנך בזכות של ${total.reduce(myFunc)}`
+        } else {
+            htmll = `הנך בחוב של ${total.reduce(myFunc)}`
+        }
+    }
 
     $(".list").html("")
 
@@ -241,13 +248,16 @@ function dom(deta) {
         $(".list").html(
             `<table>
         <tr>
+        <th class="nonepone">תאריך</th>
             <th>הכנסות</th>
-            <th>מעשרות שהבאתי</th>
-            <th>סה"כ מעשרות</th>
+            <th>תרומות</th>
+            <th>חיוב מעשרות</th>
             <th>הערות</th>
         </tr>
         ${deta.map(elm =>
-                `<tr onclick='edetelist("${elm._id}")'>
+                `
+            <tr onclick='edetelist("${elm._id}")'>
+            <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${elm.Dailydate}</td>
             <td>${elm.Revenue} ₪</td>
             <td>${elm.Fromensbrought} ₪</td>
             <td>${elm.total} ₪</td>
@@ -255,13 +265,14 @@ function dom(deta) {
         </tr>
 `).join('')}
 <tr style='background-color: var(--backgroundbutton)' >
-             <td colspan="4">סיכום</td>
+<td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
+             <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
         </tr>
 <tr>
+<td class="nonepone"></td>
             <td>${totalRevenue.reduce(myFunc)} ₪</td>
             <td>${totalFromensbrought.reduce(myFunc)} ₪</td>
-            <td>${total.reduce(myFunc)} ₪</td>
-             <td></td>
+            <td colspan="2">${htmll} ₪</td>
         </tr> 
 </table>`
 

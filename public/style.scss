@@ -144,6 +144,7 @@ body {
         padding: 12px 0px 9px 0px;
         table-layout: fixed;
         word-wrap: break-word;
+        cursor: pointer;
 
 
 
@@ -152,7 +153,10 @@ body {
         }
     }
     th{
+        text-align: center;
         background-color: var(--backgroundbutton);
+        cursor: default;
+        padding: 12px 0px 9px 0px;
     }
 
     tr:nth-child(even) {
@@ -367,8 +371,11 @@ body {
     font-family: var(--font-family);
     font-size: 18rem;
 }
+.colspanblock{
+    display: none;
+}
 
-@media only screen and (max-width:450px) {
+@media only screen and (max-width:550px) {
 
     html {
         font-size: 0.8px;
@@ -383,5 +390,23 @@ body {
     .cardplus,
     .cardediting {
         margin: 70px auto 70px;
+    }
+    
+
+    td,
+    th {
+        text-align: center;
+        padding: 12px 0px 9px 0px;
+
+    }
+
+    .nonepone,.colspan{
+        display: none;
+        
+    }
+
+    .colspanblock{
+        display: revert;
+        padding: 12px 0px 9px 0px;
     }
 }

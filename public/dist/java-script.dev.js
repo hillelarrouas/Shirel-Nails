@@ -223,6 +223,7 @@ $(document).ready(function () {
     }
   });
 });
+var htmll = '';
 
 function dom(deta) {
   var totalRevenue = [];
@@ -233,14 +234,23 @@ function dom(deta) {
     totalFromensbrought.push(element.Fromensbrought);
     total.push(element.total);
   });
+
+  if (total.length > 0) {
+    if (total.reduce(myFunc) < 0) {
+      htmll = "\u05D4\u05E0\u05DA \u05D1\u05D6\u05DB\u05D5\u05EA \u05E9\u05DC ".concat(total.reduce(myFunc));
+    } else {
+      htmll = "\u05D4\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
+    }
+  }
+
   $(".list").html("");
 
   if (deta[0] == undefined) {
     $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
   } else {
-    $(".list").html("<table>\n        <tr>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05DE\u05E2\u05E9\u05E8\u05D5\u05EA \u05E9\u05D4\u05D1\u05D0\u05EA\u05D9</th>\n            <th>\u05E1\u05D4\"\u05DB \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
-      return "<tr onclick='edetelist(\"".concat(elm._id, "\")'>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
-    }).join(''), "\n<tr style='background-color: var(--backgroundbutton)' >\n             <td colspan=\"4\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n        </tr>\n<tr>\n            <td>").concat(totalRevenue.reduce(myFunc), " \u20AA</td>\n            <td>").concat(totalFromensbrought.reduce(myFunc), " \u20AA</td>\n            <td>").concat(total.reduce(myFunc), " \u20AA</td>\n             <td></td>\n        </tr> \n</table>"));
+    $(".list").html("<table>\n        <tr>\n        <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n            <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n            <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n            <th>\u05D7\u05D9\u05D5\u05D1 \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n            <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n        </tr>\n        ".concat(deta.map(function (elm) {
+      return "\n            <tr onclick='edetelist(\"".concat(elm._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(elm.Dailydate, "</td>\n            <td>").concat(elm.Revenue, " \u20AA</td>\n            <td>").concat(elm.Fromensbrought, " \u20AA</td>\n            <td>").concat(elm.total, " \u20AA</td>\n             <td>").concat(elm.Remarks, "</td>\n        </tr>\n");
+    }).join(''), "\n<tr style='background-color: var(--backgroundbutton)' >\n<td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n        </tr>\n<tr>\n<td class=\"nonepone\"></td>\n            <td>").concat(totalRevenue.reduce(myFunc), " \u20AA</td>\n            <td>").concat(totalFromensbrought.reduce(myFunc), " \u20AA</td>\n            <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n        </tr> \n</table>"));
   }
 }
 

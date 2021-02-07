@@ -130,13 +130,17 @@ body {
   padding: 12px 0px 9px 0px;
   table-layout: fixed;
   word-wrap: break-word;
+  cursor: pointer;
 }
 .cardTes td img,
 .cardTes th img {
   width: 20px;
 }
 .cardTes th {
+  text-align: center;
   background-color: var(--backgroundbutton);
+  cursor: default;
+  padding: 12px 0px 9px 0px;
 }
 .cardTes tr:nth-child(even) {
   background-color: rgba(128, 128, 128, 0.171);
@@ -336,7 +340,11 @@ body {
   font-size: 18rem;
 }
 
-@media only screen and (max-width: 450px) {
+.colspanblock {
+  display: none;
+}
+
+@media only screen and (max-width: 550px) {
   html {
     font-size: 0.8px;
     user-select: none;
@@ -352,5 +360,20 @@ body {
 .cardplus,
 .cardediting {
     margin: 70px auto 70px;
+  }
+
+  td,
+th {
+    text-align: center;
+    padding: 12px 0px 9px 0px;
+  }
+
+  .nonepone, .colspan {
+    display: none;
+  }
+
+  .colspanblock {
+    display: revert;
+    padding: 12px 0px 9px 0px;
   }
 }

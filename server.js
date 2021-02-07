@@ -224,5 +224,5 @@ function testcoocik(req, res, next) {
 
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log('http://localhost:8080/login/login.html'))
+app.listen(port, () => console.log('listen on port 8080'))
 

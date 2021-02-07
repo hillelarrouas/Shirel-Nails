@@ -515,5 +515,5 @@ function testcoocik(req, res, next) {
 
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
-  return console.log('http://localhost:8080/login/login.html');
+  return console.log('listen on port 8080');
 });
