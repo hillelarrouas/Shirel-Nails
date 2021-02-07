@@ -154,13 +154,21 @@ app.post('/login', async (req, res) => {
 
 app.post('/sing_in', async (req, res) => {
     let ok = true
+    let mesag = ''
     try {
         const { namesing_in, telsing_in, emailsing_in, paswordsing_in } = req.body
         const deta = await Users.find({})
         for (i = 0; i < deta.length; i++) {
-            if (emailsing_in == deta[i].email && paswordsing_in == deta[i].password) {
-                ok = false
-                break
+            if (emailsing_in == deta[i].email) {
+                if (paswordsing_in == deta[i].password) {
+                    ok = false
+                    mesag = 'חשבון זה כבר קיים'
+                    break
+                }
+                else{
+                    mesag = 'מייל כבר קיים במערכת'
+                    ok = false
+                }
             } else {
                 ok = true
             }
@@ -175,7 +183,7 @@ app.post('/sing_in', async (req, res) => {
             }
             ).catch(e => console.log(e));
         }
-        res.send({ ok })
+        res.send({ ok,mesag })
     }
     catch (e) {
         console.log(e)
@@ -183,7 +191,7 @@ app.post('/sing_in', async (req, res) => {
 })
 
 
-app.post('/UserUpdate', async (req, res) => {
+app.post('/UserUpdate',testcoocik, async(req, res) => {
     try {
         const { namesing_in, telsing_in, emailsing_in, paswordsing_in, _id } = req.body
         await Users.updateOne({ _id }, { name: namesing_in, phone: telsing_in, email: emailsing_in, password: paswordsing_in })
@@ -199,6 +207,12 @@ app.get('/Output', (req, res) => {
     let user = req.cookies.user
     res.cookie('user', user, { maxAge: 0, httpOnly: true })
     res.send(true)
+})
+
+
+app.get('/Entrance', testcoocik, (req, res) => {
+    let validated = true
+    res.send({ validated })
 })
 
 

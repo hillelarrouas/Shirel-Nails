@@ -111,9 +111,13 @@ $(document).ready(function () {
       }).then(function (res) {
         return res.json();
       }).then(function (deta) {
+        if (deta.validated == false) {
+          location.href = '/login.html';
+        }
+
         if (deta.ok == true) {
           usermenu();
-          $(".meseggesing_in").html('עדכון המשתמש בוצע בהצלחה');
+          $(".meseggesing_in").html('עדכון בוצע בהצלחה');
           setTimeout(function () {
             $(".cardTes").show();
             $(".sing_in").hide();
@@ -208,25 +212,25 @@ $(document).ready(function () {
     }
   });
 });
-var htmll = '';
 
 function dom(deta) {
+  var htmll = '';
+  var total = [];
   var totalRevenue = [];
   var totalFromensbrought = [];
-  var total = [];
   deta.forEach(function (element) {
+    total.push(element.total);
     totalRevenue.push(element.Revenue);
     totalFromensbrought.push(element.Fromensbrought);
-    total.push(element.total);
   });
   var a = "";
   var b = "";
 
   if (total.length > 0) {
     if (total.reduce(myFunc) < 0) {
-      htmll = "\u05D4\u05E0\u05DA \u05D1\u05D6\u05DB\u05D5\u05EA \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D6\u05DB\u05D5\u05EA \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
     } else {
-      htmll = "\u05D4\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
     }
 
     if (totalRevenue.reduce(myFunc) == null) {

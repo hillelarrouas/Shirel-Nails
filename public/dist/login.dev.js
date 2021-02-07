@@ -22,17 +22,19 @@ $(document).ready(function () {
     $(".cardlogin").show();
     $("#emaillogin").focus();
   });
-}); // $(document).ready(function () {
-//     $("#paswordsing_in").click(function () {
-//         if (this.type === 'password') {
-//             this.type = "text";
-//             var that = this;
-//             setTimeout(function () {
-//               that.type = "password";
-//             }, 1000)
-//            }
-//     });
-// });
+});
+
+function init() {
+  fetch('/Entrance').then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    document.body.style.display = 'block';
+
+    if (data.validated == true) {
+      location.href = '/index.html';
+    }
+  });
+}
 
 $(document).ready(function () {
   $("#clickbuttologin").click(function () {
@@ -98,8 +100,8 @@ $(document).ready(function () {
         return res.json();
       }).then(function (deta) {
         if (deta.ok == false) {
-          // $(".meseggesing_in").html('משתמש קיים! <b class="Bsing_in">התחברות</b>')
-          $(".meseggesing_in").html('משתמש קיים');
+          // $(".meseggesing_in").html('משתמש קיים! <b id="Bsing_in">התחברות</b>')
+          $(".meseggesing_in").html(deta.mesag);
         } else {
           $(".meseggesing_in").html('משתמש נוסף בהצלחה');
           setTimeout(function () {

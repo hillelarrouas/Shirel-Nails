@@ -114,10 +114,12 @@ $(document).ready(function () {
                 })
             }).then(res => res.json())
                 .then(deta => {
-
+                    if (deta.validated == false) {
+                        location.href = '/login.html'
+                    }
                     if (deta.ok == true) {
                         usermenu()
-                        $(".meseggesing_in").html('עדכון המשתמש בוצע בהצלחה')
+                        $(".meseggesing_in").html('עדכון בוצע בהצלחה')
                         setTimeout(function () {
                             $(".cardTes").show();
                             $(".sing_in").hide();
@@ -217,27 +219,29 @@ $(document).ready(function () {
 
 
 
-let htmll = ''
+
 function dom(deta) {
+    let htmll = ''
+    let total = []
     let totalRevenue = []
     let totalFromensbrought = []
-    let total = []
+
 
     deta.forEach(element => {
+        total.push(element.total)
         totalRevenue.push(element.Revenue)
         totalFromensbrought.push(element.Fromensbrought)
-        total.push(element.total)
+
     });
     let a = ""
     let b = ""
 
     if (total.length > 0) {
         if (total.reduce(myFunc) < 0) {
-            htmll = `הנך בזכות של ${Math.abs(total.reduce(myFunc))}`
+            htmll = `הינך בזכות של ${Math.abs(total.reduce(myFunc))}`
         } else {
-            htmll = `הנך בחוב של ${total.reduce(myFunc)}`
+            htmll = `הינך בחוב של ${total.reduce(myFunc)}`
         }
-
         if (totalRevenue.reduce(myFunc) == null) {
             a = ''
         } else {
@@ -321,6 +325,7 @@ function dom(deta) {
         $("table").append(myTable)
     }
 }
+
 
 
 function myFunc(total, num) {

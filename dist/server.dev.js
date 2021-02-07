@@ -355,47 +355,62 @@ app.post('/login', function _callee7(req, res) {
   }, null, null, [[0, 24]]);
 });
 app.post('/sing_in', function _callee8(req, res) {
-  var ok, _req$body4, namesing_in, telsing_in, emailsing_in, paswordsing_in, deta, plueuser;
+  var ok, mesag, _req$body4, namesing_in, telsing_in, emailsing_in, paswordsing_in, deta, plueuser;
 
   return regeneratorRuntime.async(function _callee8$(_context8) {
     while (1) {
       switch (_context8.prev = _context8.next) {
         case 0:
           ok = true;
-          _context8.prev = 1;
+          mesag = '';
+          _context8.prev = 2;
           _req$body4 = req.body, namesing_in = _req$body4.namesing_in, telsing_in = _req$body4.telsing_in, emailsing_in = _req$body4.emailsing_in, paswordsing_in = _req$body4.paswordsing_in;
-          _context8.next = 5;
+          _context8.next = 6;
           return regeneratorRuntime.awrap(Users.find({}));
 
-        case 5:
+        case 6:
           deta = _context8.sent;
           i = 0;
 
-        case 7:
+        case 8:
           if (!(i < deta.length)) {
-            _context8.next = 17;
+            _context8.next = 24;
             break;
           }
 
-          if (!(emailsing_in == deta[i].email && paswordsing_in == deta[i].password)) {
-            _context8.next = 13;
+          if (!(emailsing_in == deta[i].email)) {
+            _context8.next = 20;
+            break;
+          }
+
+          if (!(paswordsing_in == deta[i].password)) {
+            _context8.next = 16;
             break;
           }
 
           ok = false;
-          return _context8.abrupt("break", 17);
+          mesag = 'חשבון זה כבר קיים';
+          return _context8.abrupt("break", 24);
 
-        case 13:
-          ok = true;
+        case 16:
+          mesag = 'מייל כבר קיים במערכת';
+          ok = false;
 
-        case 14:
-          i++;
-          _context8.next = 7;
+        case 18:
+          _context8.next = 21;
           break;
 
-        case 17:
+        case 20:
+          ok = true;
+
+        case 21:
+          i++;
+          _context8.next = 8;
+          break;
+
+        case 24:
           if (!(ok == true)) {
-            _context8.next = 21;
+            _context8.next = 28;
             break;
           }
 
@@ -405,7 +420,7 @@ app.post('/sing_in', function _callee8(req, res) {
             email: emailsing_in,
             password: paswordsing_in
           });
-          _context8.next = 21;
+          _context8.next = 28;
           return regeneratorRuntime.awrap(plueuser.save().then(function (doc) {
             var id = doc._id;
             newDate = new Date().getTime();
@@ -420,26 +435,27 @@ app.post('/sing_in', function _callee8(req, res) {
             return console.log(e);
           }));
 
-        case 21:
+        case 28:
           res.send({
-            ok: ok
+            ok: ok,
+            mesag: mesag
           });
-          _context8.next = 27;
+          _context8.next = 34;
           break;
 
-        case 24:
-          _context8.prev = 24;
-          _context8.t0 = _context8["catch"](1);
+        case 31:
+          _context8.prev = 31;
+          _context8.t0 = _context8["catch"](2);
           console.log(_context8.t0);
 
-        case 27:
+        case 34:
         case "end":
           return _context8.stop();
       }
     }
-  }, null, null, [[1, 24]]);
+  }, null, null, [[2, 31]]);
 });
-app.post('/UserUpdate', function _callee9(req, res) {
+app.post('/UserUpdate', testcoocik, function _callee9(req, res) {
   var _req$body5, namesing_in, telsing_in, emailsing_in, paswordsing_in, _id;
 
   return regeneratorRuntime.async(function _callee9$(_context9) {
@@ -484,6 +500,12 @@ app.get('/Output', function (req, res) {
     httpOnly: true
   });
   res.send(true);
+});
+app.get('/Entrance', testcoocik, function (req, res) {
+  var validated = true;
+  res.send({
+    validated: validated
+  });
 });
 
 function testcoocik(req, res, next) {
