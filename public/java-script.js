@@ -280,124 +280,9 @@ $(document).ready(function () {
 });
 
 
-
-function dom(deta) {
-    let htmll = ''
-    let total = []
-    let totalRevenue = []
-    let totalFromensbrought = []
-
-    deta.forEach(element => {
-
-        total.push(element.total)
-        totalRevenue.push(element.Revenue)
-        totalFromensbrought.push(element.Fromensbrought)
-    });
-    let a = ""
-    let b = ""
-
-    if (total.length > 0) {
-        if (total.reduce(myFunc) < 0) {
-            htmll = `הינך ביתרה של ${Math.abs(total.reduce(myFunc))}`
-        } else {
-            htmll = `הינך בחוב של ${total.reduce(myFunc)}`
-        }
-        if (totalRevenue.reduce(myFunc) == null) {
-            a = ''
-        } else {
-            a = totalRevenue.reduce(myFunc) + ' ₪'
-        }
-        if (totalFromensbrought.reduce(myFunc) == null) {
-            b = ''
-        }
-        else {
-            b = totalFromensbrought.reduce(myFunc) + ' ₪'
-        }
-    }
-
-    $(".list").html("")
-    let myTable = ""
-
-    if (deta[0] == undefined) {
-        if ($(".cardSearch").css("display") == "none") {
-            $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
-        }
-        else {
-            $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>")
-        }
-    }
-    else {
-        $(".list").html(
-            `<table>
-                <tr>
-                <th class="nonepone">תאריך</th>
-                    <th>הכנסות</th>
-                    <th>תרומות</th>
-                    <th>סה"כ</th>
-                    <th>הערות</th>
-                </tr>
-                </table>`)
-
-        for (i = 0; i < deta.length; i++) {
-            if (deta[i].Revenue == null) {
-                myTable += `
-            <tr onclick='edetelist("${deta[i]._id}")'>
-            <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-            <td></td>
-            <td>${deta[i].Fromensbrought} ₪</td>
-            <td>${deta[i].total} ₪</td>
-            <td>${deta[i].Remarks}</td>
-           </tr>`
-
-            }
-            else if (deta[i].Fromensbrought == null) {
-                myTable += `
-                    <tr onclick='edetelist("${deta[i]._id}")'>
-                    <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-                    <td>${deta[i].Revenue} ₪</td>
-                    <td></td>
-                    <td>${deta[i].total} ₪</td>
-                    <td>${deta[i].Remarks}</td>
-                    </tr>`
-
-            }
-            else {
-                myTable += `
-                <tr onclick='edetelist("${deta[i]._id}")'>
-                <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-                <td>${deta[i].Revenue} ₪</td>
-                <td>${deta[i].Fromensbrought} ₪</td>
-                <td>${deta[i].total} ₪</td>
-                <td>${deta[i].Remarks}</td>
-                </tr>`
-
-            }
-        }
-
-        if ($(".cardSearch").css("display") == "none") {
-            myTable += `<tr style='background-color: var(--backgroundbutton)' class="displaynoneserch">
-                <td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
-                             <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
-                        </tr>
-                        <tr class="displaynoneserch">
-        <td class="nonepone"></td>
-                    <td>${a}</td>
-                    <td>${b}</td>
-                    <td colspan="2">${htmll} ₪</td>
-                </tr> `
-
-        }
-        myTable += $("table").append(myTable)
-    }
-
-}
-
-
-
 function myFunc(total, num) {
     return total + num;
 }
-
 
 
 let id
@@ -482,3 +367,121 @@ $(document).ready(function () {
         dom(resultSearchTerm)
     });
 });
+
+
+
+
+function dom(deta) {
+    let htmll = ''
+    let total = []
+    let totalRevenue = []
+    let totalFromensbrought = []
+
+    deta.forEach(element => {
+
+        total.push(element.total)
+        totalRevenue.push(element.Revenue)
+        totalFromensbrought.push(element.Fromensbrought)
+    });
+    let a = ""
+    let b = ""
+
+    if (total.length > 0) {
+        if (total.reduce(myFunc) < 0) {
+            htmll = `הינך ביתרה של ${Math.abs(total.reduce(myFunc))}`
+        } else {
+            htmll = `הינך בחוב של ${total.reduce(myFunc)}`
+        }
+        if (totalRevenue.reduce(myFunc) == null) {
+            a = ''
+        } else {
+            a = totalRevenue.reduce(myFunc) + ' ₪'
+        }
+        if (totalFromensbrought.reduce(myFunc) == null) {
+            b = ''
+        }
+        else {
+            b = totalFromensbrought.reduce(myFunc) + ' ₪'
+        }
+    }
+
+    $(".list").html("")
+    let myTable = ""
+
+    if (deta[0] == undefined) {
+        if ($(".cardSearch").css("display") == "none") {
+            $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
+            $(".Search").css("display","none")
+            
+        }
+        else {
+            $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>")
+        }
+    }
+    else {
+        $(".Search").css("display","block")
+        $(".list").html(
+            `<table>
+                <tr>
+                <th class="nonepone">תאריך</th>
+                    <th>הכנסות</th>
+                    <th>תרומות</th>
+                    <th>סה"כ</th>
+                    <th>הערות</th>
+                </tr>
+                </table>`)
+
+        for (i = 0; i < deta.length; i++) {
+            if (deta[i].Revenue == null) {
+                myTable += `
+            <tr onclick='edetelist("${deta[i]._id}")'>
+            <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
+            <td></td>
+            <td>${deta[i].Fromensbrought} ₪</td>
+            <td>${deta[i].total} ₪</td>
+            <td>${deta[i].Remarks}</td>
+           </tr>`
+
+            }
+            else if (deta[i].Fromensbrought == null) {
+                myTable += `
+                    <tr onclick='edetelist("${deta[i]._id}")'>
+                    <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
+                    <td>${deta[i].Revenue} ₪</td>
+                    <td></td>
+                    <td>${deta[i].total} ₪</td>
+                    <td>${deta[i].Remarks}</td>
+                    </tr>`
+
+            }
+            else {
+                myTable += `
+                <tr onclick='edetelist("${deta[i]._id}")'>
+                <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
+                <td>${deta[i].Revenue} ₪</td>
+                <td>${deta[i].Fromensbrought} ₪</td>
+                <td>${deta[i].total} ₪</td>
+                <td>${deta[i].Remarks}</td>
+                </tr>`
+
+            }
+        }
+
+        if ($(".cardSearch").css("display") == "none") {
+            myTable += `<tr style='background-color: var(--backgroundbutton)' class="displaynoneserch">
+                <td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
+                             <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
+                        </tr>
+                        <tr class="displaynoneserch">
+        <td class="nonepone"></td>
+                    <td>${a}</td>
+                    <td>${b}</td>
+                    <td colspan="2">${htmll} ₪</td>
+                </tr> `
+
+        }
+        myTable += $("table").append(myTable)
+    }
+
+}
+

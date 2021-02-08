@@ -284,69 +284,6 @@ $(document).ready(function () {
   });
 });
 
-function dom(deta) {
-  var htmll = '';
-  var total = [];
-  var totalRevenue = [];
-  var totalFromensbrought = [];
-  deta.forEach(function (element) {
-    total.push(element.total);
-    totalRevenue.push(element.Revenue);
-    totalFromensbrought.push(element.Fromensbrought);
-  });
-  var a = "";
-  var b = "";
-
-  if (total.length > 0) {
-    if (total.reduce(myFunc) < 0) {
-      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D9\u05EA\u05E8\u05D4 \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
-    } else {
-      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
-    }
-
-    if (totalRevenue.reduce(myFunc) == null) {
-      a = '';
-    } else {
-      a = totalRevenue.reduce(myFunc) + ' ₪';
-    }
-
-    if (totalFromensbrought.reduce(myFunc) == null) {
-      b = '';
-    } else {
-      b = totalFromensbrought.reduce(myFunc) + ' ₪';
-    }
-  }
-
-  $(".list").html("");
-  var myTable = "";
-
-  if (deta[0] == undefined) {
-    if ($(".cardSearch").css("display") == "none") {
-      $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
-    } else {
-      $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>");
-    }
-  } else {
-    $(".list").html("<table>\n                <tr>\n                <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n                    <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n                    <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n                    <th>\u05E1\u05D4\"\u05DB</th>\n                    <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n                </tr>\n                </table>");
-
-    for (i = 0; i < deta.length; i++) {
-      if (deta[i].Revenue == null) {
-        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n            <td>").concat(deta[i].total, " \u20AA</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
-      } else if (deta[i].Fromensbrought == null) {
-        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(deta[i].Revenue, " \u20AA</td>\n                    <td></td>\n                    <td>").concat(deta[i].total, " \u20AA</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
-      } else {
-        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(deta[i].Revenue, " \u20AA</td>\n                <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n                <td>").concat(deta[i].total, " \u20AA</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
-      }
-    }
-
-    if ($(".cardSearch").css("display") == "none") {
-      myTable += "<tr style='background-color: var(--backgroundbutton)' class=\"displaynoneserch\">\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                        </tr>\n                        <tr class=\"displaynoneserch\">\n        <td class=\"nonepone\"></td>\n                    <td>".concat(a, "</td>\n                    <td>").concat(b, "</td>\n                    <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n                </tr> ");
-    }
-
-    myTable += $("table").append(myTable);
-  }
-}
-
 function myFunc(total, num) {
   return total + num;
 }
@@ -425,3 +362,68 @@ $(document).ready(function () {
     dom(resultSearchTerm);
   });
 });
+
+function dom(deta) {
+  var htmll = '';
+  var total = [];
+  var totalRevenue = [];
+  var totalFromensbrought = [];
+  deta.forEach(function (element) {
+    total.push(element.total);
+    totalRevenue.push(element.Revenue);
+    totalFromensbrought.push(element.Fromensbrought);
+  });
+  var a = "";
+  var b = "";
+
+  if (total.length > 0) {
+    if (total.reduce(myFunc) < 0) {
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D9\u05EA\u05E8\u05D4 \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
+    } else {
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
+    }
+
+    if (totalRevenue.reduce(myFunc) == null) {
+      a = '';
+    } else {
+      a = totalRevenue.reduce(myFunc) + ' ₪';
+    }
+
+    if (totalFromensbrought.reduce(myFunc) == null) {
+      b = '';
+    } else {
+      b = totalFromensbrought.reduce(myFunc) + ' ₪';
+    }
+  }
+
+  $(".list").html("");
+  var myTable = "";
+
+  if (deta[0] == undefined) {
+    if ($(".cardSearch").css("display") == "none") {
+      $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
+      $(".Search").css("display", "none");
+    } else {
+      $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>");
+    }
+  } else {
+    $(".Search").css("display", "block");
+    $(".list").html("<table>\n                <tr>\n                <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n                    <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n                    <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n                    <th>\u05E1\u05D4\"\u05DB</th>\n                    <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n                </tr>\n                </table>");
+
+    for (i = 0; i < deta.length; i++) {
+      if (deta[i].Revenue == null) {
+        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n            <td>").concat(deta[i].total, " \u20AA</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
+      } else if (deta[i].Fromensbrought == null) {
+        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(deta[i].Revenue, " \u20AA</td>\n                    <td></td>\n                    <td>").concat(deta[i].total, " \u20AA</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
+      } else {
+        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(deta[i].Revenue, " \u20AA</td>\n                <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n                <td>").concat(deta[i].total, " \u20AA</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
+      }
+    }
+
+    if ($(".cardSearch").css("display") == "none") {
+      myTable += "<tr style='background-color: var(--backgroundbutton)' class=\"displaynoneserch\">\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                        </tr>\n                        <tr class=\"displaynoneserch\">\n        <td class=\"nonepone\"></td>\n                    <td>".concat(a, "</td>\n                    <td>").concat(b, "</td>\n                    <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n                </tr> ");
+    }
+
+    myTable += $("table").append(myTable);
+  }
+}
