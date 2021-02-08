@@ -29,13 +29,18 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $(".Search").click(async function () {
-        await $(".cardSearch").slideToggle(250);
+    $(".Search").click(function () {
+        if ($(".cardSearch").css("display") == "none") {
+            $(".cardSearch").css("display",'inline-table')
+        }else{
+            $(".cardSearch").css("display",'none')
+        }
+        //  $(".cardSearch").slideToggle(250);
         $("#inputSearch").focus()
         $("#inputSearch").val('')
-        setTimeout(function () {
+        // setTimeout(function () {
             getcategoryinit()
-        }, 250);
+        // }, 250);
     });
 });
 
@@ -88,7 +93,6 @@ $(document).ready(function () {
 
 setInterval(function () {
     const _id = aryyuser[0]._id
-
     fetch('/LastSeen', {
         method: 'post',
         headers: {
@@ -100,8 +104,8 @@ setInterval(function () {
     }).then(res => res.json())
         .then(deta => {
         })
+}, 10000);
 
-}, 180000);
 
 function init() {
     getcategoryinit()
@@ -468,7 +472,7 @@ $(document).ready(function () {
         const valSearch = $("#inputSearch").val();
         let resultSearchTerm = [];
 
-        let regSearchTerm = new RegExp(valSearch, 'g');
+        let regSearchTerm = new RegExp(valSearch, '[A-Za-z.\s_-]+$');
 
         allData.forEach(element => {
             if (regSearchTerm.test(element.Dailydate) || regSearchTerm.test(element.Revenue) || regSearchTerm.test(element.Fromensbrought) || regSearchTerm.test(element.Remarks)) {

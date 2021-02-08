@@ -128,10 +128,10 @@ body {
   border-radius: 20px 20px 0 0;
   border: 1px solid rgba(66, 111, 112, 0.787);
   border-bottom: 0;
-  box-sizing: border-box;
   display: none;
   text-align: center;
   padding: 15px 0;
+  box-sizing: border-box;
 }
 .cardTes .cardSearch input[type=text] {
   direction: rtl;

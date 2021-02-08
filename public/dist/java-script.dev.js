@@ -30,27 +30,18 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  $(".Search").click(function _callee() {
-    return regeneratorRuntime.async(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return regeneratorRuntime.awrap($(".cardSearch").slideToggle(250));
+  $(".Search").click(function () {
+    if ($(".cardSearch").css("display") == "none") {
+      $(".cardSearch").css("display", 'inline-table');
+    } else {
+      $(".cardSearch").css("display", 'none');
+    } //  $(".cardSearch").slideToggle(250);
 
-          case 2:
-            $("#inputSearch").focus();
-            $("#inputSearch").val('');
-            setTimeout(function () {
-              getcategoryinit();
-            }, 250);
 
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    });
+    $("#inputSearch").focus();
+    $("#inputSearch").val(''); // setTimeout(function () {
+
+    getcategoryinit(); // }, 250);
   });
 });
 $(document).ready(function () {
@@ -116,7 +107,7 @@ setInterval(function () {
   }).then(function (res) {
     return res.json();
   }).then(function (deta) {});
-}, 180000);
+}, 10000);
 
 function init() {
   getcategoryinit();
@@ -425,7 +416,7 @@ $(document).ready(function () {
   $("#inputSearch").on('input', function () {
     var valSearch = $("#inputSearch").val();
     var resultSearchTerm = [];
-    var regSearchTerm = new RegExp(valSearch, 'g');
+    var regSearchTerm = new RegExp(valSearch, '[A-Za-z.\s_-]+$');
     allData.forEach(function (element) {
       if (regSearchTerm.test(element.Dailydate) || regSearchTerm.test(element.Revenue) || regSearchTerm.test(element.Fromensbrought) || regSearchTerm.test(element.Remarks)) {
         resultSearchTerm.push(element);
