@@ -53,6 +53,7 @@ function init() {
   usermenu();
 }
 
+var allData;
 var aryyuser = [];
 
 function usermenu() {
@@ -141,6 +142,7 @@ function getcategoryinit() {
     return res.json();
   }).then(function (deta) {
     dom(deta.deta);
+    allData = deta.deta;
   });
 }
 
@@ -220,16 +222,13 @@ $(document).ready(function () {
     }
   });
 });
-var allData = [];
 
 function dom(deta) {
   var htmll = '';
   var total = [];
   var totalRevenue = [];
   var totalFromensbrought = [];
-  allData = [];
   deta.forEach(function (element) {
-    allData.push(element);
     total.push(element.total);
     totalRevenue.push(element.Revenue);
     totalFromensbrought.push(element.Fromensbrought);
@@ -346,14 +345,52 @@ function testlogin() {
 }
 
 $(document).ready(function () {
-  $("#inputSearch").keyup(function () {
-    var valSearch = $(".inputSearch").val();
+  $("#inputSearch").on('input', function () {
+    var valSearch = $("#inputSearch").val();
+    var radioValue = $("input[name='radioSearch']:checked").val();
     var resultSearchTerm = [];
-    var regSearchTerm = new RegExp(valSearch, 'g');
-    allData.forEach(function (element) {
-      if (regSearchTerm.test(element.Fromensbrought)) {
-        resultSearchTerm.push(element);
-      }
-    });
+
+    if (radioValue == 'date') {
+      var regSearchTerm = new RegExp(valSearch, 'g');
+      allData.forEach(function (element) {
+        if (regSearchTerm.test(element.Dailydate)) {
+          resultSearchTerm.push(element);
+        }
+      });
+      dom(resultSearchTerm);
+    }
+
+    if (radioValue == 'income') {
+      var _regSearchTerm = new RegExp(valSearch, 'g');
+
+      allData.forEach(function (element) {
+        if (_regSearchTerm.test(element.Revenue)) {
+          resultSearchTerm.push(element);
+        }
+      });
+      dom(resultSearchTerm);
+    }
+
+    if (radioValue == 'contribution') {
+      var _regSearchTerm2 = new RegExp(valSearch, 'g');
+
+      allData.forEach(function (element) {
+        if (_regSearchTerm2.test(element.Fromensbrought)) {
+          resultSearchTerm.push(element);
+        }
+      });
+      dom(resultSearchTerm);
+    }
+
+    if (radioValue == 'Note') {
+      var _regSearchTerm3 = new RegExp(valSearch, 'g');
+
+      allData.forEach(function (element) {
+        if (_regSearchTerm3.test(element.Remarks)) {
+          resultSearchTerm.push(element);
+        }
+      });
+      dom(resultSearchTerm);
+    }
   });
 });
