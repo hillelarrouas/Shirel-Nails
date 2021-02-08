@@ -25,6 +25,7 @@ const Users = mongoose.model('User', {
     password: String,
     email: String,
     phone: String,
+    LastSeen:String
 });
 
 
@@ -36,6 +37,22 @@ const Tens = mongoose.model('Tens', {
     idUser: String,
     Dailydate: String
 });
+
+
+app.post('/LastSeen', async (req, res) => {
+    try {
+        const {_id} = req.body
+        const LastSeen = new Date()
+       
+        await Users.updateOne({ _id}, {LastSeen})
+        res.send(true)
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
+
+
 let coocik
 app.get('/get-userid', testcoocik, async (req, res) => {
     try {
@@ -49,6 +66,7 @@ app.get('/get-userid', testcoocik, async (req, res) => {
         console.log(e)
     }
 })
+
 
 
 app.get('/get-categoryinit', async (req, res) => {

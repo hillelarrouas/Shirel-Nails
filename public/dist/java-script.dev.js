@@ -65,6 +65,58 @@ $(document).ready(function () {
     $(".sing_in").hide();
   });
 });
+$(document).ready(function () {
+  $('#data').bind('keyup', function (e) {
+    var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+
+    if (key !== 8 && key !== 46 && key !== 0) {
+      var TempDate = $(this).val().replace(/\//g, "");
+
+      if ($.isNumeric(TempDate)) {
+        if (TempDate.length >= 4) {
+          TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2, 2) + "/" + TempDate.substr(4);
+        } else if (TempDate.length >= 2) {
+          TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2);
+        }
+
+        $(this).val(TempDate);
+      }
+    }
+  });
+});
+$(document).ready(function () {
+  $('#dataediting').bind('keyup', function (e) {
+    var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+
+    if (key !== 8 && key !== 46 && key !== 0) {
+      var TempDate = $(this).val().replace(/\//g, "");
+
+      if ($.isNumeric(TempDate)) {
+        if (TempDate.length >= 4) {
+          TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2, 2) + "/" + TempDate.substr(4);
+        } else if (TempDate.length >= 2) {
+          TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2);
+        }
+
+        $(this).val(TempDate);
+      }
+    }
+  });
+});
+setInterval(function () {
+  var _id = aryyuser[0]._id;
+  fetch('/LastSeen', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      _id: _id
+    })
+  }).then(function (res) {
+    return res.json();
+  }).then(function (deta) {});
+}, 180000);
 
 function init() {
   getcategoryinit();

@@ -53,11 +53,60 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $('#data').bind('keyup', function (e) {
+        let key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        if (key !== 8 && key !== 46 && key !== 0) {
+            let TempDate = $(this).val().replace(/\//g, "")
+            if ($.isNumeric(TempDate)) {
+                if (TempDate.length >= 4) {
+                    TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2, 2) + "/" + TempDate.substr(4)
+                } else if (TempDate.length >= 2) {
+                    TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2)
+                }
+                $(this).val(TempDate)
+            }
+        }
+    });
+});
+$(document).ready(function () {
+    $('#dataediting').bind('keyup', function (e) {
+        let key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        if (key !== 8 && key !== 46 && key !== 0) {
+            let TempDate = $(this).val().replace(/\//g, "")
+            if ($.isNumeric(TempDate)) {
+                if (TempDate.length >= 4) {
+                    TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2, 2) + "/" + TempDate.substr(4)
+                } else if (TempDate.length >= 2) {
+                    TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2)
+                }
+                $(this).val(TempDate)
+            }
+        }
+    });
+});
+
+setInterval(function () {
+    const _id = aryyuser[0]._id
+
+    fetch('/LastSeen', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            _id
+        })
+    }).then(res => res.json())
+        .then(deta => {
+        })
+
+}, 180000);
+
 function init() {
     getcategoryinit()
     usermenu()
 }
-
 
 let allData
 let aryyuser = []
@@ -261,7 +310,6 @@ function dom(deta) {
             b = totalFromensbrought.reduce(myFunc) + ' ₪'
         }
     }
-
 
     $(".list").html("")
     let myTable = ""
