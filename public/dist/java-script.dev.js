@@ -416,7 +416,7 @@ $(document).ready(function () {
   $("#inputSearch").on('input', function () {
     var valSearch = $("#inputSearch").val();
     var resultSearchTerm = [];
-    var regSearchTerm = new RegExp(valSearch, '[A-Za-z.\s_-]+$');
+    var regSearchTerm = new RegExp(valSearch, 'g');
     allData.forEach(function (element) {
       if (regSearchTerm.test(element.Dailydate) || regSearchTerm.test(element.Revenue) || regSearchTerm.test(element.Fromensbrought) || regSearchTerm.test(element.Remarks)) {
         resultSearchTerm.push(element);
