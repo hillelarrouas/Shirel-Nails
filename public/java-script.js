@@ -29,13 +29,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $(".Search").click(function () {
-        $(".cardSearch").slideToggle(250);
+    $(".Search").click(async function () {
+        await $(".cardSearch").slideToggle(250);
         $("#inputSearch").focus()
-        $('input[name="radioSearch"]')[0].checked = false;
-        $('input[name="radioSearch"]')[1].checked = false;
-        $('input[name="radioSearch"]')[2].checked = false;
-        $('input[name="radioSearch"]')[3].checked = false;
+        $("#inputSearch").val('')
+        setTimeout(function () {
+            getcategoryinit()
+        }, 250);
     });
 });
 
@@ -267,7 +267,12 @@ function dom(deta) {
     let myTable = ""
 
     if (deta[0] == undefined) {
-        $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
+        if ($(".cardSearch").css("display") == "none") {
+            $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
+        }
+        else {
+            $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>")
+        }
     }
     else {
         $(".list").html(
@@ -276,14 +281,13 @@ function dom(deta) {
                 <th class="nonepone">תאריך</th>
                     <th>הכנסות</th>
                     <th>תרומות</th>
-                    <th>חיוב מעשרות</th>
+                    <th>סה"כ</th>
                     <th>הערות</th>
                 </tr>
                 </table>`)
 
         for (i = 0; i < deta.length; i++) {
             if (deta[i].Revenue == null) {
-
                 myTable += `
             <tr onclick='edetelist("${deta[i]._id}")'>
             <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
@@ -318,19 +322,22 @@ function dom(deta) {
             }
         }
 
-
-        myTable += `<tr style='background-color: var(--backgroundbutton)' >
+        if ($(".cardSearch").css("display") == "none") {
+            myTable += `<tr style='background-color: var(--backgroundbutton)' class="displaynoneserch">
                 <td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
                              <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
                         </tr>
-                        <tr>
+                        <tr class="displaynoneserch">
         <td class="nonepone"></td>
                     <td>${a}</td>
                     <td>${b}</td>
                     <td colspan="2">${htmll} ₪</td>
                 </tr> `
-        $("table").append(myTable)
+
+        }
+        myTable += $("table").append(myTable)
     }
+
 }
 
 
@@ -409,63 +416,17 @@ function testlogin() {
 
 $(document).ready(function () {
     $("#inputSearch").on('input', function () {
-        functionSearch()
+
+        const valSearch = $("#inputSearch").val();
+        let resultSearchTerm = [];
+
+        let regSearchTerm = new RegExp(valSearch, 'g');
+
+        allData.forEach(element => {
+            if (regSearchTerm.test(element.Dailydate) || regSearchTerm.test(element.Revenue) || regSearchTerm.test(element.Fromensbrought) || regSearchTerm.test(element.Remarks)) {
+                resultSearchTerm.push(element)
+            }
+        })
+        dom(resultSearchTerm)
     });
 });
-
-$(document).ready(function () {
-    $("input[name='radioSearch']").change(function () {
-        functionSearch()
-    });
-});
-
-
-function functionSearch() {
-    const valSearch = $("#inputSearch").val();
-    let radioValue = $("input[name='radioSearch']:checked").val()
-    let resultSearchTerm = [];
-
-    if (radioValue == 'date') {
-        let regSearchTerm = new RegExp(valSearch, 'g');
-
-        allData.forEach(element => {
-            if (regSearchTerm.test(element.Dailydate)) {
-                resultSearchTerm.push(element)
-            }
-        })
-        dom(resultSearchTerm)
-    }
-
-    if (radioValue == 'income') {
-        let regSearchTerm = new RegExp(valSearch, 'g');
-
-        allData.forEach(element => {
-            if (regSearchTerm.test(element.Revenue)) {
-                resultSearchTerm.push(element)
-            }
-        })
-        dom(resultSearchTerm)
-    }
-
-    if (radioValue == 'contribution') {
-        let regSearchTerm = new RegExp(valSearch, 'g');
-
-        allData.forEach(element => {
-            if (regSearchTerm.test(element.Fromensbrought)) {
-                resultSearchTerm.push(element)
-            }
-        })
-        dom(resultSearchTerm)
-    }
-
-    if (radioValue == 'Note') {
-        let regSearchTerm = new RegExp(valSearch, 'g');
-
-        allData.forEach(element => {
-            if (regSearchTerm.test(element.Remarks)) {
-                resultSearchTerm.push(element)
-            }
-        })
-        dom(resultSearchTerm)
-    }
-}

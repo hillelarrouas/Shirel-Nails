@@ -143,15 +143,14 @@ body {
         box-sizing: border-box;
         display: none;
         text-align: center;
-        padding: 15px 0 5px;
+        padding: 15px 0;
 
+        
         input[type=text] {
             direction: rtl;
             padding: 10px 0;
             font-size: 20rem;
             border: 0;
-            // border-bottom: 2px solid var(--color);
-            // background: none;
             outline: none;
             font-family: var(--font-family);
             color: var(--color);
@@ -159,24 +158,6 @@ body {
             box-sizing: border-box;
             border-radius: 5px;
             text-align: center;
-        }
-
-        .SearchType {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            width: 75%;
-            margin: auto;
-
-            label {
-                display: flex;
-                align-items: center;
-                font-size: 20rem;
-
-                input[type=radio] {
-                    margin-bottom: 2px;
-                }
-            }
         }
     }
 

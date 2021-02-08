@@ -30,13 +30,27 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  $(".Search").click(function () {
-    $(".cardSearch").slideToggle(250);
-    $("#inputSearch").focus();
-    $('input[name="radioSearch"]')[0].checked = false;
-    $('input[name="radioSearch"]')[1].checked = false;
-    $('input[name="radioSearch"]')[2].checked = false;
-    $('input[name="radioSearch"]')[3].checked = false;
+  $(".Search").click(function _callee() {
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return regeneratorRuntime.awrap($(".cardSearch").slideToggle(250));
+
+          case 2:
+            $("#inputSearch").focus();
+            $("#inputSearch").val('');
+            setTimeout(function () {
+              getcategoryinit();
+            }, 250);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    });
   });
 });
 $(document).ready(function () {
@@ -264,9 +278,13 @@ function dom(deta) {
   var myTable = "";
 
   if (deta[0] == undefined) {
-    $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
+    if ($(".cardSearch").css("display") == "none") {
+      $(".list").html("<h1>עדיין לא הוספת מידע</h1>");
+    } else {
+      $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>");
+    }
   } else {
-    $(".list").html("<table>\n                <tr>\n                <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n                    <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n                    <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n                    <th>\u05D7\u05D9\u05D5\u05D1 \u05DE\u05E2\u05E9\u05E8\u05D5\u05EA</th>\n                    <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n                </tr>\n                </table>");
+    $(".list").html("<table>\n                <tr>\n                <th class=\"nonepone\">\u05EA\u05D0\u05E8\u05D9\u05DA</th>\n                    <th>\u05D4\u05DB\u05E0\u05E1\u05D5\u05EA</th>\n                    <th>\u05EA\u05E8\u05D5\u05DE\u05D5\u05EA</th>\n                    <th>\u05E1\u05D4\"\u05DB</th>\n                    <th>\u05D4\u05E2\u05E8\u05D5\u05EA</th>\n                </tr>\n                </table>");
 
     for (i = 0; i < deta.length; i++) {
       if (deta[i].Revenue == null) {
@@ -278,8 +296,11 @@ function dom(deta) {
       }
     }
 
-    myTable += "<tr style='background-color: var(--backgroundbutton)' >\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                        </tr>\n                        <tr>\n        <td class=\"nonepone\"></td>\n                    <td>".concat(a, "</td>\n                    <td>").concat(b, "</td>\n                    <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n                </tr> ");
-    $("table").append(myTable);
+    if ($(".cardSearch").css("display") == "none") {
+      myTable += "<tr style='background-color: var(--backgroundbutton)' class=\"displaynoneserch\">\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                        </tr>\n                        <tr class=\"displaynoneserch\">\n        <td class=\"nonepone\"></td>\n                    <td>".concat(a, "</td>\n                    <td>").concat(b, "</td>\n                    <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n                </tr> ");
+    }
+
+    myTable += $("table").append(myTable);
   }
 }
 
@@ -350,60 +371,14 @@ function testlogin() {
 
 $(document).ready(function () {
   $("#inputSearch").on('input', function () {
-    functionSearch();
-  });
-});
-$(document).ready(function () {
-  $("input[name='radioSearch']").change(function () {
-    functionSearch();
-  });
-});
-
-function functionSearch() {
-  var valSearch = $("#inputSearch").val();
-  var radioValue = $("input[name='radioSearch']:checked").val();
-  var resultSearchTerm = [];
-
-  if (radioValue == 'date') {
+    var valSearch = $("#inputSearch").val();
+    var resultSearchTerm = [];
     var regSearchTerm = new RegExp(valSearch, 'g');
     allData.forEach(function (element) {
-      if (regSearchTerm.test(element.Dailydate)) {
+      if (regSearchTerm.test(element.Dailydate) || regSearchTerm.test(element.Revenue) || regSearchTerm.test(element.Fromensbrought) || regSearchTerm.test(element.Remarks)) {
         resultSearchTerm.push(element);
       }
     });
     dom(resultSearchTerm);
-  }
-
-  if (radioValue == 'income') {
-    var _regSearchTerm = new RegExp(valSearch, 'g');
-
-    allData.forEach(function (element) {
-      if (_regSearchTerm.test(element.Revenue)) {
-        resultSearchTerm.push(element);
-      }
-    });
-    dom(resultSearchTerm);
-  }
-
-  if (radioValue == 'contribution') {
-    var _regSearchTerm2 = new RegExp(valSearch, 'g');
-
-    allData.forEach(function (element) {
-      if (_regSearchTerm2.test(element.Fromensbrought)) {
-        resultSearchTerm.push(element);
-      }
-    });
-    dom(resultSearchTerm);
-  }
-
-  if (radioValue == 'Note') {
-    var _regSearchTerm3 = new RegExp(valSearch, 'g');
-
-    allData.forEach(function (element) {
-      if (_regSearchTerm3.test(element.Remarks)) {
-        resultSearchTerm.push(element);
-      }
-    });
-    dom(resultSearchTerm);
-  }
-}
+  });
+});
