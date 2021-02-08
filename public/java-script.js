@@ -28,6 +28,12 @@ $(document).ready(function () {
     });
 });
 
+$(document).ready(function () {
+    $(".Search").click(function () {
+        $(".cardSearch").slideToggle(250);
+        $("#inputSearch").focus()
+    });
+});
 
 $(document).ready(function () {
     $(".scrin").click(function () {
@@ -35,8 +41,6 @@ $(document).ready(function () {
         $(".menu").slideToggle(100);
     });
 });
-
-
 
 $(document).ready(function () {
     $(".returnuser").click(function () {
@@ -49,6 +53,8 @@ function init() {
     getcategoryinit()
     usermenu()
 }
+
+
 
 let aryyuser = []
 function usermenu() {
@@ -153,7 +159,7 @@ $(document).ready(function () {
         const Dailydate = $("#data").val();
         // const datavalue = $("#data").val()
         // let Dailydate = datavalue.split('-')[0] + "/ " + datavalue.split('-')[1] + " / " + datavalue.split('-')[2]
-
+        console.log(Dailydate)
 
         if (Revenue.length == 0 && Fromensbrought.length == 0) {
             $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
@@ -215,30 +221,28 @@ $(document).ready(function () {
     });
 });
 
-
-
-
-
+let allData = []
 
 function dom(deta) {
     let htmll = ''
     let total = []
     let totalRevenue = []
     let totalFromensbrought = []
+    allData = []
 
 
     deta.forEach(element => {
+        allData.push(element)
         total.push(element.total)
         totalRevenue.push(element.Revenue)
         totalFromensbrought.push(element.Fromensbrought)
-
     });
     let a = ""
     let b = ""
 
     if (total.length > 0) {
         if (total.reduce(myFunc) < 0) {
-            htmll = `הינך בזכות של ${Math.abs(total.reduce(myFunc))}`
+            htmll = `הינך ביתרה של ${Math.abs(total.reduce(myFunc))}`
         } else {
             htmll = `הינך בחוב של ${total.reduce(myFunc)}`
         }
@@ -400,3 +404,17 @@ function testlogin() {
 }
 
 
+$(document).ready(function () {
+    $("#inputSearch").keyup(function () {
+        const valSearch = $(".inputSearch").val();
+
+        let resultSearchTerm = []
+        let regSearchTerm = new RegExp(valSearch, 'g');
+
+        allData.forEach(element => {
+            if (regSearchTerm.test(element.Fromensbrought)) {
+                resultSearchTerm.push(element)
+            }
+        })
+    });
+});

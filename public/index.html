@@ -29,7 +29,26 @@
 
     <div class="cardTes">
         <img class='plus' src="/img/plus.png">
+        <img class='Search' src="/img/Search.png">
         <h1>ניהול מעשרות</h1>
+        <div class="cardSearch">
+            <input type="text" id="inputSearch" autocomplete='off' placeholder="בחר סוג חיפוש"></br>
+            <div class="SearchType">
+                <!-- <form action=""></form> -->
+                <label for="rdio1">תאריך
+                    <input type="radio" name='radioSearch' id="rdio1" value="date"/>
+                </label>
+                <label for="rdio2">הכנסה
+                    <input type="radio" name='radioSearch' id="rdio2" value="income">
+                </label>
+                <label for="rdio3">תרומה
+                    <input type="radio" name='radioSearch' id="rdio3" value="contribution">
+                </label>
+                <label for="rdio4">הערה
+                    <input type="radio" name='radioSearch' id="rdio4" value="Note">
+                </label>
+            </div>
+        </div>
         <div class="list">
         </div>
     </div>

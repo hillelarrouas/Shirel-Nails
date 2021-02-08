@@ -30,6 +30,12 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
+  $(".Search").click(function () {
+    $(".cardSearch").slideToggle(250);
+    $("#inputSearch").focus();
+  });
+});
+$(document).ready(function () {
   $(".scrin").click(function () {
     $(".scrin").slideToggle(0);
     $(".menu").slideToggle(100);
@@ -146,6 +152,8 @@ $(document).ready(function () {
     var Dailydate = $("#data").val(); // const datavalue = $("#data").val()
     // let Dailydate = datavalue.split('-')[0] + "/ " + datavalue.split('-')[1] + " / " + datavalue.split('-')[2]
 
+    console.log(Dailydate);
+
     if (Revenue.length == 0 && Fromensbrought.length == 0) {
       $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
     } else {
@@ -212,13 +220,16 @@ $(document).ready(function () {
     }
   });
 });
+var allData = [];
 
 function dom(deta) {
   var htmll = '';
   var total = [];
   var totalRevenue = [];
   var totalFromensbrought = [];
+  allData = [];
   deta.forEach(function (element) {
+    allData.push(element);
     total.push(element.total);
     totalRevenue.push(element.Revenue);
     totalFromensbrought.push(element.Fromensbrought);
@@ -228,7 +239,7 @@ function dom(deta) {
 
   if (total.length > 0) {
     if (total.reduce(myFunc) < 0) {
-      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D6\u05DB\u05D5\u05EA \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D9\u05EA\u05E8\u05D4 \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
     } else {
       htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
     }
@@ -333,3 +344,16 @@ $(document).ready(function () {
 function testlogin() {
   location.href = '/login.html';
 }
+
+$(document).ready(function () {
+  $("#inputSearch").keyup(function () {
+    var valSearch = $(".inputSearch").val();
+    var resultSearchTerm = [];
+    var regSearchTerm = new RegExp(valSearch, 'g');
+    allData.forEach(function (element) {
+      if (regSearchTerm.test(element.Fromensbrought)) {
+        resultSearchTerm.push(element);
+      }
+    });
+  });
+});

@@ -105,11 +105,60 @@ body {
   position: absolute;
   top: 5px;
   right: 5px;
-  background: cadetblue;
+  background: var(--backgroundbutton);
   padding: 10px;
   border-radius: 20px;
   cursor: pointer;
   z-index: 1;
+}
+.cardTes .Search {
+  width: 30px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: var(--backgroundbutton);
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+.cardTes .cardSearch {
+  width: 100%;
+  background-color: rgba(95, 158, 160, 0.527);
+  border-radius: 20px 20px 0 0;
+  border: 1px solid rgba(66, 111, 112, 0.787);
+  border-bottom: 0;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 15px 0 5px;
+}
+.cardTes .cardSearch input[type=text] {
+  direction: rtl;
+  padding: 10px 0;
+  font-size: 20rem;
+  border: 0;
+  outline: none;
+  font-family: var(--font-family);
+  color: var(--color);
+  width: 80%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align: center;
+}
+.cardTes .cardSearch .SearchType {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 60%;
+  margin: auto;
+}
+.cardTes .cardSearch .SearchType label {
+  display: flex;
+  align-items: center;
+  font-size: 20rem;
+}
+.cardTes .cardSearch .SearchType label input[type=radio] {
+  margin-bottom: 2px;
 }
 .cardTes h1 {
   text-align: center;
@@ -363,11 +412,19 @@ body {
     margin: 70px auto 70px;
   }
 
-  .nonepone, .colspan {
+  .nonepone,
+.colspan {
     display: none;
   }
 
   .colspanblock {
     display: revert;
+  }
+
+  .SearchType {
+    width: 85%;
+  }
+  .SearchType label {
+    padding: 5px;
   }
 }
