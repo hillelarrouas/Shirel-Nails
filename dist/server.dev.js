@@ -53,29 +53,30 @@ app.post('/LastSeen', function _callee(req, res) {
         case 0:
           _context.prev = 0;
           _req$body = req.body, _id = _req$body._id, LastSeen = _req$body.LastSeen;
-          _context.next = 4;
+          console.log(LastSeen);
+          _context.next = 5;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id
           }, {
             LastSeen: LastSeen
           }));
 
-        case 4:
+        case 5:
           res.send(true);
-          _context.next = 10;
+          _context.next = 11;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
 
-        case 10:
+        case 11:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 8]]);
 });
 var coocik;
 app.get('/get-userid', testcoocik, function _callee2(req, res) {

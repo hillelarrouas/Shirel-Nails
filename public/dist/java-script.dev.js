@@ -91,7 +91,8 @@ $(document).ready(function () {
 });
 setInterval(function () {
   var _id = aryyuser[0]._id;
-  var LastSeen = new Date();
+  var LastSeen = new Date().toString();
+  console.log(LastSeen);
   fetch('/LastSeen', {
     method: 'post',
     headers: {
@@ -104,7 +105,7 @@ setInterval(function () {
   }).then(function (res) {
     return res.json();
   }).then(function (deta) {});
-}, 10000);
+}, 1000);
 
 function init() {
   getcategoryinit();
