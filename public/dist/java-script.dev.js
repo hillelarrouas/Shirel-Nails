@@ -31,11 +31,6 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
   $(".Search").click(function () {
-    // if ($(".cardSearch").css("display") == "none") {
-    //     $(".cardSearch").css("display",'inline-table')
-    // }else{
-    //     $(".cardSearch").css("display",'none')
-    // }
     $(".cardSearch").slideToggle(250);
     $("#inputSearch").focus();
     $("#inputSearch").val('');
@@ -96,13 +91,15 @@ $(document).ready(function () {
 });
 setInterval(function () {
   var _id = aryyuser[0]._id;
+  var LastSeen = new Date();
   fetch('/LastSeen', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      _id: _id
+      _id: _id,
+      LastSeen: LastSeen
     })
   }).then(function (res) {
     return res.json();

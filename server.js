@@ -41,8 +41,7 @@ const Tens = mongoose.model('Tens', {
 
 app.post('/LastSeen', async (req, res) => {
     try {
-        const {_id} = req.body
-        const LastSeen = new Date()
+        const {_id,LastSeen} = req.body
        
         await Users.updateOne({ _id}, {LastSeen})
         res.send(true)

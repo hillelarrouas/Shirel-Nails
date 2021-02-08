@@ -30,11 +30,6 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(".Search").click(function () {
-        // if ($(".cardSearch").css("display") == "none") {
-        //     $(".cardSearch").css("display",'inline-table')
-        // }else{
-        //     $(".cardSearch").css("display",'none')
-        // }
         $(".cardSearch").slideToggle(250);
         $("#inputSearch").focus()
         $("#inputSearch").val('')
@@ -93,13 +88,14 @@ $(document).ready(function () {
 
 setInterval(function () {
     const _id = aryyuser[0]._id
+    const LastSeen = new Date()
     fetch('/LastSeen', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            _id
+            _id,LastSeen
         })
     }).then(res => res.json())
         .then(deta => {

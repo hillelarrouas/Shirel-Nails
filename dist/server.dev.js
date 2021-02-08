@@ -45,38 +45,37 @@ var Tens = mongoose.model('Tens', {
   Dailydate: String
 });
 app.post('/LastSeen', function _callee(req, res) {
-  var _id, LastSeen;
+  var _req$body, _id, LastSeen;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _id = req.body._id;
-          LastSeen = new Date();
-          _context.next = 5;
+          _req$body = req.body, _id = _req$body._id, LastSeen = _req$body.LastSeen;
+          _context.next = 4;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id
           }, {
             LastSeen: LastSeen
           }));
 
-        case 5:
+        case 4:
           res.send(true);
-          _context.next = 11;
+          _context.next = 10;
           break;
 
-        case 8:
-          _context.prev = 8;
+        case 7:
+          _context.prev = 7;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
 
-        case 11:
+        case 10:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 8]]);
+  }, null, null, [[0, 7]]);
 });
 var coocik;
 app.get('/get-userid', testcoocik, function _callee2(req, res) {
@@ -176,14 +175,14 @@ app.get('/get-categoryinit', function _callee3(req, res) {
   }, null, null, [[0, 18]]);
 });
 app.post("/button-plus", function _callee4(req, res) {
-  var _req$body, Revenue, Fromensbrought, Remarks, Dailydate, user, jwtuser, _userid, total, Tensdata;
+  var _req$body2, Revenue, Fromensbrought, Remarks, Dailydate, user, jwtuser, _userid, total, Tensdata;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
-          _req$body = req.body, Revenue = _req$body.Revenue, Fromensbrought = _req$body.Fromensbrought, Remarks = _req$body.Remarks, Dailydate = _req$body.Dailydate;
+          _req$body2 = req.body, Revenue = _req$body2.Revenue, Fromensbrought = _req$body2.Fromensbrought, Remarks = _req$body2.Remarks, Dailydate = _req$body2.Dailydate;
           user = req.cookies.user;
           jwtuser = jwt.decode(user, secret);
           _userid = jwtuser.id;
@@ -255,14 +254,14 @@ app.post('/edete-list', function _callee5(req, res) {
   }, null, null, [[0, 8]]);
 });
 app.post('/clickbuttonediting', function _callee6(req, res) {
-  var _req$body2, Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate, total;
+  var _req$body3, Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate, total;
 
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
-          _req$body2 = req.body, Revenueediting = _req$body2.Revenueediting, Fromensbroughtediting = _req$body2.Fromensbroughtediting, Remarksediting = _req$body2.Remarksediting, id = _req$body2.id, Dailydate = _req$body2.Dailydate;
+          _req$body3 = req.body, Revenueediting = _req$body3.Revenueediting, Fromensbroughtediting = _req$body3.Fromensbroughtediting, Remarksediting = _req$body3.Remarksediting, id = _req$body3.id, Dailydate = _req$body3.Dailydate;
           total = Revenueediting * 0.10 - Fromensbroughtediting;
           _context6.next = 5;
           return regeneratorRuntime.awrap(Tens.updateOne({
@@ -323,14 +322,14 @@ app.post('/deletelistditing', function _callee7(req, res) {
   }, null, null, [[0, 7]]);
 });
 app.post('/login', function _callee8(req, res) {
-  var ok, _req$body3, emaillogin, paswordlogin, deta, id, token;
+  var ok, _req$body4, emaillogin, paswordlogin, deta, id, token;
 
   return regeneratorRuntime.async(function _callee8$(_context8) {
     while (1) {
       switch (_context8.prev = _context8.next) {
         case 0:
           _context8.prev = 0;
-          _req$body3 = req.body, emaillogin = _req$body3.emaillogin, paswordlogin = _req$body3.paswordlogin;
+          _req$body4 = req.body, emaillogin = _req$body4.emaillogin, paswordlogin = _req$body4.paswordlogin;
           _context8.next = 4;
           return regeneratorRuntime.awrap(Users.find({}));
 
@@ -390,7 +389,7 @@ app.post('/login', function _callee8(req, res) {
   }, null, null, [[0, 24]]);
 });
 app.post('/sing_in', function _callee9(req, res) {
-  var ok, mesag, _req$body4, namesing_in, telsing_in, emailsing_in, paswordsing_in, deta, plueuser;
+  var ok, mesag, _req$body5, namesing_in, telsing_in, emailsing_in, paswordsing_in, deta, plueuser;
 
   return regeneratorRuntime.async(function _callee9$(_context9) {
     while (1) {
@@ -399,7 +398,7 @@ app.post('/sing_in', function _callee9(req, res) {
           ok = true;
           mesag = '';
           _context9.prev = 2;
-          _req$body4 = req.body, namesing_in = _req$body4.namesing_in, telsing_in = _req$body4.telsing_in, emailsing_in = _req$body4.emailsing_in, paswordsing_in = _req$body4.paswordsing_in;
+          _req$body5 = req.body, namesing_in = _req$body5.namesing_in, telsing_in = _req$body5.telsing_in, emailsing_in = _req$body5.emailsing_in, paswordsing_in = _req$body5.paswordsing_in;
           _context9.next = 6;
           return regeneratorRuntime.awrap(Users.find({}));
 
@@ -491,14 +490,14 @@ app.post('/sing_in', function _callee9(req, res) {
   }, null, null, [[2, 31]]);
 });
 app.post('/UserUpdate', testcoocik, function _callee10(req, res) {
-  var _req$body5, namesing_in, telsing_in, emailsing_in, paswordsing_in, _id;
+  var _req$body6, namesing_in, telsing_in, emailsing_in, paswordsing_in, _id;
 
   return regeneratorRuntime.async(function _callee10$(_context10) {
     while (1) {
       switch (_context10.prev = _context10.next) {
         case 0:
           _context10.prev = 0;
-          _req$body5 = req.body, namesing_in = _req$body5.namesing_in, telsing_in = _req$body5.telsing_in, emailsing_in = _req$body5.emailsing_in, paswordsing_in = _req$body5.paswordsing_in, _id = _req$body5._id;
+          _req$body6 = req.body, namesing_in = _req$body6.namesing_in, telsing_in = _req$body6.telsing_in, emailsing_in = _req$body6.emailsing_in, paswordsing_in = _req$body6.paswordsing_in, _id = _req$body6._id;
           _context10.next = 4;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id
