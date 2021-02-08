@@ -105,7 +105,7 @@ setInterval(function () {
   }).then(function (res) {
     return res.json();
   }).then(function (deta) {});
-}, 1000);
+}, 10000);
 
 function init() {
   getcategoryinit();

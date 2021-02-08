@@ -102,7 +102,7 @@ setInterval(function () {
     }).then(res => res.json())
         .then(deta => {
         })
-}, 1000);
+}, 10000);
 
 
 function init() {
