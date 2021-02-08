@@ -31,17 +31,17 @@ $(document).ready(function () {
 });
 $(document).ready(function () {
   $(".Search").click(function () {
-    if ($(".cardSearch").css("display") == "none") {
-      $(".cardSearch").css("display", 'inline-table');
-    } else {
-      $(".cardSearch").css("display", 'none');
-    } //  $(".cardSearch").slideToggle(250);
-
-
+    // if ($(".cardSearch").css("display") == "none") {
+    //     $(".cardSearch").css("display",'inline-table')
+    // }else{
+    //     $(".cardSearch").css("display",'none')
+    // }
+    $(".cardSearch").slideToggle(250);
     $("#inputSearch").focus();
-    $("#inputSearch").val(''); // setTimeout(function () {
-
-    getcategoryinit(); // }, 250);
+    $("#inputSearch").val('');
+    setTimeout(function () {
+      getcategoryinit();
+    }, 250);
   });
 });
 $(document).ready(function () {
