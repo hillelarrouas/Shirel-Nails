@@ -89,7 +89,6 @@ $(document).ready(function () {
 setInterval(function () {
     const _id = aryyuser[0]._id
     const LastSeen = new Date().toString();
-    console.log(LastSeen)
 
     fetch('/LastSeen', {
         method: 'post',

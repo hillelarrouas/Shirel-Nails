@@ -53,30 +53,29 @@ app.post('/LastSeen', function _callee(req, res) {
         case 0:
           _context.prev = 0;
           _req$body = req.body, _id = _req$body._id, LastSeen = _req$body.LastSeen;
-          console.log(LastSeen);
-          _context.next = 5;
+          _context.next = 4;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id
           }, {
             LastSeen: LastSeen
           }));
 
-        case 5:
+        case 4:
           res.send(true);
-          _context.next = 11;
+          _context.next = 10;
           break;
 
-        case 8:
-          _context.prev = 8;
+        case 7:
+          _context.prev = 7;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
 
-        case 11:
+        case 10:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 8]]);
+  }, null, null, [[0, 7]]);
 });
 var coocik;
 app.get('/get-userid', testcoocik, function _callee2(req, res) {
@@ -134,7 +133,7 @@ app.get('/get-categoryinit', function _callee3(req, res) {
           userid = jwtuser.id;
           Dateuser = jwtuser.newDate;
 
-          if (!(Dateuser + 86400000 < _newDate)) {
+          if (!(Dateuser + 172800000 < _newDate)) {
             _context3.next = 12;
             break;
           }
@@ -409,12 +408,12 @@ app.post('/sing_in', function _callee9(req, res) {
 
         case 8:
           if (!(i < deta.length)) {
-            _context9.next = 24;
+            _context9.next = 25;
             break;
           }
 
           if (!(emailsing_in == deta[i].email)) {
-            _context9.next = 20;
+            _context9.next = 21;
             break;
           }
 
@@ -425,27 +424,28 @@ app.post('/sing_in', function _callee9(req, res) {
 
           ok = false;
           mesag = 'חשבון זה כבר קיים';
-          return _context9.abrupt("break", 24);
+          return _context9.abrupt("break", 25);
 
         case 16:
           mesag = 'מייל כבר קיים במערכת';
           ok = false;
+          return _context9.abrupt("break", 25);
 
-        case 18:
-          _context9.next = 21;
+        case 19:
+          _context9.next = 22;
           break;
 
-        case 20:
+        case 21:
           ok = true;
 
-        case 21:
+        case 22:
           i++;
           _context9.next = 8;
           break;
 
-        case 24:
+        case 25:
           if (!(ok == true)) {
-            _context9.next = 28;
+            _context9.next = 29;
             break;
           }
 
@@ -455,7 +455,7 @@ app.post('/sing_in', function _callee9(req, res) {
             email: emailsing_in,
             password: paswordsing_in
           });
-          _context9.next = 28;
+          _context9.next = 29;
           return regeneratorRuntime.awrap(plueuser.save().then(function (doc) {
             var id = doc._id;
             newDate = new Date().getTime();
@@ -470,25 +470,25 @@ app.post('/sing_in', function _callee9(req, res) {
             return console.log(e);
           }));
 
-        case 28:
+        case 29:
           res.send({
             ok: ok,
             mesag: mesag
           });
-          _context9.next = 34;
+          _context9.next = 35;
           break;
 
-        case 31:
-          _context9.prev = 31;
+        case 32:
+          _context9.prev = 32;
           _context9.t0 = _context9["catch"](2);
           console.log(_context9.t0);
 
-        case 34:
+        case 35:
         case "end":
           return _context9.stop();
       }
     }
-  }, null, null, [[2, 31]]);
+  }, null, null, [[2, 32]]);
 });
 app.post('/UserUpdate', testcoocik, function _callee10(req, res) {
   var _req$body6, namesing_in, telsing_in, emailsing_in, paswordsing_in, _id;
@@ -498,7 +498,24 @@ app.post('/UserUpdate', testcoocik, function _callee10(req, res) {
       switch (_context10.prev = _context10.next) {
         case 0:
           _context10.prev = 0;
-          _req$body6 = req.body, namesing_in = _req$body6.namesing_in, telsing_in = _req$body6.telsing_in, emailsing_in = _req$body6.emailsing_in, paswordsing_in = _req$body6.paswordsing_in, _id = _req$body6._id;
+          _req$body6 = req.body, namesing_in = _req$body6.namesing_in, telsing_in = _req$body6.telsing_in, emailsing_in = _req$body6.emailsing_in, paswordsing_in = _req$body6.paswordsing_in, _id = _req$body6._id; // const deta = await Users.find({})
+          // for (i = 0; i < deta.length; i++) {
+          //     if (emailsing_in == deta[i].email && _id ==  deta[i]._id) {
+          //         if (paswordsing_in == deta[i].password) {
+          //             ok = false
+          //             mesag = 'חשבון זה כבר קיים'
+          //             break
+          //         }
+          //         else{
+          //             mesag = 'מייל כבר קיים במערכת'
+          //             ok = false
+          //             break
+          //         }
+          //     } else {
+          //         ok = true
+          //     }
+          // }
+
           _context10.next = 4;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id

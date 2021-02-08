@@ -42,7 +42,6 @@ const Tens = mongoose.model('Tens', {
 app.post('/LastSeen', async (req, res) => {
     try {
         const {_id,LastSeen} = req.body
-        console.log(LastSeen)
        
         await Users.updateOne({ _id}, {LastSeen})
         res.send(true)
@@ -79,7 +78,7 @@ app.get('/get-categoryinit', async (req, res) => {
             userid = jwtuser.id
             Dateuser = jwtuser.newDate
 
-            if (Dateuser + 86400000 < newDate) {
+            if (Dateuser + 172800000 < newDate) {
                 res.cookie('user', user, { maxAge: 0, httpOnly: true })
                 validated = false
             }
@@ -186,6 +185,7 @@ app.post('/sing_in', async (req, res) => {
                 else{
                     mesag = 'מייל כבר קיים במערכת'
                     ok = false
+                    break
                 }
             } else {
                 ok = true
@@ -212,6 +212,23 @@ app.post('/sing_in', async (req, res) => {
 app.post('/UserUpdate',testcoocik, async(req, res) => {
     try {
         const { namesing_in, telsing_in, emailsing_in, paswordsing_in, _id } = req.body
+        // const deta = await Users.find({})
+        // for (i = 0; i < deta.length; i++) {
+        //     if (emailsing_in == deta[i].email && _id ==  deta[i]._id) {
+        //         if (paswordsing_in == deta[i].password) {
+        //             ok = false
+        //             mesag = 'חשבון זה כבר קיים'
+        //             break
+        //         }
+        //         else{
+        //             mesag = 'מייל כבר קיים במערכת'
+        //             ok = false
+        //             break
+        //         }
+        //     } else {
+        //         ok = true
+        //     }
+        // }
         await Users.updateOne({ _id }, { name: namesing_in, phone: telsing_in, email: emailsing_in, password: paswordsing_in })
 
         res.send({ ok: true })
