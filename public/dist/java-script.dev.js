@@ -33,6 +33,10 @@ $(document).ready(function () {
   $(".Search").click(function () {
     $(".cardSearch").slideToggle(250);
     $("#inputSearch").focus();
+    $('input[name="radioSearch"]')[0].checked = false;
+    $('input[name="radioSearch"]')[1].checked = false;
+    $('input[name="radioSearch"]')[2].checked = false;
+    $('input[name="radioSearch"]')[3].checked = false;
   });
 });
 $(document).ready(function () {
@@ -346,51 +350,60 @@ function testlogin() {
 
 $(document).ready(function () {
   $("#inputSearch").on('input', function () {
-    var valSearch = $("#inputSearch").val();
-    var radioValue = $("input[name='radioSearch']:checked").val();
-    var resultSearchTerm = [];
-
-    if (radioValue == 'date') {
-      var regSearchTerm = new RegExp(valSearch, 'g');
-      allData.forEach(function (element) {
-        if (regSearchTerm.test(element.Dailydate)) {
-          resultSearchTerm.push(element);
-        }
-      });
-      dom(resultSearchTerm);
-    }
-
-    if (radioValue == 'income') {
-      var _regSearchTerm = new RegExp(valSearch, 'g');
-
-      allData.forEach(function (element) {
-        if (_regSearchTerm.test(element.Revenue)) {
-          resultSearchTerm.push(element);
-        }
-      });
-      dom(resultSearchTerm);
-    }
-
-    if (radioValue == 'contribution') {
-      var _regSearchTerm2 = new RegExp(valSearch, 'g');
-
-      allData.forEach(function (element) {
-        if (_regSearchTerm2.test(element.Fromensbrought)) {
-          resultSearchTerm.push(element);
-        }
-      });
-      dom(resultSearchTerm);
-    }
-
-    if (radioValue == 'Note') {
-      var _regSearchTerm3 = new RegExp(valSearch, 'g');
-
-      allData.forEach(function (element) {
-        if (_regSearchTerm3.test(element.Remarks)) {
-          resultSearchTerm.push(element);
-        }
-      });
-      dom(resultSearchTerm);
-    }
+    functionSearch();
   });
 });
+$(document).ready(function () {
+  $("input[name='radioSearch']").change(function () {
+    functionSearch();
+  });
+});
+
+function functionSearch() {
+  var valSearch = $("#inputSearch").val();
+  var radioValue = $("input[name='radioSearch']:checked").val();
+  var resultSearchTerm = [];
+
+  if (radioValue == 'date') {
+    var regSearchTerm = new RegExp(valSearch, 'g');
+    allData.forEach(function (element) {
+      if (regSearchTerm.test(element.Dailydate)) {
+        resultSearchTerm.push(element);
+      }
+    });
+    dom(resultSearchTerm);
+  }
+
+  if (radioValue == 'income') {
+    var _regSearchTerm = new RegExp(valSearch, 'g');
+
+    allData.forEach(function (element) {
+      if (_regSearchTerm.test(element.Revenue)) {
+        resultSearchTerm.push(element);
+      }
+    });
+    dom(resultSearchTerm);
+  }
+
+  if (radioValue == 'contribution') {
+    var _regSearchTerm2 = new RegExp(valSearch, 'g');
+
+    allData.forEach(function (element) {
+      if (_regSearchTerm2.test(element.Fromensbrought)) {
+        resultSearchTerm.push(element);
+      }
+    });
+    dom(resultSearchTerm);
+  }
+
+  if (radioValue == 'Note') {
+    var _regSearchTerm3 = new RegExp(valSearch, 'g');
+
+    allData.forEach(function (element) {
+      if (_regSearchTerm3.test(element.Remarks)) {
+        resultSearchTerm.push(element);
+      }
+    });
+    dom(resultSearchTerm);
+  }
+}

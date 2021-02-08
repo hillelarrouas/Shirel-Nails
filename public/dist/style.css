@@ -150,7 +150,7 @@ body {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 60%;
+  width: 75%;
   margin: auto;
 }
 .cardTes .cardSearch .SearchType label {
@@ -422,10 +422,7 @@ body {
     display: revert;
   }
 
-  .SearchType {
-    width: 85%;
-  }
-  .SearchType label {
-    padding: 5px;
+  label {
+    padding: 2px;
   }
 }

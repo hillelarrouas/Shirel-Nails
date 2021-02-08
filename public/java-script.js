@@ -32,6 +32,10 @@ $(document).ready(function () {
     $(".Search").click(function () {
         $(".cardSearch").slideToggle(250);
         $("#inputSearch").focus()
+        $('input[name="radioSearch"]')[0].checked = false;
+        $('input[name="radioSearch"]')[1].checked = false;
+        $('input[name="radioSearch"]')[2].checked = false;
+        $('input[name="radioSearch"]')[3].checked = false;
     });
 });
 
@@ -231,7 +235,7 @@ function dom(deta) {
     let totalFromensbrought = []
 
     deta.forEach(element => {
-        
+
         total.push(element.total)
         totalRevenue.push(element.Revenue)
         totalFromensbrought.push(element.Fromensbrought)
@@ -404,53 +408,64 @@ function testlogin() {
 
 
 $(document).ready(function () {
-    $("#inputSearch").on('input',function () {
-        const valSearch = $("#inputSearch").val();
-        let radioValue = $("input[name='radioSearch']:checked").val()
-        let resultSearchTerm = [];
-
-        if(radioValue == 'date'){
-            let regSearchTerm = new RegExp(valSearch, 'g');
-
-            allData.forEach(element => {
-                if (regSearchTerm.test(element.Dailydate)) {
-                    resultSearchTerm.push(element)
-                }
-            })
-            dom(resultSearchTerm)
-        }
-
-        if(radioValue == 'income'){
-            let regSearchTerm = new RegExp(valSearch, 'g');
-
-            allData.forEach(element => {
-                if (regSearchTerm.test(element.Revenue)) {
-                    resultSearchTerm.push(element)
-                }
-            })
-            dom(resultSearchTerm)
-        }
-
-        if(radioValue == 'contribution'){
-            let regSearchTerm = new RegExp(valSearch, 'g');
-
-            allData.forEach(element => {
-                if (regSearchTerm.test(element.Fromensbrought)) {
-                    resultSearchTerm.push(element)
-                }
-            })
-            dom(resultSearchTerm)
-        }
-
-        if(radioValue == 'Note'){
-            let regSearchTerm = new RegExp(valSearch, 'g');
-
-            allData.forEach(element => {
-                if (regSearchTerm.test(element.Remarks)) {
-                    resultSearchTerm.push(element)
-                }
-            })
-            dom(resultSearchTerm)
-        }
+    $("#inputSearch").on('input', function () {
+        functionSearch()
     });
 });
+
+$(document).ready(function () {
+    $("input[name='radioSearch']").change(function () {
+        functionSearch()
+    });
+});
+
+
+function functionSearch() {
+    const valSearch = $("#inputSearch").val();
+    let radioValue = $("input[name='radioSearch']:checked").val()
+    let resultSearchTerm = [];
+
+    if (radioValue == 'date') {
+        let regSearchTerm = new RegExp(valSearch, 'g');
+
+        allData.forEach(element => {
+            if (regSearchTerm.test(element.Dailydate)) {
+                resultSearchTerm.push(element)
+            }
+        })
+        dom(resultSearchTerm)
+    }
+
+    if (radioValue == 'income') {
+        let regSearchTerm = new RegExp(valSearch, 'g');
+
+        allData.forEach(element => {
+            if (regSearchTerm.test(element.Revenue)) {
+                resultSearchTerm.push(element)
+            }
+        })
+        dom(resultSearchTerm)
+    }
+
+    if (radioValue == 'contribution') {
+        let regSearchTerm = new RegExp(valSearch, 'g');
+
+        allData.forEach(element => {
+            if (regSearchTerm.test(element.Fromensbrought)) {
+                resultSearchTerm.push(element)
+            }
+        })
+        dom(resultSearchTerm)
+    }
+
+    if (radioValue == 'Note') {
+        let regSearchTerm = new RegExp(valSearch, 'g');
+
+        allData.forEach(element => {
+            if (regSearchTerm.test(element.Remarks)) {
+                resultSearchTerm.push(element)
+            }
+        })
+        dom(resultSearchTerm)
+    }
+}

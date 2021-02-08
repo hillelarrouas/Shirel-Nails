@@ -165,7 +165,7 @@ body {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            width: 60%;
+            width: 75%;
             margin: auto;
 
             label {
@@ -456,18 +456,14 @@ body {
     .nonepone,
     .colspan {
         display: none;
-
     }
 
     .colspanblock {
         display: revert;
     }
 
-    .SearchType {
-        width: 85%;
-
         label {
-            padding: 5px;
+            padding: 2px;
         }
-    }
+
 }
