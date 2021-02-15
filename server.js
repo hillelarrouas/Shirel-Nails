@@ -257,7 +257,7 @@ function testcoocik(req, res, next) {
     let validated = false
     if (user) {
         let jwtuser = jwt.decode(user, secret);
-        Dateuser = jwtuser.newDate
+        let Dateuser = jwtuser.newDate
         if (Dateuser + 172800000 < newDate) {
             res.cookie('user', user, { maxAge: 0, httpOnly: true })
             res.send({ validated })

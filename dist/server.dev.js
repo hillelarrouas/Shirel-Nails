@@ -567,9 +567,9 @@ function testcoocik(req, res, next) {
 
   if (user) {
     var jwtuser = jwt.decode(user, secret);
-    Dateuser = jwtuser.newDate;
+    var _Dateuser = jwtuser.newDate;
 
-    if (Dateuser + 172800000 < newDate) {
+    if (_Dateuser + 172800000 < newDate) {
       res.cookie('user', user, {
         maxAge: 0,
         httpOnly: true
