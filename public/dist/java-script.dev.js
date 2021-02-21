@@ -377,7 +377,7 @@ function dom(deta) {
     if (total.reduce(myFunc) < 0) {
       htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D9\u05EA\u05E8\u05D4 \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
     } else {
-      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(total.reduce(myFunc));
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(Math.round(total.reduce(myFunc)));
     }
 
     if (totalRevenue.reduce(myFunc) == null) {

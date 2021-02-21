@@ -387,7 +387,7 @@ function dom(deta) {
         if (total.reduce(myFunc) < 0) {
             htmll = `הינך ביתרה של ${Math.abs(total.reduce(myFunc))}`
         } else {
-            htmll = `הינך בחוב של ${total.reduce(myFunc)}`
+            htmll = `הינך בחוב של ${Math.round(total.reduce(myFunc))}`
         }
         if (totalRevenue.reduce(myFunc) == null) {
             a = ''
