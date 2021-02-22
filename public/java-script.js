@@ -58,7 +58,7 @@ $(document).ready(function () {
         $("#inputSearch").val('')
         setTimeout(function () {
             getcategoryinit()
-        }, 250);
+        }, 300);
     });
 });
 
@@ -233,9 +233,9 @@ function getcategoryinit() {
             if (deta.f) {
                 $(".erroorr").html(
                     `<div class="carerror">
-                <img src="/img/error.png" alt="">
+                <img src="/img/Refresh.png" alt="">
                 <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
-                <button onclick='buttoneroor()'>אישור</button>
+                <button onclick='buttoneroor()'>עדכן גירסה</button>
             </div>`
                 )
                 $(".erroorr").animate({
@@ -348,8 +348,8 @@ function edetelist(_id) {
                     $(".erroorr").html(
                         `<div class="carerror">
                     <img src="/img/error.png" alt="">
-                    <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ אישור כדי לרענן את</div></div>
-                    <button onclick='buttoneroor()'>אישור</button></div>`
+                    <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ כדי לרענן את הטבלה</div></div>
+                    <button onclick='buttoneroor()'>רענן</button></div>`
                     )
                 })
             } else {
