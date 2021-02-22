@@ -96,7 +96,7 @@ setInterval(function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            _id,LastSeen
+            _id, LastSeen
         })
     }).then(res => res.json())
         .then(deta => {
@@ -366,7 +366,17 @@ $(document).ready(function () {
 });
 
 
-
+function numberf(x) {
+    let n = x.toString();
+    let g = n.split('.')
+    let d;
+    if (g[1]) {
+        d = g[0] + '.' + g[1][0] + g[1][1]
+    } else {
+        d = g[0];
+    }
+    return d
+}
 
 function dom(deta) {
     let htmll = ''
@@ -385,20 +395,20 @@ function dom(deta) {
 
     if (total.length > 0) {
         if (total.reduce(myFunc) < 0) {
-            htmll = `הינך ביתרה של ${Math.abs(total.reduce(myFunc))}`
+            htmll = `הינך ביתרה של ${numberf(Math.abs(total.reduce(myFunc)))}`
         } else {
-            htmll = `הינך בחוב של ${Math.round(total.reduce(myFunc))}`
+            htmll = `הינך בחוב של ${numberf(total.reduce(myFunc))}`
         }
         if (totalRevenue.reduce(myFunc) == null) {
             a = ''
         } else {
-            a = totalRevenue.reduce(myFunc) + ' ₪'
+            a = numberf(totalRevenue.reduce(myFunc)) + ' ₪'
         }
         if (totalFromensbrought.reduce(myFunc) == null) {
             b = ''
         }
         else {
-            b = totalFromensbrought.reduce(myFunc) + ' ₪'
+            b = numberf(totalFromensbrought.reduce(myFunc)) + ' ₪'
         }
     }
 
@@ -408,15 +418,15 @@ function dom(deta) {
     if (deta[0] == undefined) {
         if ($(".cardSearch").css("display") == "none") {
             $(".list").html("<h1>עדיין לא הוספת מידע</h1>")
-            $(".Search").css("display","none")
-            
+            $(".Search").css("display", "none")
+
         }
         else {
             $(".list").html("<h1>לא נמצאו תוצאות חיפוש</h1>")
         }
     }
     else {
-        $(".Search").css("display","block")
+        $(".Search").css("display", "block")
         $(".list").html(
             `<table>
                 <tr>
@@ -434,8 +444,8 @@ function dom(deta) {
             <tr onclick='edetelist("${deta[i]._id}")'>
             <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
             <td></td>
-            <td>${deta[i].Fromensbrought} ₪</td>
-            <td>${deta[i].total} ₪</td>
+            <td>${numberf(deta[i].Fromensbrought)} ₪</td>
+            <td>${numberf(deta[i].total)} ₪</td>
             <td>${deta[i].Remarks}</td>
            </tr>`
 
@@ -444,9 +454,9 @@ function dom(deta) {
                 myTable += `
                     <tr onclick='edetelist("${deta[i]._id}")'>
                     <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-                    <td>${deta[i].Revenue} ₪</td>
+                    <td>${numberf(deta[i].Revenue)} ₪</td>
                     <td></td>
-                    <td>${deta[i].total} ₪</td>
+                    <td>${numberf(deta[i].total)} ₪</td>
                     <td>${deta[i].Remarks}</td>
                     </tr>`
 
@@ -455,9 +465,9 @@ function dom(deta) {
                 myTable += `
                 <tr onclick='edetelist("${deta[i]._id}")'>
                 <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-                <td>${deta[i].Revenue} ₪</td>
-                <td>${deta[i].Fromensbrought} ₪</td>
-                <td>${deta[i].total} ₪</td>
+                <td>${numberf(deta[i].Revenue)} ₪</td>
+                <td>${numberf(deta[i].Fromensbrought)} ₪</td>
+                <td>${numberf(deta[i].total)} ₪</td>
                 <td>${deta[i].Remarks}</td>
                 </tr>`
 

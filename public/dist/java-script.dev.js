@@ -360,6 +360,20 @@ $(document).ready(function () {
   });
 });
 
+function numberf(x) {
+  var n = x.toString();
+  var g = n.split('.');
+  var d;
+
+  if (g[1]) {
+    d = g[0] + '.' + g[1][0] + g[1][1];
+  } else {
+    d = g[0];
+  }
+
+  return d;
+}
+
 function dom(deta) {
   var htmll = '';
   var total = [];
@@ -375,21 +389,21 @@ function dom(deta) {
 
   if (total.length > 0) {
     if (total.reduce(myFunc) < 0) {
-      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D9\u05EA\u05E8\u05D4 \u05E9\u05DC ".concat(Math.abs(total.reduce(myFunc)));
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D9\u05EA\u05E8\u05D4 \u05E9\u05DC ".concat(numberf(Math.abs(total.reduce(myFunc))));
     } else {
-      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(Math.round(total.reduce(myFunc)));
+      htmll = "\u05D4\u05D9\u05E0\u05DA \u05D1\u05D7\u05D5\u05D1 \u05E9\u05DC ".concat(numberf(total.reduce(myFunc)));
     }
 
     if (totalRevenue.reduce(myFunc) == null) {
       a = '';
     } else {
-      a = totalRevenue.reduce(myFunc) + ' ₪';
+      a = numberf(totalRevenue.reduce(myFunc)) + ' ₪';
     }
 
     if (totalFromensbrought.reduce(myFunc) == null) {
       b = '';
     } else {
-      b = totalFromensbrought.reduce(myFunc) + ' ₪';
+      b = numberf(totalFromensbrought.reduce(myFunc)) + ' ₪';
     }
   }
 
@@ -409,11 +423,11 @@ function dom(deta) {
 
     for (i = 0; i < deta.length; i++) {
       if (deta[i].Revenue == null) {
-        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n            <td>").concat(deta[i].total, " \u20AA</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
+        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(numberf(deta[i].Fromensbrought), " \u20AA</td>\n            <td>").concat(numberf(deta[i].total), " \u20AA</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
       } else if (deta[i].Fromensbrought == null) {
-        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(deta[i].Revenue, " \u20AA</td>\n                    <td></td>\n                    <td>").concat(deta[i].total, " \u20AA</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
+        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(numberf(deta[i].Revenue), " \u20AA</td>\n                    <td></td>\n                    <td>").concat(numberf(deta[i].total), " \u20AA</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
       } else {
-        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(deta[i].Revenue, " \u20AA</td>\n                <td>").concat(deta[i].Fromensbrought, " \u20AA</td>\n                <td>").concat(deta[i].total, " \u20AA</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
+        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(numberf(deta[i].Revenue), " \u20AA</td>\n                <td>").concat(numberf(deta[i].Fromensbrought), " \u20AA</td>\n                <td>").concat(numberf(deta[i].total), " \u20AA</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
       }
     }
 
