@@ -30,7 +30,8 @@ function buttoneroor() {
     width: '0px'
   });
   setTimeout(function () {
-    window.location.reload();
+    // window.location.reload()
+    getcategoryinit();
   }, 250);
 }
 

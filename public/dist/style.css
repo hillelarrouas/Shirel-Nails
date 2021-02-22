@@ -396,7 +396,6 @@ body {
 .erroorr .carerror {
   max-width: 500px;
   width: 80%;
-  height: 300px;
   background-image: url(/img/background.jpg);
   border-radius: 15px;
   border: 3px solid var(--backgroundbutton);
@@ -410,7 +409,7 @@ body {
   width: 70px;
 }
 .erroorr .carerror button {
-  margin-top: 17px;
+  margin: 5px 0px 30px;
   padding: 10px 20px;
   font-size: 20rem;
   border-radius: 10px;
