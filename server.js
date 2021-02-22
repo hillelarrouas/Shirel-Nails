@@ -25,7 +25,7 @@ const Users = mongoose.model('User', {
     password: String,
     email: String,
     phone: String,
-    LastSeen:String
+    LastSeen: String
 });
 
 
@@ -36,15 +36,15 @@ const Tens = mongoose.model('Tens', {
     Remarks: String,
     idUser: String,
     Dailydate: String,
-    time:String
+    time: String
 });
 
 
 app.post('/LastSeen', async (req, res) => {
     try {
-        const {_id,LastSeen} = req.body
-       
-        await Users.updateOne({ _id}, {LastSeen})
+        const { _id, LastSeen } = req.body
+
+        await Users.updateOne({ _id }, { LastSeen })
         res.send(true)
     }
     catch (e) {
@@ -67,10 +67,15 @@ app.get('/get-userid', testcoocik, async (req, res) => {
     }
 })
 
+const pag = 1
 
-
-app.get('/get-categoryinit', async (req, res) => {
+app.post('/get-categoryinit', async (req, res) => {
     try {
+        if (req.body.pag !== pag) {
+            let f = "הנך בגירסה ישנה לחץ אישור כדי להתעדכן"
+            res.send({f})
+            return false
+        }
         let user = req.cookies.user
         const newDate = new Date().getTime()
 
@@ -96,12 +101,12 @@ app.get('/get-categoryinit', async (req, res) => {
 
 app.post("/button-plus", async (req, res) => {
     try {
-        const { Revenue, Fromensbrought, Remarks, Dailydate ,time} = req.body
+        const { Revenue, Fromensbrought, Remarks, Dailydate, time } = req.body
         let user = req.cookies.user
         let jwtuser = jwt.decode(user, secret);
         let userid = jwtuser.id
         const total = Revenue * 0.10 - Fromensbrought
-        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks, idUser: userid, Dailydate, time});
+        const Tensdata = new Tens({ Revenue, total, Fromensbrought, Remarks, idUser: userid, Dailydate, time });
         await Tensdata.save().then(doc => console.log(doc)).catch(e => console.log(e));
         res.send(true)
     }
@@ -123,9 +128,9 @@ app.post('/edete-list', async (req, res) => {
 
 app.post('/clickbuttonediting', async (req, res) => {
     try {
-        const { Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate ,time} = req.body
+        const { Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate, time } = req.body
         const total = Revenueediting * 0.10 - Fromensbroughtediting
-        await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting, Dailydate ,time})
+        await Tens.updateOne({ _id: id }, { Revenue: Revenueediting, Fromensbrought: Fromensbroughtediting, total, Remarks: Remarksediting, Dailydate, time })
         res.send(true)
     }
     catch (e) {
@@ -183,7 +188,7 @@ app.post('/sing_in', async (req, res) => {
                     mesag = 'חשבון זה כבר קיים'
                     break
                 }
-                else{
+                else {
                     mesag = 'מייל כבר קיים במערכת'
                     ok = false
                     break
@@ -202,7 +207,7 @@ app.post('/sing_in', async (req, res) => {
             }
             ).catch(e => console.log(e));
         }
-        res.send({ ok,mesag })
+        res.send({ ok, mesag })
     }
     catch (e) {
         console.log(e)
@@ -210,7 +215,7 @@ app.post('/sing_in', async (req, res) => {
 })
 
 
-app.post('/UserUpdate',testcoocik, async(req, res) => {
+app.post('/UserUpdate', testcoocik, async (req, res) => {
     try {
         const { namesing_in, telsing_in, emailsing_in, paswordsing_in, _id } = req.body
         // const deta = await Users.find({})

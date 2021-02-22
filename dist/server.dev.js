@@ -114,19 +114,33 @@ app.get('/get-userid', testcoocik, function _callee2(req, res) {
     }
   }, null, null, [[0, 10]]);
 });
-app.get('/get-categoryinit', function _callee3(req, res) {
-  var user, _newDate, jwtuser, deta;
+var pag = 1;
+app.post('/get-categoryinit', function _callee3(req, res) {
+  var f, user, _newDate, jwtuser, deta;
 
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
+
+          if (!(req.body.pag !== pag)) {
+            _context3.next = 5;
+            break;
+          }
+
+          f = "הנך בגירסה ישנה לחץ אישור כדי להתעדכן";
+          res.send({
+            f: f
+          });
+          return _context3.abrupt("return", false);
+
+        case 5:
           user = req.cookies.user;
           _newDate = new Date().getTime();
 
           if (!user) {
-            _context3.next = 16;
+            _context3.next = 20;
             break;
           }
 
@@ -135,7 +149,7 @@ app.get('/get-categoryinit', function _callee3(req, res) {
           Dateuser = jwtuser.newDate;
 
           if (!(Dateuser + 172800000 < _newDate)) {
-            _context3.next = 12;
+            _context3.next = 16;
             break;
           }
 
@@ -144,36 +158,36 @@ app.get('/get-categoryinit', function _callee3(req, res) {
             httpOnly: true
           });
           validated = false;
-          _context3.next = 16;
+          _context3.next = 20;
           break;
 
-        case 12:
-          _context3.next = 14;
+        case 16:
+          _context3.next = 18;
           return regeneratorRuntime.awrap(Tens.find({
             idUser: userid
           }));
 
-        case 14:
+        case 18:
           deta = _context3.sent;
           res.send({
             deta: deta
           });
 
-        case 16:
-          _context3.next = 21;
+        case 20:
+          _context3.next = 25;
           break;
 
-        case 18:
-          _context3.prev = 18;
+        case 22:
+          _context3.prev = 22;
           _context3.t0 = _context3["catch"](0);
           console.log(_context3.t0);
 
-        case 21:
+        case 25:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[0, 18]]);
+  }, null, null, [[0, 22]]);
 });
 app.post("/button-plus", function _callee4(req, res) {
   var _req$body2, Revenue, Fromensbrought, Remarks, Dailydate, time, user, jwtuser, _userid, total, Tensdata;

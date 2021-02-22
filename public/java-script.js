@@ -29,8 +29,8 @@ function buttoneroor() {
         width: '0px'
     });
     setTimeout(function () {
-        // window.location.reload()
-        getcategoryinit()
+        window.location.reload()
+        // getcategoryinit()
     }, 250);
 }
 
@@ -217,15 +217,36 @@ $(document).ready(function () {
 
 
 
+const pag = 1
 
 function getcategoryinit() {
-    fetch('/get-categoryinit')
-        .then(res =>
-            res.json()
-        )
+    fetch('/get-categoryinit', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            pag
+        })
+    }).then(res => res.json())
         .then(deta => {
-            dom(deta.deta)
-            allData = deta.deta
+            if (deta.f) {
+                $(".erroorr").html(
+                    `<div class="carerror">
+                <img src="/img/error.png" alt="">
+                <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
+                <button onclick='buttoneroor()'>אישור</button>
+            </div>`
+                )
+                $(".erroorr").animate({
+                    height: '100vh',
+                    width: '100%'
+                });
+            }
+            else {
+                dom(deta.deta)
+                allData = deta.deta
+            }
         })
 }
 
@@ -308,24 +329,30 @@ function myFunc(total, num) {
 let id
 function edetelist(_id) {
     id = _id
-        fetch('/edete-list', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                _id
-            })
-        }).then(res => res.json())
-            .then(deta => {
-                if (deta.deta == null) {
-                    $(document).ready(function () {
-                        $(".erroorr").animate({
-                            height: '100vh',
-                            width: '100%'
-                        });
-                        })       
-                } else {
+    fetch('/edete-list', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            _id
+        })
+    }).then(res => res.json())
+        .then(deta => {
+            if (deta.deta == null) {
+                $(document).ready(function () {
+                    $(".erroorr").animate({
+                        height: '100vh',
+                        width: '100%'
+                    });
+                    $(".erroorr").html(
+                        `<div class="carerror">
+                    <img src="/img/error.png" alt="">
+                    <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ אישור כדי לרענן את</div></div>
+                    <button onclick='buttoneroor()'>אישור</button></div>`
+                    )
+                })
+            } else {
                 $(".cardTes").hide();
                 $(".cardediting").show();
                 $("#Revenueediting").val(deta.deta.Revenue);
@@ -333,9 +360,9 @@ function edetelist(_id) {
                 $("#Remarksediting").val(deta.deta.Remarks);
                 $("#dataediting").val(deta.deta.Dailydate);
                 $("#dataediting").attr("placeholder", detedete())
-                }
-            })
-    
+            }
+        })
+
 }
 
 
