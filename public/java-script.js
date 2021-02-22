@@ -221,7 +221,7 @@ $(document).ready(function () {
 
 
 
-const pag = 2
+const pag = 1
 
 function getcategoryinit() {
     fetch('/get-categoryinit', {

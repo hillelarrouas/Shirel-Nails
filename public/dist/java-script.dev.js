@@ -222,7 +222,7 @@ $(document).ready(function () {
     }
   });
 });
-var pag = 2;
+var pag = 1;
 
 function getcategoryinit() {
   fetch('/get-categoryinit', {

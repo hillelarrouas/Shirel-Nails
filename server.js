@@ -39,7 +39,7 @@ const Tens = mongoose.model('Tens', {
     time: String
 });
 
-const pagserver = 2
+const pagserver = 1
 let versionUpdate = 'true'
 let coocik
 

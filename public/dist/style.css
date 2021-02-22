@@ -106,7 +106,7 @@ body {
   position: absolute;
   top: 5px;
   right: 5px;
-  background: red;
+  background: var(--backgroundbutton);
   padding: 10px;
   border-radius: 20px;
   cursor: pointer;
