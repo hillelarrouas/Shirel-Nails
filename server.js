@@ -39,7 +39,7 @@ const Tens = mongoose.model('Tens', {
     time: String
 });
 
-const pagserver = 1
+const pagserver = 2
 let versionUpdate = 'true'
 let coocik
 
@@ -49,7 +49,6 @@ app.post('/LastSeen', async (req, res) => {
         const { _id, LastSeen, pag } = req.body
 
         if (pagserver !== pag) {
-            console.log(pag)
             res.send({versionUpdate})
             return false
         }

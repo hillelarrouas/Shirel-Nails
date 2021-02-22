@@ -45,7 +45,7 @@ var Tens = mongoose.model('Tens', {
   Dailydate: String,
   time: String
 });
-var pagserver = 1;
+var pagserver = 2;
 var versionUpdate = 'true';
 var coocik;
 app.post('/LastSeen', function _callee(req, res) {
@@ -59,40 +59,39 @@ app.post('/LastSeen', function _callee(req, res) {
           _req$body = req.body, _id = _req$body._id, LastSeen = _req$body.LastSeen, pag = _req$body.pag;
 
           if (!(pagserver !== pag)) {
-            _context.next = 6;
+            _context.next = 5;
             break;
           }
 
-          console.log(pag);
           res.send({
             versionUpdate: versionUpdate
           });
           return _context.abrupt("return", false);
 
-        case 6:
-          _context.next = 8;
+        case 5:
+          _context.next = 7;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id
           }, {
             LastSeen: LastSeen
           }));
 
-        case 8:
+        case 7:
           res.send(true);
-          _context.next = 14;
+          _context.next = 13;
           break;
 
-        case 11:
-          _context.prev = 11;
+        case 10:
+          _context.prev = 10;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
 
-        case 14:
+        case 13:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 11]]);
+  }, null, null, [[0, 10]]);
 });
 app.get('/get-userid', testcoocik, function _callee2(req, res) {
   var user, jwtuser, deta;
