@@ -245,6 +245,7 @@ function getcategoryinit() {
   });
 }
 
+var d = 0;
 $(document).ready(function () {
   $("#clickbuttonplus").click(function () {
     var Revenue = $("#Revenue").val();
@@ -253,33 +254,38 @@ $(document).ready(function () {
     var Dailydate = $("#data").val();
     var time = "".concat(new Date().toLocaleTimeString(), " - ").concat(new Date().getDate(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getFullYear());
 
-    if (Revenue.length == 0 && Fromensbrought.length == 0) {
-      $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
-    } else {
-      fetch('/button-plus', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          Revenue: Revenue,
-          Fromensbrought: Fromensbrought,
-          Remarks: Remarks,
-          Dailydate: Dailydate,
-          time: time
-        })
-      }).then(function (res) {
-        return res.json();
-      }).then(function (deta) {
-        getcategoryinit();
-        $(".meseggecardplus").html('');
-        $("#Revenue").val('');
-        $("#Fromensbrought").val('');
-        $("#Remarks").val('');
-        $("#data").val('');
-        $(".cardTes").show();
-        $(".cardplus").hide();
-      });
+    if (d === 1) {} else {
+      if (Revenue.length == 0 && Fromensbrought.length == 0) {
+        $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
+      } else {
+        d = 1;
+        $(".meseggecardplus").html("<img class='imggifreturn' src=\"/img/gif.gif\"/>");
+        fetch('/button-plus', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            Revenue: Revenue,
+            Fromensbrought: Fromensbrought,
+            Remarks: Remarks,
+            Dailydate: Dailydate,
+            time: time
+          })
+        }).then(function (res) {
+          return res.json();
+        }).then(function (deta) {
+          d = 0;
+          getcategoryinit();
+          $(".meseggecardplus").html('');
+          $("#Revenue").val('');
+          $("#Fromensbrought").val('');
+          $("#Remarks").val('');
+          $("#data").val('');
+          $(".cardTes").show();
+          $(".cardplus").hide();
+        });
+      }
     }
   });
 });

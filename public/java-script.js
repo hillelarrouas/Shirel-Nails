@@ -119,12 +119,12 @@ setInterval(function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            _id, LastSeen,pag
+            _id, LastSeen, pag
         })
     }).then(res => res.json())
         .then(deta => {
             console.log(deta)
-            if (deta.versionUpdate){
+            if (deta.versionUpdate) {
                 eroorfirsa()
             }
         })
@@ -243,7 +243,7 @@ function getcategoryinit() {
             }
         })
 }
-
+let d = 0
 $(document).ready(function () {
     $("#clickbuttonplus").click(function () {
         let Revenue = $("#Revenue").val();
@@ -252,30 +252,34 @@ $(document).ready(function () {
         const Dailydate = $("#data").val();
         const time = `${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
 
-
-        if (Revenue.length == 0 && Fromensbrought.length == 0) {
-            $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
+        if (d === 1) {
         } else {
-
-            fetch('/button-plus', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    Revenue, Fromensbrought, Remarks, Dailydate, time
-                })
-            }).then(res => res.json())
-                .then(deta => {
-                    getcategoryinit()
-                    $(".meseggecardplus").html('');
-                    $("#Revenue").val('');
-                    $("#Fromensbrought").val('');
-                    $("#Remarks").val('');
-                    $("#data").val('');
-                    $(".cardTes").show();
-                    $(".cardplus").hide();
-                })
+            if (Revenue.length == 0 && Fromensbrought.length == 0) {
+                $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
+            } else {
+                d = 1
+                $(".meseggecardplus").html(`<img class='imggifreturn' src="/img/gif.gif"/>`)
+                fetch('/button-plus', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Revenue, Fromensbrought, Remarks, Dailydate, time
+                    })
+                }).then(res => res.json())
+                    .then(deta => {
+                        d = 0
+                        getcategoryinit()
+                        $(".meseggecardplus").html('');
+                        $("#Revenue").val('');
+                        $("#Fromensbrought").val('');
+                        $("#Remarks").val('');
+                        $("#data").val('');
+                        $(".cardTes").show();
+                        $(".cardplus").hide();
+                    })
+            }
         }
     });
 });
