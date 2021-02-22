@@ -45,40 +45,55 @@ var Tens = mongoose.model('Tens', {
   Dailydate: String,
   time: String
 });
+var pagserver = 2;
+var versionUpdate = 'true';
+var coocik;
 app.post('/LastSeen', function _callee(req, res) {
-  var _req$body, _id, LastSeen;
+  var _req$body, _id, LastSeen, pag;
 
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, _id = _req$body._id, LastSeen = _req$body.LastSeen;
-          _context.next = 4;
+          _req$body = req.body, _id = _req$body._id, LastSeen = _req$body.LastSeen, pag = _req$body.pag;
+
+          if (!(pagserver !== pag)) {
+            _context.next = 6;
+            break;
+          }
+
+          console.log(pag);
+          res.send({
+            versionUpdate: versionUpdate
+          });
+          return _context.abrupt("return", false);
+
+        case 6:
+          _context.next = 8;
           return regeneratorRuntime.awrap(Users.updateOne({
             _id: _id
           }, {
             LastSeen: LastSeen
           }));
 
-        case 4:
+        case 8:
           res.send(true);
-          _context.next = 10;
+          _context.next = 14;
           break;
 
-        case 7:
-          _context.prev = 7;
+        case 11:
+          _context.prev = 11;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
 
-        case 10:
+        case 14:
         case "end":
           return _context.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 11]]);
 });
-var coocik;
 app.get('/get-userid', testcoocik, function _callee2(req, res) {
   var user, jwtuser, deta;
   return regeneratorRuntime.async(function _callee2$(_context2) {
@@ -114,9 +129,8 @@ app.get('/get-userid', testcoocik, function _callee2(req, res) {
     }
   }, null, null, [[0, 10]]);
 });
-var pag = 1;
 app.post('/get-categoryinit', function _callee3(req, res) {
-  var f, user, _newDate, jwtuser, deta;
+  var user, _newDate, jwtuser, deta;
 
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
@@ -124,23 +138,22 @@ app.post('/get-categoryinit', function _callee3(req, res) {
         case 0:
           _context3.prev = 0;
 
-          if (!(req.body.pag !== pag)) {
-            _context3.next = 5;
+          if (!(req.body.pag !== pagserver)) {
+            _context3.next = 4;
             break;
           }
 
-          f = "הנך בגירסה ישנה לחץ אישור כדי להתעדכן";
           res.send({
-            f: f
+            versionUpdate: versionUpdate
           });
           return _context3.abrupt("return", false);
 
-        case 5:
+        case 4:
           user = req.cookies.user;
           _newDate = new Date().getTime();
 
           if (!user) {
-            _context3.next = 20;
+            _context3.next = 19;
             break;
           }
 
@@ -149,7 +162,7 @@ app.post('/get-categoryinit', function _callee3(req, res) {
           Dateuser = jwtuser.newDate;
 
           if (!(Dateuser + 172800000 < _newDate)) {
-            _context3.next = 16;
+            _context3.next = 15;
             break;
           }
 
@@ -158,36 +171,36 @@ app.post('/get-categoryinit', function _callee3(req, res) {
             httpOnly: true
           });
           validated = false;
-          _context3.next = 20;
+          _context3.next = 19;
           break;
 
-        case 16:
-          _context3.next = 18;
+        case 15:
+          _context3.next = 17;
           return regeneratorRuntime.awrap(Tens.find({
             idUser: userid
           }));
 
-        case 18:
+        case 17:
           deta = _context3.sent;
           res.send({
             deta: deta
           });
 
-        case 20:
-          _context3.next = 25;
+        case 19:
+          _context3.next = 24;
           break;
 
-        case 22:
-          _context3.prev = 22;
+        case 21:
+          _context3.prev = 21;
           _context3.t0 = _context3["catch"](0);
           console.log(_context3.t0);
 
-        case 25:
+        case 24:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[0, 22]]);
+  }, null, null, [[0, 21]]);
 });
 app.post("/button-plus", function _callee4(req, res) {
   var _req$body2, Revenue, Fromensbrought, Remarks, Dailydate, time, user, jwtuser, _userid, total, Tensdata;

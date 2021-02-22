@@ -120,11 +120,18 @@ setInterval(function () {
     },
     body: JSON.stringify({
       _id: _id,
-      LastSeen: LastSeen
+      LastSeen: LastSeen,
+      pag: pag
     })
   }).then(function (res) {
     return res.json();
-  }).then(function (deta) {});
+  }).then(function (deta) {
+    console.log(deta);
+
+    if (deta.versionUpdate) {
+      eroorfirsa();
+    }
+  });
 }, 10000);
 
 function init() {
@@ -229,12 +236,8 @@ function getcategoryinit() {
   }).then(function (res) {
     return res.json();
   }).then(function (deta) {
-    if (deta.f) {
-      $(".erroorr").html("<div class=\"carerror\">\n                <img src=\"/img/Refresh.png\" alt=\"\">\n                <div class=\"texteror\"><b>\u05E2\u05D3\u05DB\u05D5\u05DF</b></br> <div style=\"padding: 10px 0;\">\u05D2\u05D9\u05E8\u05E1\u05D4 \u05D7\u05D3\u05E9\u05D4 \u05D6\u05DE\u05D9\u05E0\u05D4 \u05DC\u05D7\u05E5 \u05DB\u05D0\u05DF \u05DB\u05D3\u05D9 \u05DC\u05E2\u05D3\u05DB\u05DF</div></div>\n                <button onclick='buttoneroor()'>\u05E2\u05D3\u05DB\u05DF \u05D2\u05D9\u05E8\u05E1\u05D4</button>\n            </div>");
-      $(".erroorr").animate({
-        height: '100vh',
-        width: '100%'
-      });
+    if (deta.versionUpdate) {
+      eroorfirsa();
     } else {
       dom(deta.deta);
       allData = deta.deta;
@@ -489,4 +492,12 @@ function dom(deta) {
 
     myTable += $("table").append(myTable);
   }
+}
+
+function eroorfirsa() {
+  $(".erroorr").html("<div class=\"carerror\">\n        <img src=\"/img/Refresh.png\" alt=\"\">\n        <div class=\"texteror\"><b>\u05E2\u05D3\u05DB\u05D5\u05DF</b></br> <div style=\"padding: 10px 0;\">\u05D2\u05D9\u05E8\u05E1\u05D4 \u05D7\u05D3\u05E9\u05D4 \u05D6\u05DE\u05D9\u05E0\u05D4 \u05DC\u05D7\u05E5 \u05DB\u05D0\u05DF \u05DB\u05D3\u05D9 \u05DC\u05E2\u05D3\u05DB\u05DF</div></div>\n        <button onclick='buttoneroor()'>\u05E2\u05D3\u05DB\u05DF \u05D2\u05D9\u05E8\u05E1\u05D4</button>\n    </div>");
+  $(".erroorr").animate({
+    height: '100vh',
+    width: '100%'
+  });
 }

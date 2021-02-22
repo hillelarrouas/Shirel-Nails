@@ -119,10 +119,14 @@ setInterval(function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            _id, LastSeen
+            _id, LastSeen,pag
         })
     }).then(res => res.json())
         .then(deta => {
+            console.log(deta)
+            if (deta.versionUpdate){
+                eroorfirsa()
+            }
         })
 }, 10000);
 
@@ -230,18 +234,8 @@ function getcategoryinit() {
         })
     }).then(res => res.json())
         .then(deta => {
-            if (deta.f) {
-                $(".erroorr").html(
-                    `<div class="carerror">
-                <img src="/img/Refresh.png" alt="">
-                <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
-                <button onclick='buttoneroor()'>עדכן גירסה</button>
-            </div>`
-                )
-                $(".erroorr").animate({
-                    height: '100vh',
-                    width: '100%'
-                });
+            if (deta.versionUpdate) {
+                eroorfirsa()
             }
             else {
                 dom(deta.deta)
@@ -452,7 +446,6 @@ function dom(deta) {
     let totalFromensbrought = []
 
     deta.forEach(element => {
-
         total.push(element.total)
         totalRevenue.push(element.Revenue)
         totalFromensbrought.push(element.Fromensbrought)
@@ -556,3 +549,19 @@ function dom(deta) {
     }
 }
 
+
+
+
+function eroorfirsa() {
+    $(".erroorr").html(
+        `<div class="carerror">
+        <img src="/img/Refresh.png" alt="">
+        <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
+        <button onclick='buttoneroor()'>עדכן גירסה</button>
+    </div>`
+    )
+    $(".erroorr").animate({
+        height: '100vh',
+        width: '100%'
+    });
+}

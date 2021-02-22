@@ -39,13 +39,22 @@ const Tens = mongoose.model('Tens', {
     time: String
 });
 
+const pagserver = 2
+let versionUpdate = 'true'
+let coocik
+
 
 app.post('/LastSeen', async (req, res) => {
     try {
-        const { _id, LastSeen } = req.body
+        const { _id, LastSeen, pag } = req.body
 
-        await Users.updateOne({ _id }, { LastSeen })
-        res.send(true)
+        if (pagserver !== pag) {
+            console.log(pag)
+            res.send({versionUpdate})
+            return false
+        }
+            await Users.updateOne({ _id }, { LastSeen })
+            res.send(true)
     }
     catch (e) {
         console.log(e)
@@ -53,7 +62,6 @@ app.post('/LastSeen', async (req, res) => {
 })
 
 
-let coocik
 app.get('/get-userid', testcoocik, async (req, res) => {
     try {
         let user = req.cookies.user
@@ -67,13 +75,11 @@ app.get('/get-userid', testcoocik, async (req, res) => {
     }
 })
 
-const pag = 1
 
 app.post('/get-categoryinit', async (req, res) => {
     try {
-        if (req.body.pag !== pag) {
-            let f = "הנך בגירסה ישנה לחץ אישור כדי להתעדכן"
-            res.send({f})
+        if (req.body.pag !== pagserver) {
+            res.send({ versionUpdate })
             return false
         }
         let user = req.cookies.user
