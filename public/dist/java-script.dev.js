@@ -23,6 +23,17 @@ $(document).ready(function () {
     $(".cardplus").hide();
   });
 });
+
+function buttoneroor() {
+  $(".erroorr").animate({
+    height: '0px',
+    width: '0px'
+  });
+  setTimeout(function () {
+    window.location.reload();
+  }, 250);
+}
+
 $(document).ready(function () {
   $(".cardeditingreturn").click(function () {
     $("#meseggecardediting").html("");
@@ -311,13 +322,22 @@ function edetelist(_id) {
   }).then(function (res) {
     return res.json();
   }).then(function (deta) {
-    $(".cardTes").hide();
-    $(".cardediting").show();
-    $("#Revenueediting").val(deta.deta.Revenue);
-    $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
-    $("#Remarksediting").val(deta.deta.Remarks);
-    $("#dataediting").val(deta.deta.Dailydate);
-    $("#dataediting").attr("placeholder", detedete());
+    if (deta.deta == null) {
+      $(document).ready(function () {
+        $(".erroorr").animate({
+          height: '100vh',
+          width: '100%'
+        });
+      });
+    } else {
+      $(".cardTes").hide();
+      $(".cardediting").show();
+      $("#Revenueediting").val(deta.deta.Revenue);
+      $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
+      $("#Remarksediting").val(deta.deta.Remarks);
+      $("#dataediting").val(deta.deta.Dailydate);
+      $("#dataediting").attr("placeholder", detedete());
+    }
   });
 }
 

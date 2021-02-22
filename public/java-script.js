@@ -4,6 +4,7 @@ $(document).ready(function () {
         $(".cardplus").show();
         $("#Revenue").focus();
         $("#data").attr("placeholder", detedete())
+
     });
 });
 function detedete() {
@@ -21,6 +22,16 @@ $(document).ready(function () {
         $(".cardplus").hide();
     });
 });
+
+function buttoneroor() {
+    $(".erroorr").animate({
+        height: '0px',
+        width: '0px'
+    });
+    setTimeout(function () {
+        window.location.reload()
+    }, 250);
+}
 
 $(document).ready(function () {
     $(".cardeditingreturn").click(function () {
@@ -223,7 +234,7 @@ $(document).ready(function () {
         let Fromensbrought = $("#Fromensbrought").val();
         const Remarks = $("#Remarks").val();
         const Dailydate = $("#data").val();
-        const time =`${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
+        const time = `${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
 
 
         if (Revenue.length == 0 && Fromensbrought.length == 0) {
@@ -236,7 +247,7 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    Revenue, Fromensbrought, Remarks, Dailydate,time
+                    Revenue, Fromensbrought, Remarks, Dailydate, time
                 })
             }).then(res => res.json())
                 .then(deta => {
@@ -259,7 +270,7 @@ $(document).ready(function () {
         let Fromensbroughtediting = $("#Fromensbroughtediting").val();
         const Remarksediting = $("#Remarksediting").val();
         const Dailydate = $("#dataediting").val();
-        const time =`${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
+        const time = `${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
 
         if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
             $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
@@ -270,7 +281,7 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate,time
+                    Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate, time
                 })
             }).then(res => res.json())
                 .then(deta => {
@@ -296,25 +307,39 @@ function myFunc(total, num) {
 let id
 function edetelist(_id) {
     id = _id
-    fetch('/edete-list', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            _id
-        })
-    }).then(res => res.json())
-        .then(deta => {
-            $(".cardTes").hide();
-            $(".cardediting").show();
-            $("#Revenueediting").val(deta.deta.Revenue);
-            $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
-            $("#Remarksediting").val(deta.deta.Remarks);
-            $("#dataediting").val(deta.deta.Dailydate);
-            $("#dataediting").attr("placeholder", detedete())
-        })
+        fetch('/edete-list', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                _id
+            })
+        }).then(res => res.json())
+            .then(deta => {
+                if (deta.deta == null) {
+                    $(document).ready(function () {
+                        $(".erroorr").animate({
+                            height: '100vh',
+                            width: '100%'
+                        });
+                        })       
+                } else {
+                $(".cardTes").hide();
+                $(".cardediting").show();
+                $("#Revenueediting").val(deta.deta.Revenue);
+                $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
+                $("#Remarksediting").val(deta.deta.Remarks);
+                $("#dataediting").val(deta.deta.Dailydate);
+                $("#dataediting").attr("placeholder", detedete())
+                }
+            })
+    
 }
+
+
+
+
 
 $(document).ready(function () {
     $("#deletelistditing").click(function () {
@@ -383,7 +408,7 @@ function numberf(x) {
     let d;
     if (g[1] && g[1][1]) {
         d = g[0] + '.' + g[1][0] + g[1][1] + " ₪ "
-    }else if (g[1]) {
+    } else if (g[1]) {
         d = g[0] + '.' + g[1][0] + " ₪ "
     } else {
         d = g[0] + " ₪ "
