@@ -5,8 +5,18 @@ $(document).ready(function () {
     $(".cardTes").hide();
     $(".cardplus").show();
     $("#Revenue").focus();
+    $("#data").attr("placeholder", detedete());
   });
 });
+
+function detedete() {
+  if (new Date().getMonth() < 10) {
+    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getFullYear(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getDate());
+  } else {
+    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getFullYear(), " /").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getDate());
+  }
+}
+
 $(document).ready(function () {
   $(".return").click(function () {
     $(".cardTes").show();
@@ -209,10 +219,8 @@ $(document).ready(function () {
     var Revenue = $("#Revenue").val();
     var Fromensbrought = $("#Fromensbrought").val();
     var Remarks = $("#Remarks").val();
-    var Dailydate = $("#data").val(); // const datavalue = $("#data").val()
-    // let Dailydate = datavalue.split('-')[0] + "/ " + datavalue.split('-')[1] + " / " + datavalue.split('-')[2]
-
-    console.log(Dailydate);
+    var Dailydate = $("#data").val();
+    var time = "".concat(new Date().toLocaleTimeString(), " - ").concat(new Date().getDate(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getFullYear());
 
     if (Revenue.length == 0 && Fromensbrought.length == 0) {
       $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
@@ -226,7 +234,8 @@ $(document).ready(function () {
           Revenue: Revenue,
           Fromensbrought: Fromensbrought,
           Remarks: Remarks,
-          Dailydate: Dailydate
+          Dailydate: Dailydate,
+          time: time
         })
       }).then(function (res) {
         return res.json();
@@ -249,6 +258,7 @@ $(document).ready(function () {
     var Fromensbroughtediting = $("#Fromensbroughtediting").val();
     var Remarksediting = $("#Remarksediting").val();
     var Dailydate = $("#dataediting").val();
+    var time = "".concat(new Date().toLocaleTimeString(), " - ").concat(new Date().getDate(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getFullYear());
 
     if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
       $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
@@ -263,7 +273,8 @@ $(document).ready(function () {
           Fromensbroughtediting: Fromensbroughtediting,
           Remarksediting: Remarksediting,
           id: id,
-          Dailydate: Dailydate
+          Dailydate: Dailydate,
+          time: time
         })
       }).then(function (res) {
         return res.json();
@@ -306,6 +317,7 @@ function edetelist(_id) {
     $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
     $("#Remarksediting").val(deta.deta.Remarks);
     $("#dataediting").val(deta.deta.Dailydate);
+    $("#dataediting").attr("placeholder", detedete());
   });
 }
 
@@ -365,10 +377,12 @@ function numberf(x) {
   var g = n.split('.');
   var d;
 
-  if (g[1]) {
-    d = g[0] + '.' + g[1][0] + g[1][1];
+  if (g[1] && g[1][1]) {
+    d = g[0] + '.' + g[1][0] + g[1][1] + " ₪ ";
+  } else if (g[1]) {
+    d = g[0] + '.' + g[1][0] + " ₪ ";
   } else {
-    d = g[0];
+    d = g[0] + " ₪ ";
   }
 
   return d;
@@ -397,13 +411,13 @@ function dom(deta) {
     if (totalRevenue.reduce(myFunc) == null) {
       a = '';
     } else {
-      a = numberf(totalRevenue.reduce(myFunc)) + ' ₪';
+      a = numberf(totalRevenue.reduce(myFunc));
     }
 
     if (totalFromensbrought.reduce(myFunc) == null) {
       b = '';
     } else {
-      b = numberf(totalFromensbrought.reduce(myFunc)) + ' ₪';
+      b = numberf(totalFromensbrought.reduce(myFunc));
     }
   }
 
@@ -423,16 +437,16 @@ function dom(deta) {
 
     for (i = 0; i < deta.length; i++) {
       if (deta[i].Revenue == null) {
-        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(numberf(deta[i].Fromensbrought), " \u20AA</td>\n            <td>").concat(numberf(deta[i].total), " \u20AA</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
+        myTable += "\n            <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n            <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n            <td></td>\n            <td>").concat(numberf(deta[i].Fromensbrought), "</td>\n            <td>").concat(numberf(deta[i].total), "</td>\n            <td>").concat(deta[i].Remarks, "</td>\n           </tr>");
       } else if (deta[i].Fromensbrought == null) {
-        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(numberf(deta[i].Revenue), " \u20AA</td>\n                    <td></td>\n                    <td>").concat(numberf(deta[i].total), " \u20AA</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
+        myTable += "\n                    <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                    <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                    <td>").concat(numberf(deta[i].Revenue), "</td>\n                    <td></td>\n                    <td>").concat(numberf(deta[i].total), "</td>\n                    <td>").concat(deta[i].Remarks, "</td>\n                    </tr>");
       } else {
-        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(numberf(deta[i].Revenue), " \u20AA</td>\n                <td>").concat(numberf(deta[i].Fromensbrought), " \u20AA</td>\n                <td>").concat(numberf(deta[i].total), " \u20AA</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
+        myTable += "\n                <tr onclick='edetelist(\"".concat(deta[i]._id, "\")'>\n                <td style=\"text-align: center;  padding: 12px 0px 9px 0px;\" class=\"nonepone\">").concat(deta[i].Dailydate, "</td>\n                <td>").concat(numberf(deta[i].Revenue), "</td>\n                <td>").concat(numberf(deta[i].Fromensbrought), "</td>\n                <td>").concat(numberf(deta[i].total), "</td>\n                <td>").concat(deta[i].Remarks, "</td>\n                </tr>");
       }
     }
 
     if ($(".cardSearch").css("display") == "none") {
-      myTable += "<tr style='background-color: var(--backgroundbutton)' class=\"displaynoneserch\">\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\">\u05E1\u05D9\u05DB\u05D5\u05DD</td>\n                        </tr>\n                        <tr class=\"displaynoneserch\">\n        <td class=\"nonepone\"></td>\n                    <td>".concat(a, "</td>\n                    <td>").concat(b, "</td>\n                    <td colspan=\"2\">").concat(htmll, " \u20AA</td>\n                </tr> ");
+      myTable += "<tr style='background-color: var(--backgroundbutton)' class=\"displaynoneserch\">\n                <td colspan=\"4 \"class=\"colspanblock\" style=\"cursor: default; text-align: center;\"><b>\u05E1\u05D9\u05DB\u05D5\u05DD</b></td>\n                             <td colspan=\"5\" class=\"colspan\" style=\"cursor: default; text-align: center;\"><b>\u05E1\u05D9\u05DB\u05D5\u05DD</b></td>\n                        </tr>\n                        <tr class=\"displaynoneserch\">\n        <td class=\"nonepone\"  style='cursor: default'></td>\n                    <td  style='cursor: default'>".concat(a, "</td>\n                    <td  style='cursor: default'>").concat(b, "</td>\n                    <td colspan=\"2\"  style='cursor: default'>").concat(htmll, "</td>\n                </tr> ");
     }
 
     myTable += $("table").append(myTable);

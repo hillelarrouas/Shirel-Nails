@@ -3,14 +3,25 @@ $(document).ready(function () {
         $(".cardTes").hide();
         $(".cardplus").show();
         $("#Revenue").focus();
+        $("#data").attr("placeholder", detedete())
     });
 });
+function detedete() {
+    if (new Date().getMonth() < 10) {
+        return `התאריך היום -  ${new Date().getFullYear()} /0${new Date().getMonth() + 1}/ ${new Date().getDate()}`
+    }
+    else {
+        return `התאריך היום -  ${new Date().getFullYear()} /${new Date().getMonth() + 1}/ ${new Date().getDate()}`
+    }
+}
+
 $(document).ready(function () {
     $(".return").click(function () {
         $(".cardTes").show();
         $(".cardplus").hide();
     });
 });
+
 $(document).ready(function () {
     $(".cardeditingreturn").click(function () {
         $("#meseggecardediting").html("");
@@ -212,9 +223,8 @@ $(document).ready(function () {
         let Fromensbrought = $("#Fromensbrought").val();
         const Remarks = $("#Remarks").val();
         const Dailydate = $("#data").val();
-        // const datavalue = $("#data").val()
-        // let Dailydate = datavalue.split('-')[0] + "/ " + datavalue.split('-')[1] + " / " + datavalue.split('-')[2]
-        console.log(Dailydate)
+        const time =`${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
+
 
         if (Revenue.length == 0 && Fromensbrought.length == 0) {
             $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
@@ -226,7 +236,7 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    Revenue, Fromensbrought, Remarks, Dailydate
+                    Revenue, Fromensbrought, Remarks, Dailydate,time
                 })
             }).then(res => res.json())
                 .then(deta => {
@@ -249,6 +259,7 @@ $(document).ready(function () {
         let Fromensbroughtediting = $("#Fromensbroughtediting").val();
         const Remarksediting = $("#Remarksediting").val();
         const Dailydate = $("#dataediting").val();
+        const time =`${new Date().toLocaleTimeString()} - ${new Date().getDate()} /0${new Date().getMonth() + 1}/ ${new Date().getFullYear()}`
 
         if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
             $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
@@ -259,7 +270,7 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate
+                    Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate,time
                 })
             }).then(res => res.json())
                 .then(deta => {
@@ -301,9 +312,9 @@ function edetelist(_id) {
             $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
             $("#Remarksediting").val(deta.deta.Remarks);
             $("#dataediting").val(deta.deta.Dailydate);
+            $("#dataediting").attr("placeholder", detedete())
         })
 }
-
 
 $(document).ready(function () {
     $("#deletelistditing").click(function () {
@@ -370,13 +381,16 @@ function numberf(x) {
     let n = x.toString();
     let g = n.split('.')
     let d;
-    if (g[1]) {
-        d = g[0] + '.' + g[1][0] + g[1][1]
+    if (g[1] && g[1][1]) {
+        d = g[0] + '.' + g[1][0] + g[1][1] + " ₪ "
+    }else if (g[1]) {
+        d = g[0] + '.' + g[1][0] + " ₪ "
     } else {
-        d = g[0];
+        d = g[0] + " ₪ "
     }
     return d
 }
+
 
 function dom(deta) {
     let htmll = ''
@@ -402,13 +416,13 @@ function dom(deta) {
         if (totalRevenue.reduce(myFunc) == null) {
             a = ''
         } else {
-            a = numberf(totalRevenue.reduce(myFunc)) + ' ₪'
+            a = numberf(totalRevenue.reduce(myFunc))
         }
         if (totalFromensbrought.reduce(myFunc) == null) {
             b = ''
         }
         else {
-            b = numberf(totalFromensbrought.reduce(myFunc)) + ' ₪'
+            b = numberf(totalFromensbrought.reduce(myFunc))
         }
     }
 
@@ -444,8 +458,8 @@ function dom(deta) {
             <tr onclick='edetelist("${deta[i]._id}")'>
             <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
             <td></td>
-            <td>${numberf(deta[i].Fromensbrought)} ₪</td>
-            <td>${numberf(deta[i].total)} ₪</td>
+            <td>${numberf(deta[i].Fromensbrought)}</td>
+            <td>${numberf(deta[i].total)}</td>
             <td>${deta[i].Remarks}</td>
            </tr>`
 
@@ -454,41 +468,38 @@ function dom(deta) {
                 myTable += `
                     <tr onclick='edetelist("${deta[i]._id}")'>
                     <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-                    <td>${numberf(deta[i].Revenue)} ₪</td>
+                    <td>${numberf(deta[i].Revenue)}</td>
                     <td></td>
-                    <td>${numberf(deta[i].total)} ₪</td>
+                    <td>${numberf(deta[i].total)}</td>
                     <td>${deta[i].Remarks}</td>
                     </tr>`
-
             }
             else {
                 myTable += `
                 <tr onclick='edetelist("${deta[i]._id}")'>
                 <td style="text-align: center;  padding: 12px 0px 9px 0px;" class="nonepone">${deta[i].Dailydate}</td>
-                <td>${numberf(deta[i].Revenue)} ₪</td>
-                <td>${numberf(deta[i].Fromensbrought)} ₪</td>
-                <td>${numberf(deta[i].total)} ₪</td>
+                <td>${numberf(deta[i].Revenue)}</td>
+                <td>${numberf(deta[i].Fromensbrought)}</td>
+                <td>${numberf(deta[i].total)}</td>
                 <td>${deta[i].Remarks}</td>
                 </tr>`
-
             }
         }
 
         if ($(".cardSearch").css("display") == "none") {
             myTable += `<tr style='background-color: var(--backgroundbutton)' class="displaynoneserch">
-                <td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;">סיכום</td>
-                             <td colspan="5" class="colspan" style="cursor: default; text-align: center;">סיכום</td>
+                <td colspan="4 "class="colspanblock" style="cursor: default; text-align: center;"><b>סיכום</b></td>
+                             <td colspan="5" class="colspan" style="cursor: default; text-align: center;"><b>סיכום</b></td>
                         </tr>
                         <tr class="displaynoneserch">
-        <td class="nonepone"></td>
-                    <td>${a}</td>
-                    <td>${b}</td>
-                    <td colspan="2">${htmll} ₪</td>
+        <td class="nonepone"  style='cursor: default'></td>
+                    <td  style='cursor: default'>${a}</td>
+                    <td  style='cursor: default'>${b}</td>
+                    <td colspan="2"  style='cursor: default'>${htmll}</td>
                 </tr> `
 
         }
         myTable += $("table").append(myTable)
     }
-
 }
 

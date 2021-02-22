@@ -42,7 +42,8 @@ var Tens = mongoose.model('Tens', {
   total: Number,
   Remarks: String,
   idUser: String,
-  Dailydate: String
+  Dailydate: String,
+  time: String
 });
 app.post('/LastSeen', function _callee(req, res) {
   var _req$body, _id, LastSeen;
@@ -175,14 +176,14 @@ app.get('/get-categoryinit', function _callee3(req, res) {
   }, null, null, [[0, 18]]);
 });
 app.post("/button-plus", function _callee4(req, res) {
-  var _req$body2, Revenue, Fromensbrought, Remarks, Dailydate, user, jwtuser, _userid, total, Tensdata;
+  var _req$body2, Revenue, Fromensbrought, Remarks, Dailydate, time, user, jwtuser, _userid, total, Tensdata;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
-          _req$body2 = req.body, Revenue = _req$body2.Revenue, Fromensbrought = _req$body2.Fromensbrought, Remarks = _req$body2.Remarks, Dailydate = _req$body2.Dailydate;
+          _req$body2 = req.body, Revenue = _req$body2.Revenue, Fromensbrought = _req$body2.Fromensbrought, Remarks = _req$body2.Remarks, Dailydate = _req$body2.Dailydate, time = _req$body2.time;
           user = req.cookies.user;
           jwtuser = jwt.decode(user, secret);
           _userid = jwtuser.id;
@@ -193,7 +194,8 @@ app.post("/button-plus", function _callee4(req, res) {
             Fromensbrought: Fromensbrought,
             Remarks: Remarks,
             idUser: _userid,
-            Dailydate: Dailydate
+            Dailydate: Dailydate,
+            time: time
           });
           _context4.next = 9;
           return regeneratorRuntime.awrap(Tensdata.save().then(function (doc) {
@@ -254,14 +256,14 @@ app.post('/edete-list', function _callee5(req, res) {
   }, null, null, [[0, 8]]);
 });
 app.post('/clickbuttonediting', function _callee6(req, res) {
-  var _req$body3, Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate, total;
+  var _req$body3, Revenueediting, Fromensbroughtediting, Remarksediting, id, Dailydate, time, total;
 
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
-          _req$body3 = req.body, Revenueediting = _req$body3.Revenueediting, Fromensbroughtediting = _req$body3.Fromensbroughtediting, Remarksediting = _req$body3.Remarksediting, id = _req$body3.id, Dailydate = _req$body3.Dailydate;
+          _req$body3 = req.body, Revenueediting = _req$body3.Revenueediting, Fromensbroughtediting = _req$body3.Fromensbroughtediting, Remarksediting = _req$body3.Remarksediting, id = _req$body3.id, Dailydate = _req$body3.Dailydate, time = _req$body3.time;
           total = Revenueediting * 0.10 - Fromensbroughtediting;
           _context6.next = 5;
           return regeneratorRuntime.awrap(Tens.updateOne({
@@ -271,7 +273,8 @@ app.post('/clickbuttonediting', function _callee6(req, res) {
             Fromensbrought: Fromensbroughtediting,
             total: total,
             Remarks: Remarksediting,
-            Dailydate: Dailydate
+            Dailydate: Dailydate,
+            time: time
           }));
 
         case 5:
