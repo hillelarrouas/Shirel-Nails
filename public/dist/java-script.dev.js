@@ -115,6 +115,11 @@ $(document).ready(function () {
   });
 });
 setInterval(function () {
+  if (aryyuser[0] == undefined) {
+    idundefined();
+    return false;
+  }
+
   var _id = aryyuser[0]._id;
   var LastSeen = new Date().toString();
   fetch('/LastSeen', {
@@ -159,10 +164,31 @@ function usermenu() {
       testlogin();
     } else {
       document.body.style.display = 'block';
-      aryyuser.push(deta.deta[0]);
-      $(".cardlogin").html("<div class=\"textcardlogin\">".concat(deta.deta[0].name, "<div class=\"img\" onclick='editUsercardlogin()'><img class='pen' src=\"/img/pen.png\"></div></div>"));
+
+      if (deta.deta[0] == undefined) {
+        idundefined();
+      } else {
+        aryyuser.push(deta.deta[0]);
+        $(".cardlogin").html("<div class=\"textcardlogin\">".concat(deta.deta[0].name, "<div class=\"img\" onclick='editUsercardlogin()'><img class='pen' src=\"/img/pen.png\"></div></div>"));
+      }
     }
   });
+}
+
+function idundefined() {
+  $(document).ready(function () {
+    $(".erroorr").html("  <div class=\"whit100\">\n            <div class=\"carerror\">\n            <div class=\"cardimg\"><img src=\"/img/User error.png\" alt=\"\"></div>\n        <div class=\"texteror\"><b>\u05E9\u05D2\u05D9\u05D0\u05EA \u05D6\u05D9\u05D4\u05D5\u05D9 \u05DE\u05E9\u05EA\u05DE\u05E9</b></br> <div style=\"padding: 10px 0;\">\u05DC\u05D7\u05E5 \u05D0\u05D9\u05E9\u05D5\u05E8 \u05DB\u05D3\u05D9 \u05DC\u05D4\u05DB\u05E0\u05E1 \u05E9\u05D5\u05D1</div></div>\n        <button onclick='clickex()'>\u05D0\u05D9\u05E9\u05D5\u05E8</button> </div>\n        </div>");
+    $(".erroorr").css({
+      display: 'block'
+    });
+    $(".whit100").animate({
+      top: '10px'
+    });
+  });
+}
+
+function clickex() {
+  $(".SelectionMenu").click();
 }
 
 function editUsercardlogin() {

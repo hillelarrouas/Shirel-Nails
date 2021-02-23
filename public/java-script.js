@@ -112,6 +112,10 @@ $(document).ready(function () {
 });
 
 setInterval(function () {
+    if (aryyuser[0] == undefined) {
+        idundefined()
+        return false
+    }
     const _id = aryyuser[0]._id
     const LastSeen = new Date().toString();
 
@@ -156,12 +160,38 @@ function usermenu() {
             }
             else {
                 document.body.style.display = 'block'
-                aryyuser.push(deta.deta[0])
-                $(".cardlogin").html(
-                    `<div class="textcardlogin">${deta.deta[0].name}<div class="img" onclick='editUsercardlogin()'><img class='pen' src="/img/pen.png"></div></div>`
-                );
+                if (deta.deta[0] == undefined) {
+                    idundefined()
+                } else {
+                    aryyuser.push(deta.deta[0])
+                    $(".cardlogin").html(
+                        `<div class="textcardlogin">${deta.deta[0].name}<div class="img" onclick='editUsercardlogin()'><img class='pen' src="/img/pen.png"></div></div>`
+                    );
+                }
             }
         })
+}
+function idundefined(){
+    $(document).ready(function () {
+        $(".erroorr").html(
+            `  <div class="whit100">
+            <div class="carerror">
+            <div class="cardimg"><img src="/img/User error.png" alt=""></div>
+        <div class="texteror"><b>שגיאת זיהוי משתמש</b></br> <div style="padding: 10px 0;">לחץ אישור כדי להכנס שוב</div></div>
+        <button onclick='clickex()'>אישור</button> </div>
+        </div>`)
+        $(".erroorr").css({
+            display: 'block',
+        });
+        $(".whit100").animate({
+            top: '10px',
+        })
+    })
+}
+
+
+function clickex(){
+    $(".SelectionMenu").click()
 }
 
 function editUsercardlogin() {
