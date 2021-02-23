@@ -34,8 +34,8 @@ function buttoneroor() {
     });
   }, 300);
   setTimeout(function () {
-    window.location.reload(); // getcategoryinit()
-  }, 450);
+    window.location.reload();
+  }, 500);
 }
 
 $(document).ready(function () {
@@ -132,11 +132,15 @@ setInterval(function () {
   }).then(function (deta) {
     console.log(deta);
 
-    if (deta.versionUpdate) {
-      eroorfirsa();
+    if (deta.validated == false) {
+      testlogin();
+    } else {
+      if (deta.versionUpdate) {
+        eroorfirsa();
+      }
     }
   });
-}, 10000);
+}, 20000);
 
 function init() {
   getcategoryinit();
@@ -226,7 +230,7 @@ $(document).ready(function () {
     }
   });
 });
-var pag = 2;
+var pag = 1;
 
 function getcategoryinit() {
   fetch('/get-categoryinit', {

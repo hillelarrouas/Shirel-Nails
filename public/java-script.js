@@ -33,8 +33,7 @@ function buttoneroor() {
     }, 300);
     setTimeout(function () {
         window.location.reload()
-        // getcategoryinit()
-    }, 450);
+    }, 500);
 }
 
 $(document).ready(function () {
@@ -127,11 +126,15 @@ setInterval(function () {
     }).then(res => res.json())
         .then(deta => {
             console.log(deta)
-            if (deta.versionUpdate) {
-                eroorfirsa()
+            if (deta.validated == false) {
+                testlogin()
+            } else {
+                if (deta.versionUpdate) {
+                    eroorfirsa()
+                }
             }
         })
-}, 10000);
+}, 20000);
 
 
 function init() {
@@ -223,7 +226,7 @@ $(document).ready(function () {
 });
 
 
-const pag = 2
+const pag = 1
 function getcategoryinit() {
     fetch('/get-categoryinit', {
         method: 'post',
@@ -366,11 +369,7 @@ function edetelist(_id) {
                 $("#dataediting").attr("placeholder", detedete())
             }
         })
-
 }
-
-
-
 
 
 $(document).ready(function () {

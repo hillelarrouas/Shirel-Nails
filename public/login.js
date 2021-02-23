@@ -25,6 +25,19 @@ $(document).ready(function () {
 });
 
 
+function enterlogin(event) {
+    if (event.keyCode === 13) {
+        $("#clickbuttologin").click()
+    }
+}
+function entersing_in(event) {
+    if (event.keyCode === 13) {
+        $("#clickbuttosing_in").click()
+    }
+}
+
+
+
 function init() {
     fetch('/Entrance')
         .then(res =>
@@ -46,8 +59,10 @@ $(document).ready(function () {
 
         if (emaillogin.length == 0) {
             $(".meseggecardlogin").html('הזן כתובת אימייל')
+            $("#emaillogin").focus();
         } else if (paswordlogin.length == 0) {
             $(".meseggecardlogin").html('הזן סיסמה')
+            $("#paswordlogin").focus();
         } else {
             fetch('/login', {
                 method: 'post',
@@ -80,12 +95,16 @@ $(document).ready(function () {
 
         if (namesing_in.length == 0) {
             $(".meseggesing_in").html('הזן שם פרטי')
+            $("#namesing_in").focus();
         } else if (telsing_in.length == 0) {
             $(".meseggesing_in").html('הזן מספר טלפון')
+            $("#telsing_in").focus();
         } else if (emailsing_in.length == 0) {
             $(".meseggesing_in").html('הזן כתובת אימייל')
-        } else if (paswordsing_in.length == 0) {
+            $("#emailsing_in").focus();
+        }else if (paswordsing_in.length == 0) {
             $(".meseggesing_in").html('הזן סיסמה')
+            $("#paswordsing_in").focus();
         } else {
             fetch('/sing_in', {
                 method: 'post',

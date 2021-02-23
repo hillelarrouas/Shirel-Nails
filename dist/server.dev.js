@@ -45,10 +45,10 @@ var Tens = mongoose.model('Tens', {
   Dailydate: String,
   time: String
 });
-var pagserver = 2;
+var pagserver = 1;
 var versionUpdate = 'true';
 var coocik;
-app.post('/LastSeen', function _callee(req, res) {
+app.post('/LastSeen', testcoocik, function _callee(req, res) {
   var _req$body, _id, LastSeen, pag;
 
   return regeneratorRuntime.async(function _callee$(_context) {

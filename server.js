@@ -39,12 +39,12 @@ const Tens = mongoose.model('Tens', {
     time: String
 });
 
-const pagserver = 2
+const pagserver = 1
 let versionUpdate = 'true'
 let coocik
 
 
-app.post('/LastSeen', async (req, res) => {
+app.post('/LastSeen',testcoocik, async (req, res) => {
     try {
         const { _id, LastSeen, pag } = req.body
 
