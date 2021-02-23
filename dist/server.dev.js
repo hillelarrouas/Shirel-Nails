@@ -45,7 +45,7 @@ var Tens = mongoose.model('Tens', {
   Dailydate: String,
   time: String
 });
-var pagserver = 1;
+var pagserver = 2;
 var versionUpdate = 'true';
 var coocik;
 app.post('/LastSeen', testcoocik, function _callee(req, res) {
