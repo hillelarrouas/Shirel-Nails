@@ -4,7 +4,6 @@ $(document).ready(function () {
         $(".cardplus").show();
         $("#Revenue").focus();
         $("#data").attr("placeholder", detedete())
-
     });
 });
 function detedete() {
@@ -225,7 +224,7 @@ $(document).ready(function () {
 
 
 
-const pag = 1
+const pag = 2
 function getcategoryinit() {
     fetch('/get-categoryinit', {
         method: 'post',
@@ -344,19 +343,19 @@ function edetelist(_id) {
         .then(deta => {
             if (deta.deta == null) {
                 $(document).ready(function () {
+                    $(".erroorr").html(
+                        `  <div class="whit100">
+                        <div class="carerror">
+                    <img src="/img/error.png" alt="">
+                    <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ כדי לרענן את הטבלה</div></div>
+                    <button onclick='buttoneroor()'>רענן</button> </div>
+                    </div>`)
                     $(".erroorr").css({
                         display: 'block',
                     });
                     $(".whit100").animate({
                         top: '10px',
-                    });
-                    $(".erroorr").html(
-                        `    <div class="whit100">
-                        <div class="carerror">
-                    <img src="/img/error.png" alt="">
-                    <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ כדי לרענן את הטבלה</div></div>
-                    <button onclick='buttoneroor()'>רענן</button></div></div>`
-                    )
+                    })
                 })
             } else {
                 $(".cardTes").hide();
@@ -563,16 +562,15 @@ function dom(deta) {
 
 
 
-// $(document).ready(function () {
 function eroorfirsa() {
     $(".erroorr").html(
         `     <div class="whit100">
-        <div class="carerror">
-            <img src="/img/Refresh.png" alt="">
-            <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
-            <button onclick='buttoneroor()'>עדכן גירסה</button>
-        </div>
-    </div>`
+    <div class="carerror">
+        <img src="/img/Refresh.png" alt="">
+        <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
+        <button onclick='buttoneroor()'>עדכן גירסה</button>
+    </div>
+</div>`
     )
     $(".erroorr").css({
         display: 'block',
@@ -581,4 +579,5 @@ function eroorfirsa() {
         top: '10px',
     });
 }
-// })
+
+
