@@ -223,7 +223,6 @@ $(document).ready(function () {
 });
 
 
-
 const pag = 2
 function getcategoryinit() {
     fetch('/get-categoryinit', {
@@ -346,7 +345,7 @@ function edetelist(_id) {
                     $(".erroorr").html(
                         `  <div class="whit100">
                         <div class="carerror">
-                    <img src="/img/error.png" alt="">
+                        <div class="cardimg"><img src="/img/error.png" alt=""></div>
                     <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ כדי לרענן את הטבלה</div></div>
                     <button onclick='buttoneroor()'>רענן</button> </div>
                     </div>`)
@@ -566,7 +565,7 @@ function eroorfirsa() {
     $(".erroorr").html(
         `     <div class="whit100">
     <div class="carerror">
-        <img src="/img/Refresh.png" alt="">
+    <div class="cardimg"><img src="/img/Refresh.png"></div>
         <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
         <button onclick='buttoneroor()'>עדכן גירסה</button>
     </div>

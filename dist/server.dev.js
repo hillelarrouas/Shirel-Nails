@@ -616,6 +616,12 @@ function testcoocik(req, res, next) {
   }
 }
 
+app.get('/', function (req, res) {
+  var validated = true;
+  res.send({
+    validated: validated
+  });
+});
 var port = process.env.PORT || 8080;
 app.listen(port, function () {
   return console.log('listen on port 8080');

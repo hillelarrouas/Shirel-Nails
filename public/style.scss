@@ -447,10 +447,13 @@ body {
         font-family: var(--font-family);
         margin: auto;
 
+        .cardimg{
+            height: 95px;
+        }
+
         img {
-            padding: 10px;
             margin: 10px;
-            width: 70px;
+            height: 80%;
         }
 
         button {

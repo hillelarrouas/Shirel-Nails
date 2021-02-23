@@ -282,6 +282,11 @@ function testcoocik(req, res, next) {
     }
 }
 
+app.get('/', (req, res) => {
+    let validated = true
+    res.send({ validated })
+})
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log('listen on port 8080'))
