@@ -25,13 +25,17 @@ $(document).ready(function () {
 });
 
 function buttoneroor() {
-  $(".erroorr").animate({
-    height: '0px',
-    width: '0px'
+  $(".whit100").animate({
+    top: '-350px'
   });
   setTimeout(function () {
+    $(".erroorr").css({
+      display: 'none'
+    });
+  }, 300);
+  setTimeout(function () {
     window.location.reload(); // getcategoryinit()
-  }, 250);
+  }, 450);
 }
 
 $(document).ready(function () {
@@ -222,7 +226,7 @@ $(document).ready(function () {
     }
   });
 });
-var pag = 2;
+var pag = 1;
 
 function getcategoryinit() {
   fetch('/get-categoryinit', {
@@ -350,11 +354,13 @@ function edetelist(_id) {
   }).then(function (deta) {
     if (deta.deta == null) {
       $(document).ready(function () {
-        $(".erroorr").animate({
-          height: '100vh',
-          width: '100%'
+        $(".erroorr").css({
+          display: 'block'
         });
-        $(".erroorr").html("<div class=\"carerror\">\n                    <img src=\"/img/error.png\" alt=\"\">\n                    <div class=\"texteror\"><b>\u05E9\u05D2\u05D9\u05D0\u05EA \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD</b></br> <div style=\"padding: 10px 0;\">\u05E9\u05D2\u05D9\u05D0\u05D4 \u05D1\u05E7\u05E8\u05D9\u05D0\u05EA \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05DC\u05D7\u05E5 \u05DB\u05D3\u05D9 \u05DC\u05E8\u05E2\u05E0\u05DF \u05D0\u05EA \u05D4\u05D8\u05D1\u05DC\u05D4</div></div>\n                    <button onclick='buttoneroor()'>\u05E8\u05E2\u05E0\u05DF</button></div>");
+        $(".whit100").animate({
+          top: '10px'
+        });
+        $(".erroorr").html("    <div class=\"whit100\">\n                        <div class=\"carerror\">\n                    <img src=\"/img/error.png\" alt=\"\">\n                    <div class=\"texteror\"><b>\u05E9\u05D2\u05D9\u05D0\u05EA \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD</b></br> <div style=\"padding: 10px 0;\">\u05E9\u05D2\u05D9\u05D0\u05D4 \u05D1\u05E7\u05E8\u05D9\u05D0\u05EA \u05E0\u05EA\u05D5\u05E0\u05D9\u05DD \u05DC\u05D7\u05E5 \u05DB\u05D3\u05D9 \u05DC\u05E8\u05E2\u05E0\u05DF \u05D0\u05EA \u05D4\u05D8\u05D1\u05DC\u05D4</div></div>\n                    <button onclick='buttoneroor()'>\u05E8\u05E2\u05E0\u05DF</button></div></div>");
       });
     } else {
       $(".cardTes").hide();
@@ -498,12 +504,15 @@ function dom(deta) {
 
     myTable += $("table").append(myTable);
   }
-}
+} // $(document).ready(function () {
+
 
 function eroorfirsa() {
-  $(".erroorr").html("<div class=\"carerror\">\n        <img src=\"/img/Refresh.png\" alt=\"\">\n        <div class=\"texteror\"><b>\u05E2\u05D3\u05DB\u05D5\u05DF</b></br> <div style=\"padding: 10px 0;\">\u05D2\u05D9\u05E8\u05E1\u05D4 \u05D7\u05D3\u05E9\u05D4 \u05D6\u05DE\u05D9\u05E0\u05D4 \u05DC\u05D7\u05E5 \u05DB\u05D0\u05DF \u05DB\u05D3\u05D9 \u05DC\u05E2\u05D3\u05DB\u05DF</div></div>\n        <button onclick='buttoneroor()'>\u05E2\u05D3\u05DB\u05DF \u05D2\u05D9\u05E8\u05E1\u05D4</button>\n    </div>");
-  $(".erroorr").animate({
-    height: '100vh',
-    width: '100%'
+  $(".erroorr").html("     <div class=\"whit100\">\n        <div class=\"carerror\">\n            <img src=\"/img/Refresh.png\" alt=\"\">\n            <div class=\"texteror\"><b>\u05E2\u05D3\u05DB\u05D5\u05DF</b></br> <div style=\"padding: 10px 0;\">\u05D2\u05D9\u05E8\u05E1\u05D4 \u05D7\u05D3\u05E9\u05D4 \u05D6\u05DE\u05D9\u05E0\u05D4 \u05DC\u05D7\u05E5 \u05DB\u05D0\u05DF \u05DB\u05D3\u05D9 \u05DC\u05E2\u05D3\u05DB\u05DF</div></div>\n            <button onclick='buttoneroor()'>\u05E2\u05D3\u05DB\u05DF \u05D2\u05D9\u05E8\u05E1\u05D4</button>\n        </div>\n    </div>");
+  $(".erroorr").css({
+    display: 'block'
   });
-}
+  $(".whit100").animate({
+    top: '10px'
+  });
+} // })

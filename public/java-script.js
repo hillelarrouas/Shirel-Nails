@@ -24,14 +24,18 @@ $(document).ready(function () {
 });
 
 function buttoneroor() {
-    $(".erroorr").animate({
-        height: '0px',
-        width: '0px'
+    $(".whit100").animate({
+        top: '-350px',
     });
+    setTimeout(function () {
+        $(".erroorr").css({
+            display: 'none',
+        });
+    }, 300);
     setTimeout(function () {
         window.location.reload()
         // getcategoryinit()
-    }, 250);
+    }, 450);
 }
 
 $(document).ready(function () {
@@ -221,8 +225,7 @@ $(document).ready(function () {
 
 
 
-const pag = 2
-
+const pag = 1
 function getcategoryinit() {
     fetch('/get-categoryinit', {
         method: 'post',
@@ -243,6 +246,8 @@ function getcategoryinit() {
             }
         })
 }
+
+
 let d = 0
 $(document).ready(function () {
     $("#clickbuttonplus").click(function () {
@@ -339,15 +344,18 @@ function edetelist(_id) {
         .then(deta => {
             if (deta.deta == null) {
                 $(document).ready(function () {
-                    $(".erroorr").animate({
-                        height: '100vh',
-                        width: '100%'
+                    $(".erroorr").css({
+                        display: 'block',
+                    });
+                    $(".whit100").animate({
+                        top: '10px',
                     });
                     $(".erroorr").html(
-                        `<div class="carerror">
+                        `    <div class="whit100">
+                        <div class="carerror">
                     <img src="/img/error.png" alt="">
                     <div class="texteror"><b>שגיאת נתונים</b></br> <div style="padding: 10px 0;">שגיאה בקריאת נתונים לחץ כדי לרענן את הטבלה</div></div>
-                    <button onclick='buttoneroor()'>רענן</button></div>`
+                    <button onclick='buttoneroor()'>רענן</button></div></div>`
                     )
                 })
             } else {
@@ -555,17 +563,22 @@ function dom(deta) {
 
 
 
-
+// $(document).ready(function () {
 function eroorfirsa() {
     $(".erroorr").html(
-        `<div class="carerror">
-        <img src="/img/Refresh.png" alt="">
-        <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
-        <button onclick='buttoneroor()'>עדכן גירסה</button>
+        `     <div class="whit100">
+        <div class="carerror">
+            <img src="/img/Refresh.png" alt="">
+            <div class="texteror"><b>עדכון</b></br> <div style="padding: 10px 0;">גירסה חדשה זמינה לחץ כאן כדי לעדכן</div></div>
+            <button onclick='buttoneroor()'>עדכן גירסה</button>
+        </div>
     </div>`
     )
-    $(".erroorr").animate({
-        height: '100vh',
-        width: '100%'
+    $(".erroorr").css({
+        display: 'block',
+    });
+    $(".whit100").animate({
+        top: '10px',
     });
 }
+// })
