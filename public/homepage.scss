@@ -30,6 +30,7 @@ body {
 
 
 
+
     .textmenu {
         padding: 10px 15px;
         color: rgb(199, 195, 195);
@@ -37,12 +38,18 @@ body {
         font-family: var(--font-family);
         border-radius: 10px;
         cursor: pointer;
+        background: none;
+        border: 0;
+        outline: none;
+        font-size: 18px;
+
 
         &:hover {
             background-color: #687788;
         }
     }
 }
+
 
 .cardtext {
     width: 100%;
@@ -253,6 +260,9 @@ body {
 .none {
     display: none;
 }
+
+
+
 
 @media only screen and (max-width: 500px) {
     html {

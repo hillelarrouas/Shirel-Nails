@@ -32,6 +32,10 @@ body {
   font-family: var(--font-family);
   border-radius: 10px;
   cursor: pointer;
+  background: none;
+  border: 0;
+  outline: none;
+  font-size: 18px;
 }
 .menu .textmenu:hover {
   background-color: #687788;
