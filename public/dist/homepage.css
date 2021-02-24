@@ -153,6 +153,8 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
 }
 .cardLanguages .cardimglogo {
   background-color: white;
