@@ -210,6 +210,10 @@ body {
 }
 
 @media only screen and (max-width: 500px) {
+  html {
+    user-select: none;
+  }
+
   .menu {
     justify-content: center;
   }

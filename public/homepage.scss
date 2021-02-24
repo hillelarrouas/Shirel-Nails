@@ -249,18 +249,25 @@ body {
         padding: 40px 0;
     }
 }
-.none{
+
+.none {
     display: none;
 }
 
 @media only screen and (max-width: 500px) {
+    html {
+        user-select: none;
+    }
+
     .menu {
         justify-content: center;
+
         .textmenu {
             margin: 0 0;
         }
     }
-    .none{
+
+    .none {
         display: block;
     }
 }
