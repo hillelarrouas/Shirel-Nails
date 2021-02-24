@@ -1,0 +1,221 @@
+body {
+  margin: 0;
+  background-image: url(/img/homepagebackground.jpg);
+  background-attachment: fixed;
+}
+
+:root {
+  --background: #31465e;
+  --font-family: "Rubik", sans-serif;
+  --color: rgb(85, 85, 85);
+  --backgroundbutton: cadetblue;
+}
+
+.menu {
+  background: var(--background);
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-right: 25px;
+  padding: 10px;
+  direction: rtl;
+  top: 0;
+  left: 0;
+}
+.menu .textmenu {
+  padding: 10px 15px;
+  color: #c7c3c3;
+  margin: 0 20px;
+  font-family: var(--font-family);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.menu .textmenu:hover {
+  background-color: #687788;
+}
+
+.cardtext {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-family);
+  text-align: center;
+}
+.cardtext .titel {
+  font-size: 50px;
+  color: var(--color);
+  background-color: #cfcfcf;
+  border-radius: 10px;
+  padding: 10px;
+}
+.cardtext .titel2 {
+  font-size: 25px;
+  padding: 5px;
+  color: var(--color);
+  background-color: #cfcfcf;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.cardtext img {
+  background-color: var(--color);
+  padding: 10px;
+  border-radius: 50%;
+  width: 40px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.cardtext img:hover {
+  box-shadow: 1px 1px 12px 2px gray;
+  background-color: #cfcfcf;
+}
+
+.Projects {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-family);
+  text-align: center;
+  background-image: url(/img/background.jpg);
+  padding: 25px 0;
+}
+.Projects .titelProject {
+  font-size: 35px;
+  padding-bottom: 50px;
+  color: var(--color);
+}
+.Projects .cardProject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.Projects .cardProject .prog {
+  width: 90vw;
+  max-width: 350px;
+  margin: 15px;
+  background-color: #b3b3b3;
+  transition: box-shadow 0.2s;
+}
+.Projects .cardProject .prog:hover {
+  box-shadow: 1px 1px 10px 5px rgba(128, 128, 128, 0.548);
+}
+.Projects .cardProject .prog img {
+  width: 100%;
+  height: 200px;
+}
+.Projects .cardProject .prog .titelprog {
+  font-size: 20px;
+  padding: 5px 0;
+  font-weight: 600;
+}
+.Projects .cardProject .prog .cardbutton {
+  padding: 15px 0;
+  box-sizing: border-box;
+  border-radius: 0 0 20px 20px;
+}
+.Projects .cardProject .prog .cardbutton button {
+  background-color: var(--background);
+  color: white;
+  font-size: 18px;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  padding: 12px;
+  margin: 0 10px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.Projects .cardProject .prog .cardbutton button:hover {
+  box-shadow: 1px 1px 12px 2px gray;
+  background-color: #31465ebd;
+}
+
+.cardLanguages {
+  width: 100%;
+  background-color: rgba(233, 233, 233, 0.836);
+  font-family: var(--font-family);
+  text-align: center;
+  padding: 25px 0;
+}
+.cardLanguages .titelcardLanguages {
+  font-size: 35px;
+  padding-bottom: 50px;
+  color: var(--color);
+}
+.cardLanguages .boxLanguages {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cardLanguages .cardimglogo {
+  background-color: white;
+  border: 1px solid #c4c4c4;
+  width: 250px;
+  height: 200px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+  border-radius: 5px;
+}
+.cardLanguages .cardimglogo img {
+  height: 60%;
+}
+
+.cardbuutom {
+  background-color: #567393fc;
+  text-align: center;
+  font-family: var(--font-family);
+  padding: 30px 0 0 0;
+}
+.cardbuutom .titelcardbuutom {
+  font-size: 30px;
+  padding: 10px;
+  font-style: italic;
+  font-weight: 600;
+  color: #252424;
+}
+.cardbuutom .textcardbuoom {
+  font-size: 18px;
+}
+.cardbuutom .textcardbuoom a {
+  text-decoration: none;
+  cursor: pointer;
+}
+.cardbuutom .textcardbuoom a img {
+  width: 30px;
+  padding: 10px;
+  margin-left: 10px;
+  opacity: 0.7;
+}
+.cardbuutom .textcardbuoom a img:hover {
+  opacity: 1;
+}
+.cardbuutom .c {
+  font-size: 15px;
+  padding: 40px 0;
+}
+
+.none {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .menu {
+    justify-content: center;
+  }
+  .menu .textmenu {
+    margin: 0 0;
+  }
+
+  .none {
+    display: block;
+  }
+}

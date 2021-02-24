@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/dist/homepage.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="menu">
+        <div class="textmenu" onclick="ScrollUp('.cardtext')">דף הבית</div>
+        <div class="textmenu" onclick="ScrollUp('.Projects')">פרוייקטים</div>
+        <div class="textmenu" onclick="ScrollUp('.cardLanguages')">שפות</div>
+        <div class="textmenu none" onclick="ScrollUp('.cardbuutom')">אודות</div>
+    </div>
+
+    <div class="cardtext">
+        <div>
+            <div class="titel">הלל ארואס</div>
+            <div class="titel2">fuul stack - מפתח</div>
+            <img onclick="ScrollUp('.Projects')" src="/img/arrow.png">
+        </div>
+    </div>
+
+    <div class="Projects">
+        <div>
+            <div class="titelProject">פרוייקטים</div>
+            <div class="cardProject">
+                <div class="prog">
+                    <img src="/img/logosity.jpg" alt="">
+                    <div class="titelprog">ניהול מעשרות</div>
+                    <div class="cardbutton">
+                        <button onclick="masrot()">מעבר לפרוייקט</button>
+                        <button>אודות הפרוייקט</button>
+                    </div>
+                </div>
+                <div class="prog">
+                    <img src="/img/watsapp (1).jpg" alt="">
+                    <div class="titelprog">יצירת קישור לווטסאפ</div>
+                    <div class="cardbutton">
+                        <button onclick="watsapp()">מעבר לפרוייקט</button>
+                        <button>אודות הפרוייקט</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cardLanguages">
+        <div class="titelcardLanguages">שפות</div>
+        <div class="boxLanguages">
+            <div class="cardimglogo"><img src="/img/css3-logo.svg"></div>
+            <div class="cardimglogo"><img src="/img/express-logo.svg"></div>
+            <div class="cardimglogo"><img src="/img/html5-logo.svg"></div>
+            <div class="cardimglogo"><img src="/img/javascript-logo.svg"></div>
+            <div class="cardimglogo"><img src="/img/jquery-logo.svg"></div>
+            <div class="cardimglogo"><img src="/img/mongodb-logo.svg"></div>
+            <div class="cardimglogo"><img src="/img/nodejs-logo.svg"></div>
+        </div>
+    </div>
+
+    <div class="cardbuutom">
+        <div class="titelcardbuutom">צור קשר</div>
+        <div class="textcardbuoom">
+            <a href="mailto:a4105962@gmail.com"><img src="/img/gmail.svg"></a>
+            <a href="tel:+972534633147"><img src="/img/phone-call.svg"></a>
+            <a href="https://wa.me/972534633147"><img src="/img/whatsapp.svg"></a>
+            <a href="https://t.me/Hillel1"><img src="/img/telegram.svg"></a>
+        </div>
+        <div class="c"> Ⓒ כל הזכויות שמורות</div>
+    </div>
+
+    <script>
+
+        function ScrollUp(Input) {
+            $('html, body').animate({
+                scrollTop: $(Input).position().top - 50
+            }, 'slow');
+        }
+
+        function masrot() {
+            location.href = '/login.html'
+        }
+        function watsapp() {
+            location.href = '/WhatsApp.html'
+        }
+        
+    </script>
+</body>
+
+</html>

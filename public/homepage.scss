@@ -1,0 +1,264 @@
+body {
+    margin: 0;
+    background-image: url(/img/homepagebackground.jpg);
+    background-attachment: fixed;
+    // background-position: center;
+    // overscroll-behavior: contain;
+}
+
+:root {
+    --background: #31465e;
+    --font-family: 'Rubik', sans-serif;
+    --color: rgb(85, 85, 85);
+    --backgroundbutton: cadetblue;
+}
+
+
+.menu {
+    background: var(--background);
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-right: 25px;
+    padding: 10px;
+    direction: rtl;
+    top: 0;
+    left: 0;
+
+
+
+    .textmenu {
+        padding: 10px 15px;
+        color: rgb(199, 195, 195);
+        margin: 0 20px;
+        font-family: var(--font-family);
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #687788;
+        }
+    }
+}
+
+.cardtext {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    text-align: center;
+
+    .titel {
+        font-size: 50px;
+        color: var(--color);
+        background-color: rgb(207, 207, 207);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .titel2 {
+        font-size: 25px;
+        padding: 5px;
+        color: var(--color);
+        background-color: rgb(207, 207, 207);
+        border-radius: 10px;
+        margin: 10px 0;
+    }
+
+    img {
+        background-color: var(--color);
+        padding: 10px;
+        border-radius: 50%;
+        width: 40px;
+        transition: all 0.2s;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 1px 1px 12px 2px gray;
+            background-color: #cfcfcf;
+        }
+    }
+}
+
+.Projects {
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    text-align: center;
+    background-image: url(/img/background.jpg);
+    padding: 25px 0;
+
+    .titelProject {
+        font-size: 35px;
+        padding-bottom: 50px;
+        color: var(--color);
+
+    }
+
+    .cardProject {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+
+        .prog {
+            width: 90vw;
+            max-width: 350px;
+            margin: 15px;
+            background-color: rgb(179, 179, 179);
+            transition: box-shadow 0.2s;
+
+            &:hover {
+                box-shadow: 1px 1px 10px 5px rgba(128, 128, 128, 0.548);
+            }
+
+
+            img {
+                width: 100%;
+                height: 200px;
+            }
+
+            .titelprog {
+                font-size: 20px;
+                padding: 5px 0;
+                font-weight: 600;
+            }
+
+            .cardbutton {
+                padding: 15px 0;
+                box-sizing: border-box;
+                border-radius: 0 0 20px 20px;
+
+
+
+                button {
+                    background-color: var(--background);
+                    color: white;
+                    font-size: 18px;
+                    outline: none;
+                    border: 0;
+                    border-radius: 5px;
+                    padding: 12px;
+                    margin: 0 10px;
+                    transition: all 0.3s;
+                    cursor: pointer;
+
+
+                    &:hover {
+                        box-shadow: 1px 1px 12px 2px gray;
+                        background-color: #31465ebd;
+
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.cardLanguages {
+    width: 100%;
+    background-color: rgba(233, 233, 233, 0.836);
+    font-family: var(--font-family);
+    text-align: center;
+    padding: 25px 0;
+
+    .titelcardLanguages {
+        font-size: 35px;
+        padding-bottom: 50px;
+        color: var(--color);
+    }
+
+    .boxLanguages {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cardimglogo {
+        background-color: white;
+        border: 1px solid rgb(196, 196, 196);
+        width: 250px;
+        height: 200px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 15px;
+        border-radius: 5px;
+
+
+        img {
+            height: 60%;
+        }
+    }
+}
+
+
+
+.cardbuutom {
+    background-color: #567393fc;
+    text-align: center;
+    font-family: var(--font-family);
+    padding: 30px 0 0 0;
+
+
+
+    .titelcardbuutom {
+        font-size: 30px;
+        padding: 10px;
+        font-style: italic;
+        font-weight: 600;
+        color: rgb(37, 36, 36);
+    }
+
+    .textcardbuoom {
+        font-size: 18px;
+
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+
+            img {
+                width: 30px;
+                padding: 10px;
+                margin-left: 10px;
+                opacity: 0.7;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+    }
+
+    .c {
+        font-size: 15px;
+        padding: 40px 0;
+    }
+}
+.none{
+    display: none;
+}
+
+@media only screen and (max-width: 500px) {
+    .menu {
+        justify-content: center;
+        .textmenu {
+            margin: 0 0;
+        }
+    }
+    .none{
+        display: block;
+    }
+}
