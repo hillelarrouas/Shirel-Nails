@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css.css">
+    <title>טיימר</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
@@ -51,13 +50,13 @@
     }
 
     .time18 {
-        font-size: 280rem;
+        font-size: 20vw;
         font-family: var(--font-family);
     }
 
     .Reset {
-        margin-right: 50px;
-        width: 60px;
+        margin-right: 2vw;
+        width:5vw;
         cursor: pointer;
         padding: 10px;
         border-radius: 25%;
@@ -73,6 +72,23 @@
         display: flex;
         align-items: baseline;
     }
+
+    @media only screen and (max-width: 500px) {
+    html {
+        user-select: none;
+        font-size: 0.7px;
+    }
+
+    .Reset {
+        margin-right: 5vw;
+        width:8vw;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 25%;
+        transition: background 0.2s;
+    }
+   
+}
 </style>
 
 <body>
@@ -84,7 +100,6 @@
         <div class="time18"><label id="minutes">00</label>:<label id="seconds">00</label></div>
     </div>
 
-    <script src="js.js"></script>
     <script>
         getDateTime()
 
