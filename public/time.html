@@ -52,11 +52,13 @@
     .time18 {
         font-size: 20vw;
         font-family: var(--font-family);
+        width: 54vw;
     }
 
-    .Reset {
+    .imgeset1,
+    .imgeset2 {
         margin-right: 2vw;
-        width:5vw;
+        width: 5vw;
         cursor: pointer;
         padding: 10px;
         border-radius: 25%;
@@ -64,44 +66,50 @@
     }
 
 
-    .Reset:hover {
+    .imgeset1:hover,
+    .imgeset2:hover {
         background: aquamarine;
     }
 
-    .cardtime {
+    .cardtime1 {
+        padding: 20px 0;
         display: flex;
         align-items: baseline;
     }
 
     @media only screen and (max-width: 500px) {
-    html {
-        user-select: none;
-        font-size: 0.7px;
-    }
+        html {
+            user-select: none;
+            font-size: 0.7px;
+        }
 
-    .Reset {
-        margin-right: 5vw;
-        width:8vw;
-        cursor: pointer;
-        padding: 5px;
-        border-radius: 25%;
-        transition: background 0.2s;
+        .Reset {
+            margin-right: 5vw;
+            width: 8vw;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 25%;
+            transition: background 0.2s;
+        }
+
     }
-   
-}
 </style>
 
 <body>
     <div class="date">30:02</div>
     <div class="time">30:02</div>
 
-    <div class="cardtime">
-        <img class='Reset' onclick="Reset()" src="/img/Reset.png" alt="Reset">
-        <div class="time18"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+    <div>
+        <div class="cardtime1">
+            <img class='imgeset1' onclick="Reset1()" src="/img/play.png" alt="Reset">
+            <div class="time18"><label id="minutes1">00</label>:<label id="seconds1">00</label></div>
+        </div>
+
+        <div class="cardtime1">
+            <img class='imgeset2' onclick="Reset2()" src="/img/play.png" alt="Reset">
+            <div class="time18"><label id="minutes2">00</label>:<label id="seconds2">00</label></div>
+        </div>
     </div>
-
-    
-
     <script>
         getDateTime()
 
@@ -136,20 +144,74 @@
 
         setInterval(function () {
             getDateTime()
-            setTime()
         }, 1000);
 
 
 
-        let minutesLabel = document.getElementById("minutes");
-        let secondsLabel = document.getElementById("seconds");
-        let totalSeconds = 0;
 
-        function setTime() {
-            ++totalSeconds;
-            secondsLabel.innerHTML = pad(totalSeconds % 60);
-            minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+
+        let secondsLabel1 = document.getElementById("seconds1");
+        let minutesLabel1 = document.getElementById("minutes1");
+        let totalSeconds1 = 0;
+
+        function Reset1(e) {
+            if (e.target.src == 'Reset.png') {
+                e.target.src = 'Reset1.png'
+            }
+            myTimer1 = setInterval(myClock, 1000);
+
+
+            function myClock() {
+                if (minutesLabel1.innerHTML == '18' && secondsLabel1.innerHTML == '00') {
+                    minutesLabel1.innerHTML = '00'
+                    secondsLabel1.innerHTML = '00'
+                    clearInterval(myTimer1);
+                } else {
+                    ++totalSeconds1;
+                    secondsLabel1.innerHTML = pad(totalSeconds1 % 60);
+                    minutesLabel1.innerHTML = pad(parseInt(totalSeconds1 / 60));
+                }
+            }
         }
+
+
+
+
+
+
+        let secondsLabel2 = document.getElementById("seconds2");
+        let minutesLabel2 = document.getElementById("minutes2");
+        let imgeset2 = document.querySelector(".imgeset2");
+        let totalSeconds2 = 0;
+        let test = 0
+
+        function Reset2() {
+            console.log(imgeset2.src)
+
+            if (imgeset2.src == 'play.png') {
+                imgeset2.src = 'Reset.png'
+                myTimer2 = setInterval(myClock, 1000);
+            } else {
+                totalSeconds2 = 0
+                minutesLabel2.innerHTML = '00'
+                secondsLabel2.innerHTML = '00'
+            }
+
+
+            function myClock() {
+                if (minutesLabel2.innerHTML == '18' && secondsLabel2.innerHTML == '00') {
+                    minutesLabel2.innerHTML = '00'
+                    secondsLabel2.innerHTML = '00'
+                    clearInterval(myTimer2);
+
+                } else {
+                    ++totalSeconds2;
+                    secondsLabel2.innerHTML = pad(totalSeconds2 % 60);
+                    minutesLabel2.innerHTML = pad(parseInt(totalSeconds2 / 60));
+                }
+            }
+        }
+
 
         function pad(val) {
             let valString = val + "";
@@ -158,12 +220,6 @@
             } else {
                 return valString;
             }
-        }
-
-        function Reset() {
-            totalSeconds = 0
-            secondsLabel.innerHTML = '00';
-            minutesLabel.innerHTML = '00';
         }
     </script>
 </body>
