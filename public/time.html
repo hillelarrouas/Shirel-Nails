@@ -152,13 +152,21 @@
 
         let secondsLabel1 = document.getElementById("seconds1");
         let minutesLabel1 = document.getElementById("minutes1");
+        let imgeset1 = document.querySelector(".imgeset1");
         let totalSeconds1 = 0;
 
-        function Reset1(e) {
-            if (e.target.src == 'Reset.png') {
-                e.target.src = 'Reset1.png'
+        function Reset1() {
+            console.log(imgeset1.src)
+
+            
+            if (imgeset1.src == 'https://managementoftithes.herokuapp.com/img/play.png') {
+                imgeset1.src = '/img/Reset.png'
+                myTimer1 = setInterval(myClock, 1000);
+            } else {
+                totalSeconds1 = 0
+                minutesLabel1.innerHTML = '00'
+                secondsLabel1.innerHTML = '00'
             }
-            myTimer1 = setInterval(myClock, 1000);
 
 
             function myClock() {
@@ -166,6 +174,7 @@
                     minutesLabel1.innerHTML = '00'
                     secondsLabel1.innerHTML = '00'
                     clearInterval(myTimer1);
+
                 } else {
                     ++totalSeconds1;
                     secondsLabel1.innerHTML = pad(totalSeconds1 % 60);
@@ -183,13 +192,14 @@
         let minutesLabel2 = document.getElementById("minutes2");
         let imgeset2 = document.querySelector(".imgeset2");
         let totalSeconds2 = 0;
-        let test = 0
 
         function Reset2() {
             console.log(imgeset2.src)
 
-            if (imgeset2.src == 'play.png') {
-                imgeset2.src = 'Reset.png'
+
+            
+            if (imgeset2.src == 'https://managementoftithes.herokuapp.com/img/play.png') {
+                imgeset2.src = '/img/Reset.png'
                 myTimer2 = setInterval(myClock, 1000);
             } else {
                 totalSeconds2 = 0
