@@ -10,227 +10,309 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <style>
-    html {
-        font-size: 1px;
-    }
+html {
+    font-size: 1px;
+}
 
-    body {
-        margin: 0;
-        padding: 0;
-        font-size: 20rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100vh;
-    }
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
 
-    :root {
-        --font-family: 'Rubik', sans-serif;
-    }
+:root {
+    --font-family: 'Rubik', sans-serif;
+}
 
-    .date {
-        position: fixed;
-        top: 0;
-        left: 0;
-        font-family: var(--font-family);
-        padding: 10px 20px;
-        font-size: 30rem;
-    }
+.date {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: var(--font-family);
+    padding: 10px 20px;
+    font-size: 30rem;
+    z-index: 1;
+}
 
-    .time {
-        position: fixed;
-        top: 0;
-        right: 0;
-        font-family: var(--font-family);
-        padding: 10px 20px;
-        font-size: 30rem;
-    }
 
+.time {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-family: var(--font-family);
+    padding: 10px 20px;
+    font-size: 30rem;
+    z-index: 1;
+}
+
+.time18 {
+    font-size: 250rem;
+    font-family: var(--font-family);
+    width: 80%;
+    margin: auto;
+}
+
+.cardtime1 {
+    background-color: rgb(226, 226, 202);
+    width: 80vw;
+    max-width: 1200px;
+    padding: 2vw;
+    border-radius: 15px;
+    position: relative;
+    text-align: center;
+}
+
+
+.imgOff1,
+.imgOff2,
+.stop1,
+.stop2 {
+    width: 5vw;
+    max-width: 80px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 25%;
+    transition: all 0.3s;
+    background: rgb(150, 155, 154);
+    position: absolute;
+    bottom: 1vw;
+    left: 1vw;
+}
+
+.imgeset1,
+.imgeset2 {
+    width: 5vw;
+    max-width: 80px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 25%;
+    transition: all 0.3s;
+    background: rgb(150, 155, 154);
+    position: absolute;
+    bottom: 1vw;
+    right: 1vw;
+}
+
+
+.imgeset1:hover,
+.imgeset2:hover,
+.imgOff1:hover,
+.imgOff2:hover,
+.stop1:hover {
+    background: rgb(218, 236, 231);
+    transform: scale(1.2);
+}
+
+
+.imgeset2,
+.imgeset1,
+.stop1,
+.stop2 {
+    display: none;
+}
+
+@media only screen and (max-width: 930px) {
     .time18 {
-        font-size: 20vw;
-        font-family: var(--font-family);
-        width: 54vw;
+        font-size: 25vw;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    html {
+        user-select: none;
+        font-size: 0.7px;
     }
 
-    .imgeset1,
-    .imgeset2 {
-        margin-right: 2vw;
-        width: 5vw;
+    .Reset {
+        margin-right: 5vw;
+        width: 8vw;
         cursor: pointer;
-        padding: 10px;
+        padding: 5px;
         border-radius: 25%;
         transition: background 0.2s;
     }
 
-
-    .imgeset1:hover,
-    .imgeset2:hover {
-        background: aquamarine;
+    .imgOff1,
+    .imgOff2,
+    .stop1,
+    .imgeset1,
+    .imgeset2,
+    .stop2 {
+        padding: 3px;
+        width: 8vw;
     }
-
-    .cardtime1 {
-        padding: 20px 0;
-        display: flex;
-        align-items: baseline;
-    }
-
-    @media only screen and (max-width: 500px) {
-        html {
-            user-select: none;
-            font-size: 0.7px;
-        }
-
-        .Reset {
-            margin-right: 5vw;
-            width: 8vw;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 25%;
-            transition: background 0.2s;
-        }
-
-    }
+}
 </style>
 
 <body>
-    <div class="date">30:02</div>
-    <div class="time">30:02</div>
+    <div class="date"></div>
+    <div class="time"></div>
 
     <div>
-        <div class="cardtime1">
-            <img class='imgeset1' onclick="Reset1()" src="/img/play.png" alt="Reset">
-            <div class="time18"><label id="minutes1">00</label>:<label id="seconds1">00</label></div>
+        <div class="cardtime1" style="margin-bottom: 10vw">
+            <img class='imgeset1' src="/img/Reset.png" alt="Reset">
+            <img class='imgOff1' onclick="time1()" src="/img/play.png" alt="Reset">
+            <img class='stop1' src="/img/stop.png" alt="Reset">
+            <div class="time18"><label id="minutes1">18:00</label></div>
         </div>
 
-        <div class="cardtime1">
-            <img class='imgeset2' onclick="Reset2()" src="/img/play.png" alt="Reset">
-            <div class="time18"><label id="minutes2">00</label>:<label id="seconds2">00</label></div>
+        <div class="cardtime1" style="margin-top: 10vw">
+            <img class='imgeset2' src="/img/Reset.png" alt="Reset">
+            <img class='imgOff2' onclick="time2()" src="/img/play.png" alt="Reset">
+            <img class='stop2' src="/img/stop.png" alt="Reset">
+            <div class="time18"><label id="minutes2">18:00</label></div>
         </div>
     </div>
     <script>
         getDateTime()
 
-        function getDateTime() {
-            let now = new Date();
-            let year = now.getFullYear();
-            let month = now.getMonth() + 1;
-            let day = now.getDate();
-            let hour = now.getHours();
-            let minute = now.getMinutes();
-            let second = now.getSeconds();
-            if (month.toString().length == 1) {
-                month = '0' + month;
-            }
-            if (day.toString().length == 1) {
-                day = '0' + day;
-            }
-            if (hour.toString().length == 1) {
-                hour = '0' + hour;
-            }
-            if (minute.toString().length == 1) {
-                minute = '0' + minute;
-            }
-            if (second.toString().length == 1) {
-                second = '0' + second;
-            }
-            let time = `${hour}:${minute}:${second}`
-            let date = `${year}/${month}/${day}`
-            document.querySelector('.date').innerHTML = date
-            document.querySelector('.time').innerHTML = time
+function getDateTime() {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let day = now.getDate();
+    let hour = now.getHours();
+    let minute = now.getMinutes();
+    let second = now.getSeconds();
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+    if (hour.toString().length == 1) {
+        hour = '0' + hour;
+    }
+    if (minute.toString().length == 1) {
+        minute = '0' + minute;
+    }
+    if (second.toString().length == 1) {
+        second = '0' + second;
+    }
+    let time = `${hour}:${minute}:${second}`
+    let date = `${year}/${month}/${day}`
+    document.querySelector('.date').innerHTML = date
+    document.querySelector('.time').innerHTML = time
+}
+
+setInterval(function () {
+    getDateTime()
+}, 1000);
+
+
+
+let e1 = 360
+function time1() {
+    document.querySelector('.imgOff1').style.display = 'none'
+    document.querySelector('.imgeset1').style.display = 'block'
+    document.querySelector('.stop1').style.display = 'block'
+
+    let upgradeTime = 1079;
+    let seconds = upgradeTime;
+
+    function timer() {
+        let days = Math.floor(seconds / 24 / 60 / 60);
+        let hoursLeft = Math.floor((seconds) - (days * 86400));
+        let hours = Math.floor(hoursLeft / 3600);
+        let minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+        let minutes = Math.floor(minutesLeft / 60);
+        let remainingSeconds = seconds % 60;
+
+        function pad(n) {
+            return (n < 10 ? "0" + n : n);
         }
+        document.getElementById('minutes1').innerHTML = pad(minutes) + ":" + pad(remainingSeconds);
+        if (seconds == 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('minutes1').innerHTML = "Completed";
+            document.getElementById('reset').style.visibility = 'hidden';
 
-        setInterval(function () {
-            getDateTime()
-        }, 1000);
-
-
-
-
-
-        let secondsLabel1 = document.getElementById("seconds1");
-        let minutesLabel1 = document.getElementById("minutes1");
-        let imgeset1 = document.querySelector(".imgeset1");
-        let totalSeconds1 = 0;
-
-        function Reset1() {
-            console.log(imgeset1.src)
-
-            
-            if (imgeset1.src == 'https://managementoftithes.herokuapp.com/img/play.png') {
-                imgeset1.src = '/img/Reset.png'
-                myTimer1 = setInterval(myClock, 1000);
-            } else {
-                totalSeconds1 = 0
-                minutesLabel1.innerHTML = '00'
-                secondsLabel1.innerHTML = '00'
-            }
-
-
-            function myClock() {
-                if (minutesLabel1.innerHTML == '18' && secondsLabel1.innerHTML == '00') {
-                    minutesLabel1.innerHTML = '00'
-                    secondsLabel1.innerHTML = '00'
-                    clearInterval(myTimer1);
-
-                } else {
-                    ++totalSeconds1;
-                    secondsLabel1.innerHTML = pad(totalSeconds1 % 60);
-                    minutesLabel1.innerHTML = pad(parseInt(totalSeconds1 / 60));
-                }
-            }
+        } else {
+            seconds--;
         }
+    }
+    let countdownTimer = setInterval(timer, 1000);
+
+    $(".imgeset1").click(function () {
+        seconds = 1080;
+        e1 = e1 + 360
+        document.querySelector('.imgeset1').style.transform = `rotate(${e1}deg)`
+    });
+
+    $(".stop1").click(function () {
+        document.querySelector('.imgOff1').style.display = 'block'
+        document.querySelector('.stop1').style.display = 'none'
+
+        clearInterval(countdownTimer);
+    });
+
+}
 
 
 
 
 
+let e2 = 360
+function time2() {
+    document.querySelector('.imgOff2').style.display = 'none'
+    document.querySelector('.imgeset2').style.display = 'block'
+    document.querySelector('.stop2').style.display = 'block'
+    let upgradeTime = 1079;
+    let seconds = upgradeTime;
 
-        let secondsLabel2 = document.getElementById("seconds2");
-        let minutesLabel2 = document.getElementById("minutes2");
-        let imgeset2 = document.querySelector(".imgeset2");
-        let totalSeconds2 = 0;
+    function timer() {
+        let days = Math.floor(seconds / 24 / 60 / 60);
+        let hoursLeft = Math.floor((seconds) - (days * 86400));
+        let hours = Math.floor(hoursLeft / 3600);
+        let minutesLeft = Math.floor((hoursLeft) - (hours * 3600));
+        let minutes = Math.floor(minutesLeft / 60);
+        let remainingSeconds = seconds % 60;
 
-        function Reset2() {
-            console.log(imgeset2.src)
-
-
-            
-            if (imgeset2.src == 'https://managementoftithes.herokuapp.com/img/play.png') {
-                imgeset2.src = '/img/Reset.png'
-                myTimer2 = setInterval(myClock, 1000);
-            } else {
-                totalSeconds2 = 0
-                minutesLabel2.innerHTML = '00'
-                secondsLabel2.innerHTML = '00'
-            }
-
-
-            function myClock() {
-                if (minutesLabel2.innerHTML == '18' && secondsLabel2.innerHTML == '00') {
-                    minutesLabel2.innerHTML = '00'
-                    secondsLabel2.innerHTML = '00'
-                    clearInterval(myTimer2);
-
-                } else {
-                    ++totalSeconds2;
-                    secondsLabel2.innerHTML = pad(totalSeconds2 % 60);
-                    minutesLabel2.innerHTML = pad(parseInt(totalSeconds2 / 60));
-                }
-            }
+        function pad(n) {
+            return (n < 10 ? "0" + n : n);
         }
+        document.getElementById('minutes2').innerHTML = pad(minutes) + ":" + pad(remainingSeconds);
+        if (seconds == 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('minutes2').innerHTML = "Completed";
+            document.getElementById('reset2').style.visibility = 'hidden';
 
-
-        function pad(val) {
-            let valString = val + "";
-            if (valString.length < 2) {
-                return "0" + valString;
-            } else {
-                return valString;
-            }
+        } else {
+            seconds--;
         }
+    }
+    let countdownTimer = setInterval(timer, 1000);
+
+
+
+    $(".imgeset2").click(function () {
+        seconds = 1080;
+        e2 = e2 + 360
+        document.querySelector('.imgeset2').style.transform = `rotate(${e2}deg)`
+
+    });
+
+    $(".stop2").click(function () {
+        document.querySelector('.imgOff2').style.display = 'block'
+        document.querySelector('.stop2').style.display = 'none'
+
+        
+        let r = document.getElementById('minutes2').innerHTML
+        console.log(r)
+        clearInterval(countdownTimer);
+    });
+
+}
+
     </script>
 </body>
 
