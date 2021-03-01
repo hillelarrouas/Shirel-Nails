@@ -28,17 +28,12 @@ function getDateTime() {
     let time = `${hour}:${minute}:${second}`
     let date = `${year}/${month}/${day}`
     document.querySelector('.date').innerHTML = date
-    document.querySelector('.time').innerHTML = time
+    document.querySelector('.hour').innerHTML = time
 }
 
 setInterval(function () {
     getDateTime()
 }, 1000);
-
-
-
-
-
 
 
 // card 1

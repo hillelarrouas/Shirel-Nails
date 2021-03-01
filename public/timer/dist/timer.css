@@ -27,7 +27,7 @@ body {
   z-index: 1;
 }
 
-.time {
+.hour {
   position: fixed;
   top: 0;
   right: 0;
@@ -37,7 +37,7 @@ body {
   z-index: 1;
 }
 
-.time18 {
+.time {
   font-size: 250rem;
   font-family: var(--font-family);
   width: 80%;
@@ -88,7 +88,8 @@ body {
 .imgeset2:hover,
 .imgOff1:hover,
 .imgOff2:hover,
-.stop1:hover {
+.stop1:hover,
+.stop2:hover {
   background: #daece7;
   transform: scale(1.2);
 }
