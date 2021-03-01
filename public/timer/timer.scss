@@ -1,0 +1,167 @@
+html {
+    font-size: 1px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+:root {
+    --font-family: 'Rubik', sans-serif;
+}
+
+.date {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-family: var(--font-family);
+    padding: 10px 20px;
+    font-size: 30rem;
+    z-index: 1;
+}
+
+
+.time {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-family: var(--font-family);
+    padding: 10px 20px;
+    font-size: 30rem;
+    z-index: 1;
+}
+
+.time18 {
+    font-size: 250rem;
+    font-family: var(--font-family);
+    width: 80%;
+    margin: auto;
+}
+
+.cardtime1,.cardtime2 {
+    background-color: rgb(226, 226, 202);
+    width: 80vw;
+    max-width: 1200px;
+    padding: 2vw;
+    border-radius: 15px;
+    position: relative;
+    text-align: center;
+}
+
+
+.imgOff1,
+.imgOff2,
+.stop1,
+.stop2 {
+    width: 5vw;
+    max-width: 80px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 25%;
+    transition: all 0.3s;
+    background: rgb(150, 155, 154);
+    position: absolute;
+    bottom: 1vw;
+    left: 1vw;
+}
+
+.imgeset1,
+.imgeset2 {
+    width: 5vw;
+    max-width: 80px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 25%;
+    transition: all 0.3s;
+    background: rgb(150, 155, 154);
+    position: absolute;
+    bottom: 1vw;
+    right: 1vw;
+}
+
+
+.imgeset1:hover,
+.imgeset2:hover,
+.imgOff1:hover,
+.imgOff2:hover,
+.stop1:hover {
+    background: rgb(218, 236, 231);
+    transform: scale(1.2);
+}
+
+
+.imgeset2,
+.imgeset1,
+.stop1,
+.stop2 {
+    display: none;
+}
+
+#for1,#for2{
+    padding: 5px;
+    font-size: 2vw;
+    font-family: var(--font-family);
+    display: none;
+}
+
+@media only screen and (max-width: 1400px) {
+    #for1,#for2{
+        padding: 10px;
+        font-size: 4vw;
+        font-family: var(--font-family);
+    }
+    
+}
+
+@media only screen and (max-width: 930px) {
+    .time18 {
+        font-size: 25vw;
+    }
+
+    #for1,#for2{
+        padding: 10px;
+        font-size: 3vw;
+        font-family: var(--font-family);
+    }
+    
+}
+
+
+@media only screen and (max-width: 500px) {
+    html {
+        user-select: none;
+        font-size: 0.7px;
+    }
+
+    .Reset {
+        margin-right: 5vw;
+        width: 8vw;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 25%;
+        transition: background 0.2s;
+    }
+
+    .imgOff1,
+    .imgOff2,
+    .stop1,
+    .imgeset1,
+    .imgeset2,
+    .stop2 {
+        padding: 3px;
+        width: 8vw;
+    }
+
+    #for1,#for2{
+        padding: 10px;
+        font-size: 8vw;
+        font-family: var(--font-family);
+    }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טיימר</title>
+    <link rel="stylesheet" href="dist/timer.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <div class="date"></div>
+    <div class="time"></div>
+
+    <div>
+        <div class="cardtime1" style="margin-bottom: 10vw">
+            <img class='imgeset1' src="img-timer/Reset.png" alt="Reset">
+            <img class='imgOff1' onclick="time1()" src="img-timer/play.png" alt="play">
+            <img class='stop1' src="img-timer/stop.png" alt="stop">
+            <span id="for1"></span>
+            <div class="time18"><label id="minutes1">18:00</label></div>
+        </div>
+
+        <div class="cardtime2" style="margin-top: 10vw">
+            <img class='imgeset2' src="img-timer/Reset.png" alt="Reset">
+            <img class='imgOff2' onclick="time2()" src="img-timer/play.png" alt="play">
+            <img class='stop2' src="img-timer/stop.png" alt="stop">
+            <span id="for2"></span>
+            <div class="time18"><label id="minutes2">18:00</label></div>
+        </div>
+    </div>
+    <script src="js.js"></script>
+</body>
+
+</html>
