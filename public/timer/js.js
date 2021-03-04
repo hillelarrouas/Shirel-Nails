@@ -37,8 +37,6 @@ setInterval(function () {
 
 
 // card 1
-
-
 let dilay1 = 1079
 let forr1 = 0
 let e1 = 360
