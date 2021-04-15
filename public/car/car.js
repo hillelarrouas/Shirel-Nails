@@ -35,10 +35,12 @@ $(document).ready(function () {
 
 
 function fetchdata2(totaldata) {
+    console.log(totaldata)
     fetch(`https://data.gov.il/api/3/action/datastore_search?q=${totaldata}&resource_id=142afde2-6228-49f9-8a29-9b6c3a0cbe40`)
         .then(j => j.json())
         .then(data => {
             araydata2 = data.result.records[0]
+            console.log(araydata2)
             rendertable()
         })
 }
@@ -66,6 +68,10 @@ function rendertable() {
                       <td>${test(araydata1.tozeret_nm)}</td>
                       <td class="key">שם תוצר</td>
                   </tr>
+                  <tr>
+                  <td>${test(araydata1.kinuy_mishari)}</td>
+                  <td class="key">דגם</td>
+                 </tr>
                   <tr>
                       <td>${test(araydata2.koah_sus)}</td>
                       <td class="key">כח סוס</td>
