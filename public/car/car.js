@@ -43,7 +43,6 @@ function fetchdata2(totaldata) {
         })
 }
 
-
 function rendertable() {
     console.log(araydata1)
     console.log(araydata2)
