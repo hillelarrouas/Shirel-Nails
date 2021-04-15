@@ -41,20 +41,17 @@ function fetchdata2(totaldata) {
         .then(j => j.json())
         .then(data => {
             araydata2 = data.result.records[0]
-            console.log(araydata2)
             rendertable()
         })
 }
 
 function rendertable() {
-    console.log(araydata1)
-    console.log(araydata2)
-
     if (araydata1 == undefined || araydata2 == undefined) {
         $('.text').html('')
         $(".mes").html('לא נמצא רכב')
     }
     else {
+        $(".mes").html('')
         $('.text').html(
             `<table>
                   <tr>
@@ -73,20 +70,24 @@ function rendertable() {
                   <td>${test(araydata1.kinuy_mishari)}</td>
                   <td class="key">דגם</td>
                  </tr>
+                 <tr>
+                   <td>${test(araydata2.merkav)}</td>
+                   <td class="key">מרכב</td>
+                 </tr>
+                 <tr>
+                   <td>${test(araydata2.nefah_manoa)}</td>
+                   <td class="key">נפח מנוע</td>
+                 </tr>
                   <tr>
                       <td>${test(araydata2.koah_sus)}</td>
                       <td class="key">כח סוס</td>
-                  </tr>
-                  <tr>
-                      <td>${test(araydata2.nefah_manoa)}</td>
-                      <td class="key">נפח מנוע</td>
                   </tr>
                   <tr>
                   <td>${test(araydata1.ramat_gimur)}</td>
                   <td class="key">רמת גימור</td>
                  </tr>
                   <tr>
-                    <td>${test(araydata2.mishkal_kolel)}</td>
+                    <td style="direction: rtl;">${test(araydata2.mishkal_kolel)} ק"ג</td>
                     <td class="key">משקל כולל</td>
                   </tr>
                   <tr>
@@ -94,7 +95,7 @@ function rendertable() {
                     <td class="key">מספר כריות אוויר</td>
                  </tr>
                   <tr>
-                    <td>${test(araydata2.halon_bagg_ind)}</td>
+                    <td>${test(araydata2.halon_bagg_ind) == 0 ? 'לא' : "כן"}</td>
                     <td class="key">חלון בגג</td>
                  </tr>
                   <tr>
