@@ -17,6 +17,7 @@ $(document).ready(function () {
                 ).then(j => j.json())
                     .then(data => {
                         araydata1 = data.result.records[0]
+                     console.log(araydata1)
                         if (araydata1 == undefined) {
                             $('.text').html('')
                             $(".mes").html('לא נמצא רכב')
