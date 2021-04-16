@@ -1,5 +1,6 @@
 let araydata1;
 let araydata2;
+let necha;
 
 $(document).ready(function () {
     $("#inputText").keyup(function () {
@@ -12,12 +13,13 @@ $(document).ready(function () {
         else {
             $(".mes").html('')
             if (value.length === 7 || value.length === 8) {
+                getnecha(value)
                 fetch(
                     `https://data.gov.il/api/3/action/datastore_search?q=${value}&resource_id=053cea08-09bc-40ec-8f7a-156f0677aff3`
                 ).then(j => j.json())
                     .then(data => {
                         araydata1 = data.result.records[0]
-                     console.log(araydata1)
+                        console.log(araydata1)
                         if (araydata1 == undefined) {
                             $('.text').html('')
                             $(".mes").html('לא נמצא רכב')
@@ -33,6 +35,35 @@ $(document).ready(function () {
         }
     })
 })
+
+function getnecha(value) {
+    fetch(`https://data.gov.il/api/3/action/datastore_search?q=${value}&resource_id=c8b9f9c8-4612-4068-934f-d4acd2e3c06e`)
+        .then(j => j.json())
+        .then(data => {
+            if (data.result.records[0] == undefined) {
+                necha = `<tr>
+                <td>אין</td>
+                <td class="key">תו נכה</td>
+              </tr>`
+            }
+            else {
+                const x = data.result.records[0]['TAARICH HAFAKAT TAG']
+                necha = `<tr>
+            <td>${test(data.result.records[0]['SUG TAV'])}</td>
+            <td class="key">תו נכה - סוג תו</td>
+          </tr>
+          <tr>
+            <td>${x[6]}${x[7]}/ ${x[4]}${x[5]}/ ${x[0]}${x[1]}${x[2]}${x[3]}</td>
+            <td class="key">תאריך הפקת תו</td>
+          </tr>`
+            }
+        })
+}
+
+// MISPAR RECHEV: 3973233
+// SUG TAV: "01"
+// TAARICH HAFAKAT TAG: "20210316"
+// rank: 0.0573088
 
 
 function fetchdata2(totaldata) {
@@ -64,7 +95,7 @@ function rendertable() {
                   </tr>
                   <tr>
                       <td>${test(araydata1.tozeret_nm)}</td>
-                      <td class="key">שם תוצר</td>
+                      <td class="key">יצרן</td>
                   </tr>
                   <tr>
                   <td>${test(araydata1.kinuy_mishari)}</td>
@@ -75,6 +106,10 @@ function rendertable() {
                    <td class="key">מרכב</td>
                  </tr>
                  <tr>
+                   <td>${test(araydata1.ramat_gimur)}</td>
+                   <td class="key">רמת גימור</td>
+                </tr>
+                 <tr>
                    <td>${test(araydata2.nefah_manoa)}</td>
                    <td class="key">נפח מנוע</td>
                  </tr>
@@ -82,10 +117,6 @@ function rendertable() {
                       <td>${test(araydata2.koah_sus)}</td>
                       <td class="key">כח סוס</td>
                   </tr>
-                  <tr>
-                  <td>${test(araydata1.ramat_gimur)}</td>
-                  <td class="key">רמת גימור</td>
-                 </tr>
                   <tr>
                     <td style="direction: rtl;">${test(araydata2.mishkal_kolel)} ק"ג</td>
                     <td class="key">משקל כולל</td>
@@ -172,6 +203,7 @@ function rendertable() {
                       <td>${test(araydata1.tzeva_cd)}</td>
                       <td class="key">קוד צבע</td>
                   </tr>
+                  ${necha}
               </table>`
         )
     }
