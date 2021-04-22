@@ -4,6 +4,7 @@ $(document).ready(function () {
   $(".plus").click(function () {
     $(".cardTes").hide();
     $(".cardplus").show();
+    $("#data").val("".concat(new Date().getDate(), "/0").concat(new Date().getMonth() + 1, "/").concat(new Date().getFullYear()));
     $("#Revenue").focus();
     $("#data").attr("placeholder", detedete());
   });
@@ -11,9 +12,9 @@ $(document).ready(function () {
 
 function detedete() {
   if (new Date().getMonth() < 10) {
-    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getFullYear(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getDate());
+    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getDate(), "/0").concat(new Date().getMonth() + 1, "/").concat(new Date().getFullYear());
   } else {
-    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getFullYear(), " /").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getDate());
+    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getDate(), "/").concat(new Date().getMonth() + 1, "/").concat(new Date().getFullYear());
   }
 }
 
@@ -77,26 +78,7 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  $('#data').bind('keyup', function (e) {
-    var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
-
-    if (key !== 8 && key !== 46 && key !== 0) {
-      var TempDate = $(this).val().replace(/\//g, "");
-
-      if ($.isNumeric(TempDate)) {
-        if (TempDate.length >= 4) {
-          TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2, 2) + "/" + TempDate.substr(4);
-        } else if (TempDate.length >= 2) {
-          TempDate = TempDate.substr(0, 2) + "/" + TempDate.substr(2);
-        }
-
-        $(this).val(TempDate);
-      }
-    }
-  });
-});
-$(document).ready(function () {
-  $('#dataediting').bind('keyup', function (e) {
+  $('#data , #dataediting').bind('keyup', function (e) {
     var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
 
     if (key !== 8 && key !== 46 && key !== 0) {
@@ -256,7 +238,7 @@ $(document).ready(function () {
     }
   });
 });
-var pag = 2;
+var pag = 1;
 
 function getcategoryinit() {
   fetch('/get-categoryinit', {
@@ -279,7 +261,7 @@ function getcategoryinit() {
   });
 }
 
-var d = 0;
+var a = 0;
 $(document).ready(function () {
   $("#clickbuttonplus").click(function () {
     var Revenue = $("#Revenue").val();
@@ -288,41 +270,50 @@ $(document).ready(function () {
     var Dailydate = $("#data").val();
     var time = "".concat(new Date().toLocaleTimeString(), " - ").concat(new Date().getDate(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getFullYear());
 
-    if (d === 1) {} else {
+    if (a === 1) {} else {
       if (Revenue.length == 0 && Fromensbrought.length == 0) {
         $(".meseggecardplus").html('הוסף הכנסה / הוצאה');
       } else {
-        d = 1;
-        $(".meseggecardplus").html("<img class='imggifreturn' src=\"/img/gif.gif\"/>");
-        fetch('/button-plus', {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            Revenue: Revenue,
-            Fromensbrought: Fromensbrought,
-            Remarks: Remarks,
-            Dailydate: Dailydate,
-            time: time
-          })
-        }).then(function (res) {
-          return res.json();
-        }).then(function (deta) {
-          d = 0;
-          getcategoryinit();
-          $(".meseggecardplus").html('');
-          $("#Revenue").val('');
-          $("#Fromensbrought").val('');
-          $("#Remarks").val('');
-          $("#data").val('');
-          $(".cardTes").show();
-          $(".cardplus").hide();
-        });
+        if (isNaN(Revenue) == true) {
+          $(".meseggecardplus").html('הזן הכנסה במספרים בלבד');
+        } else {
+          if (isNaN(Fromensbrought) == true) {
+            $(".meseggecardplus").html('הזן הוצאה במספרים בלבד');
+          } else {
+            a = 1;
+            $(".meseggecardplus").html("<img class='imggifreturn' src=\"/img/gif.gif\"/>");
+            fetch('/button-plus', {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                Revenue: Revenue,
+                Fromensbrought: Fromensbrought,
+                Remarks: Remarks,
+                Dailydate: Dailydate,
+                time: time
+              })
+            }).then(function (res) {
+              return res.json();
+            }).then(function (deta) {
+              a = 0;
+              getcategoryinit();
+              $(".meseggecardplus").html('');
+              $("#Revenue").val('');
+              $("#Fromensbrought").val('');
+              $("#Remarks").val('');
+              $("#data").val('');
+              $(".cardTes").show();
+              $(".cardplus").hide();
+            });
+          }
+        }
       }
     }
   });
 });
+var b = 0;
 $(document).ready(function () {
   $("#clickbuttonediting").click(function () {
     var Revenueediting = $("#Revenueediting").val();
@@ -331,34 +322,46 @@ $(document).ready(function () {
     var Dailydate = $("#dataediting").val();
     var time = "".concat(new Date().toLocaleTimeString(), " - ").concat(new Date().getDate(), " /0").concat(new Date().getMonth() + 1, "/ ").concat(new Date().getFullYear());
 
-    if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
-      $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
-    } else {
-      fetch('/clickbuttonediting', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          Revenueediting: Revenueediting,
-          Fromensbroughtediting: Fromensbroughtediting,
-          Remarksediting: Remarksediting,
-          id: id,
-          Dailydate: Dailydate,
-          time: time
-        })
-      }).then(function (res) {
-        return res.json();
-      }).then(function (deta) {
-        getcategoryinit();
-        $(".meseggecardediting").html('');
-        $("#Revenueediting").val('');
-        $("#Fromensbroughtediting").val('');
-        $("#dataediting").val('');
-        $("#Remarksediting").val('');
-        $(".cardediting").hide();
-        $(".cardTes").show();
-      });
+    if (b === 1) {} else {
+      if (Revenueediting.length == 0 && Fromensbroughtediting.length == 0) {
+        $(".meseggecardediting").html('הוסף הכנסה / הוצאה');
+      } else {
+        if (isNaN(Revenueediting) == true) {
+          $(".meseggecardediting").html('הזן הכנסה במספרים בלבד');
+        } else {
+          if (isNaN(Fromensbroughtediting) == true) {
+            $(".meseggecardediting").html('הזן הוצאה במספרים בלבד');
+          } else {
+            b = 1;
+            fetch('/clickbuttonediting', {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                Revenueediting: Revenueediting,
+                Fromensbroughtediting: Fromensbroughtediting,
+                Remarksediting: Remarksediting,
+                id: id,
+                Dailydate: Dailydate,
+                time: time
+              })
+            }).then(function (res) {
+              return res.json();
+            }).then(function (deta) {
+              b = 0;
+              getcategoryinit();
+              $(".meseggecardediting").html('');
+              $("#Revenueediting").val('');
+              $("#Fromensbroughtediting").val('');
+              $("#dataediting").val('');
+              $("#Remarksediting").val('');
+              $(".cardediting").hide();
+              $(".cardTes").show();
+            });
+          }
+        }
+      }
     }
   });
 });

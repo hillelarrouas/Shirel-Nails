@@ -45,7 +45,7 @@ var Tens = mongoose.model('Tens', {
   Dailydate: String,
   time: String
 });
-var pagserver = 2;
+var pagserver = 1;
 var versionUpdate = 'true';
 var coocik;
 app.post('/LastSeen', testcoocik, function _callee(req, res) {
@@ -622,7 +622,7 @@ app.get('/', function (req, res) {
     validated: validated
   });
 });
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 9090;
 app.listen(port, function () {
   return console.log('listen on port 8080');
 });

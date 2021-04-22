@@ -219,12 +219,12 @@ body {
 .cardplus input,
 .cardediting input {
   direction: rtl;
-  padding: 10px 0;
+  padding: 5px 0;
   font-size: 20rem;
   border: 0;
   border-bottom: 2px solid var(--color);
   background: none;
-  margin-bottom: 25px;
+  margin: 5px 0 25px 0;
   outline: none;
   font-family: var(--font-family);
   color: var(--color);
