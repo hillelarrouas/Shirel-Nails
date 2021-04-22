@@ -1,9 +1,10 @@
+@charset "UTF-8";
 html {
   font-size: 1px;
 }
 
 body {
-  background-color: #d2dde7fc;
+  background-color: #ebebeb;
 }
 
 .box {
@@ -13,7 +14,7 @@ body {
   margin: 250px auto;
   text-align: center;
   border-radius: 10px;
-  background-image: url("https://cdn.shopify.com/s/files/1/0802/1067/products/10.jpg?v=1474981054");
+  background-image: url("/img/רקע whatsapp.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -43,7 +44,7 @@ body {
   transition: color 350ms;
 }
 .box .intel, .box .red {
-  width: 60%;
+  width: 70%;
   margin: auto;
   font-family: "Rubik", sans-serif;
   position: relative;
@@ -58,7 +59,7 @@ body {
   top: 14px;
   right: 0;
   z-index: -100;
-  transition: all 0.6s;
+  transition: all 0.2s;
 }
 .box .ohverinpot {
   font-size: 17rem;
@@ -68,7 +69,7 @@ body {
   top: -18px;
   right: 0;
   z-index: -100;
-  transition: all 0.6s;
+  transition: all 0.2s;
 }
 .box #inputext {
   padding: 7px 0px;
