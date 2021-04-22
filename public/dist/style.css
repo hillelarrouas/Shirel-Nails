@@ -7,6 +7,7 @@ body {
   background-attachment: fixed;
   background-position: center;
   overscroll-behavior: contain;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 :root {
@@ -481,4 +482,3 @@ body {
     padding: 2px;
   }
 }
-
