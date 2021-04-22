@@ -49,7 +49,7 @@ function getnecha(value) {
             else {
                 const x = data.result.records[0]['TAARICH HAFAKAT TAG']
                 necha = `<tr>
-            <td>${test(data.result.records[0]['SUG TAV'])}</td>
+            <td>${test(data.result.records[0]['SUG TAV']) == '01' ? 'תו נכה רגיל' : 'תג נכה על כיסא גלגלים'}</td>
             <td class="key">תו נכה - סוג תו</td>
           </tr>
           <tr>
@@ -60,10 +60,6 @@ function getnecha(value) {
         })
 }
 
-// MISPAR RECHEV: 3973233
-// SUG TAV: "01"
-// TAARICH HAFAKAT TAG: "20210316"
-// rank: 0.0573088
 
 
 function fetchdata2(totaldata) {
