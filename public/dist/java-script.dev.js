@@ -55,14 +55,22 @@ $(document).ready(function () {
     $(".scrin").slideToggle(0);
   });
 });
+var t = true;
 $(document).ready(function () {
   $(".Search").click(function () {
-    $(".cardSearch").slideToggle(250);
-    $("#inputSearch").focus();
+    $(".cardSearch").slideToggle(100);
+
+    if (t == true) {
+      $("#inputSearch").focus();
+      t = false;
+    } else {
+      t = true;
+    }
+
     $("#inputSearch").val('');
     setTimeout(function () {
       getcategoryinit();
-    }, 300);
+    }, 100);
   });
 });
 $(document).ready(function () {
@@ -238,7 +246,7 @@ $(document).ready(function () {
     }
   });
 });
-var pag = 1;
+var pag = 2;
 
 function getcategoryinit() {
   fetch('/get-categoryinit', {

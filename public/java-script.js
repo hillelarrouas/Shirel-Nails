@@ -54,14 +54,20 @@ $(document).ready(function () {
     });
 });
 
+let t = true
 $(document).ready(function () {
     $(".Search").click(function () {
-        $(".cardSearch").slideToggle(250);
-        $("#inputSearch").focus()
+        $(".cardSearch").slideToggle(100);
+        if (t == true) {
+            $("#inputSearch").focus()
+            t = false
+        } else {
+            t = true
+        }
         $("#inputSearch").val('')
         setTimeout(function () {
             getcategoryinit()
-        }, 300);
+        }, 100);
     });
 });
 
@@ -242,7 +248,7 @@ $(document).ready(function () {
 });
 
 
-const pag = 1
+const pag = 2
 function getcategoryinit() {
     fetch('/get-categoryinit', {
         method: 'post',

@@ -103,9 +103,9 @@ body {
     width: 90%;
     max-width: 1000px;
     margin: 120px auto;
-    border-radius: 20px;
+    border-radius: 20px 20px 25px 25px;
     font-family: var(--font-family);
-    padding: 10px 10px 15px;
+    padding: 10px 10px 12px;
     font-size: 20rem;
     direction: rtl;
     position: relative;
@@ -137,13 +137,13 @@ body {
 
     .cardSearch {
         width: 100%;
-        background-color: rgba(95, 158, 160, 0.527);
+        // background-color: rgba(95, 158, 160, 0.527);
         border-radius: 20px 20px 0 0;
-        border: 1px solid rgba(66, 111, 112, 0.787);
+        // border: 1px solid rgba(66, 111, 112, 0.787);
         border-bottom: 0;
         display: none;
         text-align: center;
-        padding: 15px 0;
+        padding: 3px 0 18px;
         box-sizing: border-box;
 
 
@@ -159,6 +159,7 @@ body {
             box-sizing: border-box;
             border-radius: 5px;
             text-align: center;
+            box-shadow:3px 3px 7px 2px #8080805e;
         }
     }
 
@@ -174,6 +175,9 @@ body {
         box-sizing: border-box;
         table-layout: fixed;
         background-color: rgba(255, 255, 255, 0.425);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(66, 111, 112, 0.787);
     }
 
     td,
@@ -230,6 +234,7 @@ body {
         padding: 10px;
         border-radius: 20px;
         cursor: pointer;
+        transform: rotate(180deg);
     }
 
 
