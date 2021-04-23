@@ -37,7 +37,7 @@ body {
     position: fixed;
     right: 0px;
     top: 0;
-    z-index: 2;
+    z-index: 3;
     white-space: nowrap;
     padding: 60px 10px 10px 10px;
     display: none;
@@ -401,6 +401,7 @@ body {
     top: 0;
     left: 0;
     display: none;
+    z-index: 2;
 }
 
 .buttom {
