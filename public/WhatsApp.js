@@ -170,7 +170,6 @@ red.addEventListener("focusout", function () {
 // לחיצה על אנטר כדי ללחוץ אוטומטי על כפתור
 inputext.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
-        marginvov.click()
-
+        next()
     }
 })
