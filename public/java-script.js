@@ -2,19 +2,19 @@ $(document).ready(function () {
     $(".plus").click(function () {
         $(".cardTes").hide();
         $(".cardplus").show();
-        $("#data").val(`${new Date().getDate()}/0${new Date().getMonth() + 1}/${new Date().getFullYear()}`)
+        $("#data").val(detedete())
         $("#Revenue").focus();
-        $("#data").attr("placeholder", detedete())
+        $("#data").attr("placeholder", `התאריך היום -  ${detedete()}`)
     });
 });
+
 function detedete() {
-    if (new Date().getMonth() < 10) {
-        return `התאריך היום -  ${new Date().getDate()}/0${new Date().getMonth() + 1}/${new Date().getFullYear()}`
-    }
-    else {
-        return `התאריך היום -  ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}`
-    }
+    let date = new Date()
+    let getDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+    getMonth = date.getMonth() < 10 ? "0" + Number(date.getMonth() + 1) : date.getMonth()
+    return `${getDate}/${getMonth}/${date.getFullYear()}`
 }
+
 
 $(document).ready(function () {
     $(".return").click(function () {
@@ -121,7 +121,7 @@ setInterval(function () {
         })
     }).then(res => res.json())
         .then(deta => {
-            console.log(deta)
+
             if (deta.validated == false) {
                 testlogin()
             } else {
@@ -414,7 +414,7 @@ function edetelist(_id) {
                 $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
                 $("#Remarksediting").val(deta.deta.Remarks);
                 $("#dataediting").val(deta.deta.Dailydate);
-                $("#dataediting").attr("placeholder", detedete())
+                $("#dataediting").attr("placeholder", `התאריך היום -  ${detedete()}`)
             }
         })
 }

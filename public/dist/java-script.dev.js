@@ -4,18 +4,17 @@ $(document).ready(function () {
   $(".plus").click(function () {
     $(".cardTes").hide();
     $(".cardplus").show();
-    $("#data").val("".concat(new Date().getDate(), "/0").concat(new Date().getMonth() + 1, "/").concat(new Date().getFullYear()));
+    $("#data").val(detedete());
     $("#Revenue").focus();
-    $("#data").attr("placeholder", detedete());
+    $("#data").attr("placeholder", "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(detedete()));
   });
 });
 
 function detedete() {
-  if (new Date().getMonth() < 10) {
-    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getDate(), "/0").concat(new Date().getMonth() + 1, "/").concat(new Date().getFullYear());
-  } else {
-    return "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(new Date().getDate(), "/").concat(new Date().getMonth() + 1, "/").concat(new Date().getFullYear());
-  }
+  var date = new Date();
+  var getDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  getMonth = date.getMonth() < 10 ? "0" + Number(date.getMonth() + 1) : date.getMonth();
+  return "".concat(getDate, "/").concat(getMonth, "/").concat(date.getFullYear());
 }
 
 $(document).ready(function () {
@@ -125,8 +124,6 @@ setInterval(function () {
   }).then(function (res) {
     return res.json();
   }).then(function (deta) {
-    console.log(deta);
-
     if (deta.validated == false) {
       testlogin();
     } else {
@@ -410,7 +407,7 @@ function edetelist(_id) {
       $("#Fromensbroughtediting").val(deta.deta.Fromensbrought);
       $("#Remarksediting").val(deta.deta.Remarks);
       $("#dataediting").val(deta.deta.Dailydate);
-      $("#dataediting").attr("placeholder", detedete());
+      $("#dataediting").attr("placeholder", "\u05D4\u05EA\u05D0\u05E8\u05D9\u05DA \u05D4\u05D9\u05D5\u05DD -  ".concat(detedete()));
     }
   });
 }
