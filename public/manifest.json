@@ -1,0 +1,25 @@
+{
+  "short_name": "hillel Arrouas",
+  "name": "ניהול מעשרות",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#5f9ea085",
+  "background_color": "#5f9ea085",
+
+  "icons": [{
+      "src": "/img/logosity.jpg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/img/logosity.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/logosity.jpg",
+      "type": "image/jpg",
+      "sizes": "512x512"
+    }
+  ]
+}
